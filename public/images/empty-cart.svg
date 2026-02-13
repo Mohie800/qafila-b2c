@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" fill="none">
+  <!-- Cart body -->
+  <rect x="80" y="100" width="240" height="140" rx="16" fill="#F5F5F5" stroke="#E5E5E5" stroke-width="2"/>
+
+  <!-- Cart handle -->
+  <path d="M140 100 V70 Q140 50 160 50 H240 Q260 50 260 70 V100" stroke="#E5E5E5" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Dashed circle in cart center -->
+  <circle cx="200" cy="160" r="36" stroke="#D4D4D4" stroke-width="2" stroke-dasharray="8 6" fill="none"/>
+
+  <!-- Shopping bag icon in center -->
+  <path d="M188 150 V144 Q188 136 200 136 Q212 136 212 144 V150" stroke="#BFBFBF" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <rect x="182" y="150" width="36" height="28" rx="4" stroke="#BFBFBF" stroke-width="2" fill="none"/>
+
+  <!-- Wheels -->
+  <circle cx="140" cy="252" r="12" fill="#E5E5E5" stroke="#D4D4D4" stroke-width="2"/>
+  <circle cx="260" cy="252" r="12" fill="#E5E5E5" stroke="#D4D4D4" stroke-width="2"/>
+
+  <!-- Wheel axle lines -->
+  <line x1="140" y1="240" x2="140" y2="244" stroke="#D4D4D4" stroke-width="2" stroke-linecap="round"/>
+  <line x1="260" y1="240" x2="260" y2="244" stroke="#D4D4D4" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Decorative sparkles -->
+  <circle cx="100" cy="80" r="3" fill="#E8983A" opacity="0.5"/>
+  <circle cx="310" cy="90" r="2" fill="#E8983A" opacity="0.4"/>
+  <circle cx="90" cy="200" r="2" fill="#E8983A" opacity="0.3"/>
+  <circle cx="320" cy="180" r="3" fill="#E8983A" opacity="0.35"/>
+
+  <!-- Small stars -->
+  <path d="M330 70 L332 66 L334 70 L330 68 L334 68 Z" fill="#E8983A" opacity="0.4"/>
+  <path d="M76 140 L78 136 L80 140 L76 138 L80 138 Z" fill="#E8983A" opacity="0.3"/>
+</svg>

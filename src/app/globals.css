@@ -1,26 +1,46 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: #e8983a;
+  --color-primary-hover: #c96a25;
+  --color-dark: #1a1a1a;
+  --color-gray-light: #f5f5f5;
+  --color-gray-border: #e5e5e5;
+  --color-gray-text: #717171;
+  --color-star: #f5a623;
+  --color-discount: #e53935;
+  --color-green: #4caf50;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #ffffff;
+  color: #1a1a1a;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Scrollbar hide for carousels */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mega menu slide-down animation */
+@keyframes megaMenuSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
