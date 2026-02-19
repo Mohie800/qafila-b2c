@@ -128,7 +128,7 @@ export default function ProfileSidebar() {
       {/* Main nav group */}
       <div className="mt-3 rounded-xl border border-gray-border divide-y divide-gray-border">
         <SidebarLink
-          href="/profile"
+          href="/profile/wishlist"
           icon={<Heart size={20} />}
           label={t("sidebar.wishlist")}
         />

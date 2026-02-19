@@ -21,6 +21,8 @@ import type { Category } from "@/types/category";
 import Image from "next/image";
 import { useAuth } from "@/lib/auth-context";
 import { useCart } from "@/lib/cart-context";
+import { useWishlist } from "@/lib/wishlist-context";
+import { useActiveCategory } from "@/lib/active-category-context";
 import LoginModal from "@/components/auth/LoginModal";
 
 interface HeaderProps {
@@ -34,6 +36,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
   const pathname = usePathname();
   const { isLoggedIn, user, logout } = useAuth();
   const { itemCount } = useCart();
+  const { itemCount: wishlistCount } = useWishlist();
 
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,9 +46,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
   const loginDropdownRef = useRef<HTMLDivElement>(null);
 
   const rootTabs = categoryTree.filter((c) => c.parentId === null);
-  const [activeRootSlug, setActiveRootSlug] = useState<string>(
-    rootTabs[0]?.slug ?? "",
-  );
+  const { activeRootSlug, setActiveRootSlug } = useActiveCategory();
 
   const switchLocale = (newLocale: "en" | "ar") => {
     router.replace(pathname, { locale: newLocale });
@@ -54,7 +55,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
 
   const handleTabClick = (slug: string) => {
     setActiveRootSlug(slug);
-    if (!menuOpen) setMenuOpen(true);
+    // if (!menuOpen) setMenuOpen(true);
   };
 
   const closeMegaMenu = useCallback(() => {
@@ -170,11 +171,16 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
                 <span>{t("header.stories")}</span>
               </Link>
               <Link
-                href="#"
-                className="flex items-center gap-1.5 text-sm text-dark"
+                href="/profile/wishlist"
+                className="relative flex items-center gap-1.5 text-sm text-dark"
               >
                 <Heart size={18} />
                 <span className="hidden md:inline">{t("header.wishlist")}</span>
+                {wishlistCount > 0 && (
+                  <span className="absolute -end-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-discount px-1 text-[10px] font-bold text-white">
+                    {wishlistCount > 99 ? "99+" : wishlistCount}
+                  </span>
+                )}
               </Link>
               <Link href="/cart" className="relative text-dark">
                 <ShoppingBag size={18} />
@@ -234,13 +240,13 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
                               setLoginDropdownOpen(false);
                               setLoginModalOpen(true);
                             }}
-                            className="w-full rounded-md bg-dark py-2.5 text-sm font-semibold text-white transition-colors hover:bg-dark/90"
+                            className="w-full rounded-md bg-dark py-2.5 text-xs font-semibold text-white transition-colors hover:bg-dark/90"
                           >
                             {t("auth.loginSignup")}
                           </button>
                         </div>
                         <div className="px-3 pb-2">
-                          <button className="w-full rounded-md border border-gray-border py-2.5 text-sm font-semibold text-dark transition-colors hover:bg-gray-50">
+                          <button className="w-full rounded-md border border-gray-border py-2.5 text-xs font-semibold text-dark transition-colors hover:bg-gray-50">
                             {t("auth.becomeSeller")}
                           </button>
                         </div>

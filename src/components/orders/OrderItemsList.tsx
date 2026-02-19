@@ -2,7 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { ChevronRight, Package } from "lucide-react";
+import SarIcon from "@/components/shared/SarIcon";
 import Image from "next/image";
+import { getMediaUrl } from "@/lib/utils";
 import type { OrderItemResponse } from "@/types/order";
 
 interface Props {
@@ -41,7 +43,7 @@ export default function OrderItemsList({ items, locale }: Props) {
             <div className="relative h-16 w-14 shrink-0 overflow-hidden rounded-lg bg-gray-light">
               {item.productImage ? (
                 <Image
-                  src={item.productImage}
+                  src={getMediaUrl(item.productImage) || item.productImage}
                   alt={title}
                   fill
                   className="object-cover"
@@ -64,8 +66,8 @@ export default function OrderItemsList({ items, locale }: Props) {
                   {variantParts.join(" · ")}
                 </p>
               )}
-              <p className="mt-1 text-sm font-bold text-dark">
-                {t("sar")} {Number(item.price).toFixed(1)}
+              <p className="mt-1 text-sm font-bold text-dark" dir="ltr">
+                <SarIcon /> {Number(item.price).toFixed(1)}
                 {item.quantity > 1 && (
                   <span className="ms-1 text-xs font-normal text-gray-text">
                     x{item.quantity}

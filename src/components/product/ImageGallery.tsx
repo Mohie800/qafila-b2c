@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { getMediaUrl } from "@/lib/utils";
 
 interface GalleryImage {
   id: string;
@@ -53,7 +54,7 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
             style={{ width: 72, height: 72 }}
           >
             <Image
-              src={img.url}
+              src={getMediaUrl(img.url) || img.url}
               alt={img.alt || `${productName} ${i + 1}`}
               fill
               className="object-cover"
@@ -66,7 +67,7 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
       {/* Main image */}
       <div className="relative flex-1 aspect-square overflow-hidden rounded-xl bg-gray-100">
         <Image
-          src={activeImage.url}
+          src={getMediaUrl(activeImage.url) || activeImage.url}
           alt={activeImage.alt || productName}
           fill
           className="object-cover"

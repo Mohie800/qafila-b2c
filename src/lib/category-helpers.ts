@@ -1,9 +1,7 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL!;
+import { getMediaUrl } from "@/lib/utils";
 
 export function resolveImage(image: string | null): string | null {
-  if (!image) return null;
-  if (image.startsWith("http")) return image;
-  return `${API_URL}${image}`;
+  return getMediaUrl(image) ?? null;
 }
 
 export function getCategoryName(

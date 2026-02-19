@@ -114,7 +114,11 @@
       "returnPolicy": "سياسة الإرجاع",
       "shippingDelivery": "الشحن والتوصيل",
       "ksaVat": "معلومات ضريبة القيمة المضافة"
-    }
+    },
+    "downloadOn": "حمّل من",
+    "appStore": "App Store",
+    "getItOn": "احصل عليه من",
+    "googlePlay": "Google Play"
   },
   "auth": {
     "logIn": "تسجيل الدخول",
@@ -148,6 +152,7 @@
   "productDetail": {
     "addToCart": "أضف إلى السلة",
     "addToWishlist": "أضف إلى المفضلة",
+    "moveToWishlist": "نقل إلى المفضلة",
     "inStock": "متوفر",
     "outOfStock": "غير متوفر",
     "onlyLeft": "باقي {count} فقط",
@@ -158,7 +163,7 @@
     "selectColor": "اختر اللون",
     "interestFree": "أقساط بدون فوائد متاحة",
     "deliveryInfo": "معلومات التوصيل",
-    "freeDelivery": "توصيل مجاني للطلبات فوق ﷼200",
+    "freeDelivery": "توصيل مجاني للطلبات فوق <sar>.</sar> 200",
     "fastReturns": "إرجاع سهل خلال 14 يوم",
     "description": "الوصف",
     "colors": "الألوان",
@@ -227,8 +232,8 @@
     "noComments": "لا توجد تعليقات بعد",
     "viewReplies": "عرض {count} ردود",
     "hideReplies": "إخفاء الردود",
-    "tabbyText": "ادفع 4 دفعات بدون فوائد بقيمة ﷼ {amount}",
-    "tamaraText": "أقساط بدون فوائد بقيمة ﷼ {amount}",
+    "tabbyText": "ادفع 4 دفعات بدون فوائد بقيمة <sar>.</sar> {amount}",
+    "tamaraText": "أقساط بدون فوائد بقيمة <sar>.</sar> {amount}",
     "learnMore": "اعرف المزيد !",
     "designDetails": "تفاصيل التصميم",
     "deliveryAndReturns": "التوصيل والإرجاع المجاني",
@@ -364,8 +369,7 @@
     "inclVat": "شامل ضريبة القيمة المضافة",
     "free": "مجاناً",
     "shipping": "الشحن",
-    "freeShipping": "شحن مجاني للطلبات فوق 200 ر.س",
-    "sar": "ر.س"
+    "freeShipping": "شحن مجاني للطلبات فوق <sar>.</sar> 200"
   },
   "checkout": {
     "title": "إتمام الشراء",
@@ -428,7 +432,6 @@
     "free": "مجاناً",
     "totalVatIncluded": "الإجمالي",
     "vatIncluded": "(شامل الضريبة)",
-    "sar": "ر.س",
     "cancelItems": "إلغاء المنتجات",
     "cancelItem": "إلغاء منتج",
     "cancelTheSelectedItem": "إلغاء المنتج المحدد",
@@ -481,5 +484,31 @@
     "minutesAgo": "منذ {count} د",
     "hoursAgo": "منذ {count} س",
     "daysAgo": "منذ {count} ي"
+  },
+  "wishlist": {
+    "title": "المفضلة",
+    "subtitle": "المنتجات التي حفظتها لوقت لاحق",
+    "empty": "قائمة المفضلة فارغة",
+    "emptyDescription": "تصفح المنتجات واضغط على أيقونة القلب لحفظ المنتجات التي تعجبك.",
+    "shopNow": "تسوق الآن",
+    "itemsCount": "{count} منتجات",
+    "remove": "إزالة",
+    "clearAll": "مسح الكل",
+    "clearConfirmTitle": "مسح المفضلة؟",
+    "clearConfirmDesc": "سيتم إزالة جميع المنتجات من قائمة المفضلة. لا يمكن التراجع عن هذا الإجراء.",
+    "cancel": "إلغاء",
+    "addToCart": "أضف إلى السلة",
+    "inStock": "متوفر",
+    "outOfStock": "غير متوفر",
+    "addedToWishlist": "تمت الإضافة للمفضلة",
+    "removedFromWishlist": "تمت الإزالة من المفضلة"
+  },
+  "appDownload": {
+    "title": "احصل على خصم 10% على طلبك الأول من تطبيق قافلة",
+    "subtitle": "أدخل الكود QAFILA10",
+    "downloadOn": "حمّل من",
+    "appStore": "App Store",
+    "getItOn": "احصل عليه من",
+    "googlePlay": "Google Play"
   }
 }

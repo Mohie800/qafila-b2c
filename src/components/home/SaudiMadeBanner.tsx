@@ -9,12 +9,12 @@ export default async function SaudiMadeBanner({ products }: Props) {
   const t = await getTranslations("saudiMade");
 
   return (
-    <section className="mx-auto max-w-360 px-6 py-6">
+    <section className="mx-20 max-w-360 px-0 py-6">
       {/* Top: Banner */}
-      <div className="relative mb-5 flex h-[220px] w-full items-center overflow-hidden rounded-2xl md:h-[260px]">
+      <div className="relative mb-5 flex h-55 w-full items-center overflow-hidden rounded-2xl md:h-65">
         {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#4A4035] via-[#5A5045] to-[#706558]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/5" />
+        <div className="absolute inset-0 bg-linear-to-r from-[#4A4035] via-[#5A5045] to-[#706558]" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/25 via-transparent to-black/5" />
 
         <div className="relative z-10 px-8 md:px-12">
           <div className="mb-3 flex items-center gap-2">

@@ -13,7 +13,8 @@ import { getSizes } from "@/lib/api/sizes";
 import { getMaterials } from "@/lib/api/materials";
 import { getPatterns } from "@/lib/api/patterns";
 import { getPriceRanges } from "@/lib/api/price-ranges";
-import { getCategoryName, resolveImage } from "@/lib/category-helpers";
+import { getCategoryName } from "@/lib/category-helpers";
+import { getMediaUrl } from "@/lib/utils";
 import Breadcrumb from "@/components/category/Breadcrumb";
 import CategoryPageClient from "@/components/category/CategoryPageClient";
 import type { Product } from "@/components/shared/ProductCard";
@@ -37,7 +38,7 @@ function mapApiProduct(item: ApiProduct, locale: string): Product {
   const description = locale === "ar" ? item.titleAr || item.title : item.title;
 
   const imageUrl = item.images?.[0]?.url
-    ? resolveImage(item.images[0].url)
+    ? getMediaUrl(item.images[0].url)
     : null;
 
   return {

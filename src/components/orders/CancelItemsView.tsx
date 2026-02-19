@@ -3,7 +3,9 @@
 import { useTranslations, useLocale } from "next-intl";
 import { useState } from "react";
 import { ArrowLeft, Package, X } from "lucide-react";
+import SarIcon from "@/components/shared/SarIcon";
 import Image from "next/image";
+import { getMediaUrl } from "@/lib/utils";
 import { cancelOrderItem } from "@/lib/api/orders";
 import type { OrderResponse, OrderItemResponse, CancellationReason } from "@/types/order";
 
@@ -104,7 +106,7 @@ export default function CancelItemsView({ order, onBack, onCancelled }: Props) {
                   <div className="relative h-16 w-14 shrink-0 overflow-hidden rounded-lg bg-gray-light">
                     {item.productImage ? (
                       <Image
-                        src={item.productImage}
+                        src={getMediaUrl(item.productImage) || item.productImage}
                         alt={title}
                         fill
                         className="object-cover"
@@ -127,8 +129,8 @@ export default function CancelItemsView({ order, onBack, onCancelled }: Props) {
                         {variantParts.join(" · ")}
                       </p>
                     )}
-                    <p className="mt-1 text-sm font-bold text-dark">
-                      {t("sar")} {Number(item.price).toFixed(1)}
+                    <p className="mt-1 text-sm font-bold text-dark" dir="ltr">
+                      <SarIcon /> {Number(item.price).toFixed(1)}
                     </p>
                   </div>
 

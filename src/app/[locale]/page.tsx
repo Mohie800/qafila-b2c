@@ -5,6 +5,7 @@ import RecommendedBanner from "@/components/home/RecommendedBanner";
 import SaudiMadeBanner from "@/components/home/SaudiMadeBanner";
 import BestSeller from "@/components/home/BestSeller";
 import SellCta from "@/components/home/SellCta";
+import AppDownload from "@/components/home/AppDownload";
 import { getForYou, getBestSellers } from "@/lib/api/recommendations";
 import type { RecommendationProduct } from "@/types/product";
 import type { Product } from "@/components/shared/ProductCard";
@@ -71,6 +72,7 @@ export default async function HomePage({
       <RecommendedBanner products={forYouProducts} />
       <SaudiMadeBanner products={forYouProducts} />
       <BestSeller products={bestSellerProducts} />
+      <AppDownload />
       <SellCta />
     </>
   );

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { SlidersHorizontal, ChevronDown, Pen } from "lucide-react";
 import Image from "next/image";
+import { getMediaUrl } from "@/lib/utils";
 import RatingBreakdown from "./RatingBreakdown";
 import ReviewCard from "./ReviewCard";
 import type { ReviewData } from "./ReviewCard";
@@ -169,7 +170,7 @@ export default function ReviewsSection({
                       className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100"
                     >
                       <Image
-                        src={img.url}
+                        src={getMediaUrl(img.url) || img.url}
                         alt={img.alt || "Review image"}
                         fill
                         className="object-cover"

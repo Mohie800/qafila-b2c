@@ -15,9 +15,9 @@ export default function CategoryItem({
   return (
     <Link
       href={href}
-      className="group flex flex-shrink-0 flex-col items-center gap-2"
+      className="group flex shrink-0 flex-col items-center gap-2"
     >
-      <div className="flex h-[75px] w-[75px] items-center justify-center overflow-hidden rounded-full border border-gray-200 bg-gray-50 transition-shadow group-hover:shadow-md">
+      <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 transition-shadow group-hover:shadow-md">
         {image ? (
           <Image
             src={image}
@@ -32,7 +32,7 @@ export default function CategoryItem({
           </span>
         )}
       </div>
-      <span className="max-w-[80px] truncate text-center text-[11px] font-medium text-dark">
+      <span className="max-w-20 truncate text-center text-[11px] font-medium text-dark">
         {label}
       </span>
     </Link>

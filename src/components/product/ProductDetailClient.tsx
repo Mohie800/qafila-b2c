@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Heart, ShoppingCart, Star } from "lucide-react";
+import SarIcon from "@/components/shared/SarIcon";
 import Image from "next/image";
 import ImageGallery from "./ImageGallery";
 import ColorSelector from "./ColorSelector";
@@ -18,6 +19,7 @@ import ProductCard from "@/components/shared/ProductCard";
 import LoginModal from "@/components/auth/LoginModal";
 import { useAuth } from "@/lib/auth-context";
 import { useCart } from "@/lib/cart-context";
+import { useWishlist } from "@/lib/wishlist-context";
 import {
   getProductReviews,
   getReviewStats,
@@ -96,6 +98,7 @@ export default function ProductDetailClient({
   const t = useTranslations("productDetail");
   const { isLoggedIn } = useAuth();
   const { addItem } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
 
   const [selectedColorId, setSelectedColorId] = useState<string | null>(
     initialSelectedColorId,
@@ -111,6 +114,23 @@ export default function ProductDetailClient({
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [addingToCart, setAddingToCart] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [togglingWishlist, setTogglingWishlist] = useState(false);
+
+  const wishlisted = isInWishlist(product.id);
+
+  const handleWishlistToggle = useCallback(async () => {
+    if (!isLoggedIn) {
+      setLoginModalOpen(true);
+      return;
+    }
+    if (togglingWishlist) return;
+    setTogglingWishlist(true);
+    try {
+      await toggleWishlist(product.id);
+    } finally {
+      setTogglingWishlist(false);
+    }
+  }, [isLoggedIn, togglingWishlist, toggleWishlist, product.id]);
 
   const handleAddToCart = useCallback(async () => {
     if (addingToCart) return;
@@ -147,7 +167,17 @@ export default function ProductDetailClient({
     } finally {
       setAddingToCart(false);
     }
-  }, [addItem, product.id, selectedColorId, selectedSizeId, quantity, addingToCart, variants, colorIdToProductColorId, sizeIdToProductSizeId]);
+  }, [
+    addItem,
+    product.id,
+    selectedColorId,
+    selectedSizeId,
+    quantity,
+    addingToCart,
+    variants,
+    colorIdToProductColorId,
+    sizeIdToProductSizeId,
+  ]);
 
   const handleColorSelect = useCallback((color: ColorVariant) => {
     setSelectedColorId(color.id);
@@ -238,7 +268,11 @@ export default function ProductDetailClient({
     designDetails.push({ label: t("brand"), value: product.brand });
   if (product.sku) designDetails.push({ label: t("sku"), value: product.sku });
 
-  const deliveryLines = [t("freeDelivery"), t("fastReturns")];
+  const sarTag = () => <SarIcon key="sar" />;
+  const deliveryLines = [
+    t.rich("freeDelivery", { sar: sarTag }),
+    t("fastReturns"),
+  ];
 
   return (
     <>
@@ -291,14 +325,16 @@ export default function ProductDetailClient({
           {/* Price block */}
           <div className="space-y-1">
             <div className="flex items-baseline gap-2.5">
-              <span className="text-2xl font-bold text-dark">
-                <span className="text-sm">﷼</span>{" "}
-                {Number(product.price).toFixed(2)}
+              <span className="text-2xl font-bold text-dark" dir="ltr">
+                <SarIcon /> {Number(product.price).toFixed(2)}
               </span>
               {hasSale && (
                 <>
-                  <span className="text-sm text-gray-text line-through">
-                    ﷼ {Number(product.originalPrice!).toFixed(2)}
+                  <span
+                    className="text-sm text-gray-text line-through"
+                    dir="ltr"
+                  >
+                    <SarIcon /> {Number(product.originalPrice!).toFixed(2)}
                   </span>
                   <span className="rounded bg-discount/10 px-1.5 py-0.5 text-xs font-bold text-discount">
                     -{product.discount}%
@@ -322,7 +358,7 @@ export default function ProductDetailClient({
                 />
               </div>
               <p className="text-sm leading-relaxed text-gray-text mt-4">
-                {t("tabbyText", { amount: installment })}
+                {t.rich("tabbyText", { amount: installment, sar: sarTag })}
               </p>
               <button className="mt-1 text-[11px] font-semibold text-dark underline">
                 {t("learnMore")}
@@ -340,7 +376,7 @@ export default function ProductDetailClient({
                 />
               </div>
               <p className="text-sm leading-relaxed text-gray-text mt-4">
-                {t("tamaraText", { amount: installment })}
+                {t.rich("tamaraText", { amount: installment, sar: sarTag })}
               </p>
               <button className="mt-1 text-[11px] font-semibold text-dark underline">
                 {t("learnMore")}
@@ -382,21 +418,28 @@ export default function ProductDetailClient({
             <button
               onClick={handleAddToCart}
               disabled={!inStock || addingToCart}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-3 text-sm font-bold text-white transition-colors disabled:opacity-50 ${
-                addedToCart
-                  ? "bg-green"
-                  : "bg-primary hover:bg-primary-hover"
+              className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-3.5 text-sm font-bold text-white transition-colors disabled:opacity-50 ${
+                addedToCart ? "bg-green" : "bg-dark hover:bg-dark/85"
               }`}
             >
-              <ShoppingCart size={16} />
-              {addingToCart
-                ? "..."
-                : addedToCart
-                  ? "✓"
-                  : t("addToCart")}
+              {addingToCart ? "..." : addedToCart ? "✓" : t("addToCart")}
             </button>
-            <button className="flex items-center justify-center rounded-lg border-2 border-gray-border px-4 transition-colors hover:border-gray-text">
-              <Heart size={18} className="text-gray-text" />
+            <button
+              onClick={handleWishlistToggle}
+              disabled={togglingWishlist}
+              className={`flex items-center gap-2 rounded-lg border border-gray-border px-5 py-3.5 text-sm font-medium transition-colors ${
+                wishlisted
+                  ? "border-discount bg-discount/5 hover:bg-discount/10"
+                  : "hover:border-gray-text"
+              }`}
+            >
+              <Heart
+                size={18}
+                className={
+                  wishlisted ? "fill-discount text-discount" : "text-dark"
+                }
+              />
+              <span className="text-dark">{t("moveToWishlist")}</span>
             </button>
           </div>
 
@@ -457,7 +500,12 @@ function mapApiReview(r: {
   helpfulCount: number;
   hasLiked: boolean;
   user: { id: string; firstName: string; lastName: string };
-  images?: { id: string; url: string; alt?: string | null; sortOrder?: number }[];
+  images?: {
+    id: string;
+    url: string;
+    alt?: string | null;
+    sortOrder?: number;
+  }[];
   commentCount: number;
   createdAt: string;
 }): ReviewData {

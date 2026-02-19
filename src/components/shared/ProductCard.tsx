@@ -2,8 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { Heart, Star, TrendingUp } from "lucide-react";
+import SarIcon from "@/components/shared/SarIcon";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { useWishlist } from "@/lib/wishlist-context";
+import { useAuth } from "@/lib/auth-context";
+import { getMediaUrl } from "@/lib/utils";
+import { useState } from "react";
 
 export interface Product {
   id: string;
@@ -23,11 +28,34 @@ export interface Product {
 export default function ProductCard({
   product,
   variant = "carousel",
+  onRequireLogin,
 }: {
   product: Product;
   variant?: "carousel" | "grid";
+  onRequireLogin?: () => void;
 }) {
   const t = useTranslations("product");
+  const { isLoggedIn } = useAuth();
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  const [toggling, setToggling] = useState(false);
+
+  const wishlisted = isInWishlist(product.id);
+
+  const handleWishlistClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isLoggedIn) {
+      onRequireLogin?.();
+      return;
+    }
+    if (toggling) return;
+    setToggling(true);
+    try {
+      await toggleWishlist(product.id);
+    } finally {
+      setToggling(false);
+    }
+  };
 
   const content = (
     <div
@@ -45,16 +73,20 @@ export default function ProductCard({
         <button
           className="absolute end-2.5 top-2.5 z-10"
           aria-label="Add to wishlist"
-          onClick={(e) => e.preventDefault()}
+          onClick={handleWishlistClick}
         >
           <Heart
             size={18}
-            className="text-gray-400 transition-colors hover:text-discount"
+            className={`transition-colors ${
+              wishlisted
+                ? "fill-discount text-discount"
+                : "text-gray-400 hover:text-discount"
+            }`}
           />
         </button>
         {product.image ? (
           <Image
-            src={product.image}
+            src={getMediaUrl(product.image) || product.image}
             alt={product.name}
             fill
             className="object-cover"
@@ -103,9 +135,8 @@ export default function ProductCard({
 
         {/* Price */}
         <div className="flex items-center gap-2">
-          <span className="text-sm font-bold text-dark">
-            <span className="text-[10px]">﷼</span>{" "}
-            {Number(product.price).toFixed(1)}
+          <span className="text-sm font-bold text-dark" dir="ltr">
+            <SarIcon /> {Number(product.price).toFixed(1)}
           </span>
           {product.originalPrice && (
             <span className="text-[11px] text-gray-text line-through">

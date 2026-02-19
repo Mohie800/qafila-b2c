@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ShieldCheck } from "lucide-react";
+import SarIcon from "@/components/shared/SarIcon";
 import type { CartSummary } from "@/types/cart";
 
 interface OrderSummaryProps {
@@ -25,24 +26,24 @@ export default function OrderSummary({
       <div className="space-y-3 text-sm">
         <div className="flex justify-between">
           <span className="text-gray-text">{t("cart.subtotal")}</span>
-          <span className="font-medium">
-            {t("cart.sar")} {summary.totalBeforeTax.toFixed(2)}
+          <span className="font-medium" dir="ltr">
+            <SarIcon /> {summary.totalBeforeTax.toFixed(2)}
           </span>
         </div>
 
         {summary.discount > 0 && (
           <div className="flex justify-between">
             <span className="text-gray-text">{t("cart.discount")}</span>
-            <span className="font-medium text-discount">
-              -{t("cart.sar")} {summary.discount.toFixed(2)}
+            <span className="font-medium text-discount" dir="ltr">
+              -<SarIcon /> {summary.discount.toFixed(2)}
             </span>
           </div>
         )}
 
         <div className="flex justify-between">
           <span className="text-gray-text">{t("cart.vat")}</span>
-          <span className="font-medium">
-            {t("cart.sar")} {summary.taxAmount.toFixed(2)}
+          <span className="font-medium" dir="ltr">
+            <SarIcon /> {summary.taxAmount.toFixed(2)}
           </span>
         </div>
 
@@ -57,8 +58,8 @@ export default function OrderSummary({
               {t("cart.total")}
             </span>
             <div className="text-end">
-              <span className="text-base font-bold text-dark">
-                {t("cart.sar")} {summary.total.toFixed(2)}
+              <span className="text-base font-bold text-dark" dir="ltr">
+                <SarIcon /> {summary.total.toFixed(2)}
               </span>
               <div className="text-xs text-gray-text">{t("cart.inclVat")}</div>
             </div>
@@ -77,7 +78,7 @@ export default function OrderSummary({
       )}
 
       <p className="mt-3 text-center text-xs text-gray-text">
-        {t("cart.freeShipping")}
+        {t.rich("cart.freeShipping", { sar: () => <SarIcon key="sar" /> })}
       </p>
     </div>
   );

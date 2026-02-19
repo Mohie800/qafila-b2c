@@ -297,15 +297,43 @@ export default function Footer() {
             <div className="flex flex-col gap-2">
               <a
                 href="#"
-                className="flex h-10 w-32 items-center justify-center rounded-md bg-gray-700 text-[10px] text-gray-300 hover:bg-gray-600"
+                className="flex items-center gap-2 rounded-lg border border-gray-600 px-3 py-2 transition-colors hover:border-gray-400"
               >
-                App Store
+                <Image
+                  src="/images/apple-icon.svg"
+                  alt="Apple"
+                  width={18}
+                  height={22}
+                  className="shrink-0"
+                />
+                <div className="text-start">
+                  <p className="text-[8px] leading-none text-gray-400">
+                    {t("downloadOn")}
+                  </p>
+                  <p className="text-xs font-semibold leading-tight text-white">
+                    {t("appStore")}
+                  </p>
+                </div>
               </a>
               <a
                 href="#"
-                className="flex h-10 w-32 items-center justify-center rounded-md bg-gray-700 text-[10px] text-gray-300 hover:bg-gray-600"
+                className="flex items-center gap-2 rounded-lg border border-gray-600 px-3 py-2 transition-colors hover:border-gray-400"
               >
-                Google Play
+                <Image
+                  src="/images/google-play-icon.svg"
+                  alt="Google Play"
+                  width={20}
+                  height={22}
+                  className="shrink-0"
+                />
+                <div className="text-start">
+                  <p className="text-[8px] leading-none text-gray-400">
+                    {t("getItOn")}
+                  </p>
+                  <p className="text-xs font-semibold leading-tight text-white">
+                    {t("googlePlay")}
+                  </p>
+                </div>
               </a>
             </div>
           </div>

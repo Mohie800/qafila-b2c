@@ -13,10 +13,11 @@ import {
   Send,
   Star,
   BadgeCheck,
+  SaudiRiyal,
   Volume2,
   VolumeOff,
 } from "lucide-react";
-import { resolveImage } from "@/lib/category-helpers";
+import { getMediaUrl } from "@/lib/utils";
 import {
   markStoryViewed,
   toggleStoryLike,
@@ -74,8 +75,8 @@ export default function StoryViewer({
     locale === "ar"
       ? story.vendor.storeNameAr || story.vendor.storeName
       : story.vendor.storeName;
-  const mediaUrl = resolveImage(story.mediaUrl);
-  const vendorLogo = resolveImage(story.vendor.logo);
+  const mediaUrl = getMediaUrl(story.mediaUrl);
+  const vendorLogo = getMediaUrl(story.vendor.logo);
   const caption =
     locale === "ar" ? story.captionAr || story.caption : story.caption;
 
@@ -439,7 +440,7 @@ export default function StoryViewer({
                 {productImage && (
                   <div className="relative h-18 w-18 shrink-0 overflow-hidden rounded-lg bg-gray-100">
                     <Image
-                      src={resolveImage(productImage) || ""}
+                      src={getMediaUrl(productImage) || ""}
                       alt={productName || ""}
                       fill
                       className="object-cover"
@@ -488,8 +489,8 @@ export default function StoryViewer({
               {/* Price + Add to Cart — full opacity */}
               <div className="flex items-center justify-between bg-white px-2.5 py-2  mt-2 m rounded-xl">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-sm font-bold text-dark">
-                    <span className="text-[10px]">﷼</span>{" "}
+                  <span className="text-sm font-bold text-dark" dir="ltr">
+                    <SaudiRiyal className="inline-block h-[1em] w-[1em] align-middle" aria-hidden="true" />{" "}
                     {productPrice.toFixed(1)}
                   </span>
                   {productOriginalPrice && (

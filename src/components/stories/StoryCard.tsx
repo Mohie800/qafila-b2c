@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useLocale } from "next-intl";
 import { BadgeCheck } from "lucide-react";
-import { resolveImage } from "@/lib/category-helpers";
+import SarIcon from "@/components/shared/SarIcon";
+import { getMediaUrl } from "@/lib/utils";
 import type { Story } from "@/types/story";
 
 interface StoryCardProps {
@@ -18,8 +19,8 @@ export default function StoryCard({ story, onClick }: StoryCardProps) {
       ? story.vendor.storeNameAr || story.vendor.storeName
       : story.vendor.storeName;
 
-  const mediaUrl = resolveImage(story.mediaUrl);
-  const vendorLogo = resolveImage(story.vendor.logo);
+  const mediaUrl = getMediaUrl(story.mediaUrl);
+  const vendorLogo = getMediaUrl(story.vendor.logo);
   const caption = locale === "ar" ? story.captionAr || story.caption : story.caption;
 
   return (
@@ -62,7 +63,7 @@ export default function StoryCard({ story, onClick }: StoryCardProps) {
               {story.linkedProduct.image && (
                 <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded">
                   <Image
-                    src={resolveImage(story.linkedProduct.image) || ""}
+                    src={getMediaUrl(story.linkedProduct.image) || ""}
                     alt=""
                     fill
                     className="object-cover"
@@ -76,9 +77,8 @@ export default function StoryCard({ story, onClick }: StoryCardProps) {
                     ? story.linkedProduct.nameAr || story.linkedProduct.name
                     : story.linkedProduct.name}
                 </p>
-                <p className="text-[10px] font-bold text-primary">
-                  <span className="text-[8px]">﷼</span>{" "}
-                  {Number(story.linkedProduct.price).toFixed(1)}
+                <p className="text-[10px] font-bold text-primary" dir="ltr">
+                  <SarIcon /> {Number(story.linkedProduct.price).toFixed(1)}
                 </p>
               </div>
             </div>

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 
 interface ProductInfoTabsProps {
   details: { label: string; value: string }[];
-  deliveryLines: string[];
+  deliveryLines: React.ReactNode[];
 }
 
 export default function ProductInfoTabs({

@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { getMyOrders } from "@/lib/api/orders";
 import type { OrderResponse, OrderStatus } from "@/types/order";
 import { Package, ChevronRight, ShoppingBag } from "lucide-react";
+import SarIcon from "@/components/shared/SarIcon";
 import Image from "next/image";
+import { getMediaUrl } from "@/lib/utils";
 
 const STATUS_TABS = ["all", "active", "completed", "cancelled"] as const;
 type TabKey = (typeof STATUS_TABS)[number];
@@ -159,7 +161,7 @@ export default function OrdersPage() {
                 <div className="relative h-16 w-14 shrink-0 overflow-hidden rounded-lg bg-gray-light">
                   {firstItem?.productImage ? (
                     <Image
-                      src={firstItem.productImage}
+                      src={getMediaUrl(firstItem.productImage) || firstItem.productImage}
                       alt=""
                       fill
                       className="object-cover"
@@ -190,8 +192,8 @@ export default function OrdersPage() {
                       ? t("items", { count: itemCount })
                       : t("item", { count: itemCount })}
                   </p>
-                  <p className="mt-1 text-sm font-bold text-dark">
-                    {t("sar")} {Number(order.total).toFixed(2)}
+                  <p className="mt-1 text-sm font-bold text-dark" dir="ltr">
+                    <SarIcon /> {Number(order.total).toFixed(2)}
                   </p>
                 </div>
 

@@ -5,7 +5,7 @@ import type { ApiProduct } from "@/lib/api/products";
 import { getProductReviews, getReviewStats } from "@/lib/api/reviews";
 import { getCategoryBreadcrumb } from "@/lib/api/categories";
 import { getForYou } from "@/lib/api/recommendations";
-import { resolveImage } from "@/lib/category-helpers";
+import { getMediaUrl } from "@/lib/utils";
 import Breadcrumb from "@/components/category/Breadcrumb";
 import ProductDetailClient from "@/components/product/ProductDetailClient";
 import type { Product } from "@/components/shared/ProductCard";
@@ -63,7 +63,7 @@ function mapRecommendation(
     reviews: item.reviewCount,
     trending: item.isFeatured,
     badge: hasSale ? `${discount}%` : null,
-    image: resolveImage(item.imageUrl),
+    image: getMediaUrl(item.imageUrl),
     slug: item.slug,
   };
 }
@@ -132,7 +132,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
           ? pc.color.nameAr || pc.color.name
           : pc.color.name,
       hexCode: pc.color.hexCode,
-      image: colorImage ? resolveImage(colorImage.url) : null,
+      image: colorImage ? getMediaUrl(colorImage.url) ?? null : null,
       slug: product.slug,
     };
   });
@@ -175,7 +175,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   // Resolve images
   const images = (product.images || []).map((img) => ({
     id: img.id,
-    url: resolveImage(img.url) || img.url,
+    url: getMediaUrl(img.url) || img.url,
     alt: img.alt,
   }));
 
@@ -195,7 +195,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
     createdAt: r.createdAt,
     images: (r.images || []).map((img) => ({
       id: img.id,
-      url: resolveImage(img.url) || img.url,
+      url: getMediaUrl(img.url) || img.url,
       alt: img.alt,
     })),
   }));

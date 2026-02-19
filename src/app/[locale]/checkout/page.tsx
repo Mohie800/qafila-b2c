@@ -18,6 +18,8 @@ import { getAddresses, type Address } from "@/lib/api/addresses";
 import { checkout, mockPayment } from "@/lib/api/orders";
 import type { OrderResponse } from "@/types/order";
 import Image from "next/image";
+import { getMediaUrl } from "@/lib/utils";
+import SarIcon from "@/components/shared/SarIcon";
 
 export default function CheckoutPage() {
   const t = useTranslations();
@@ -287,7 +289,7 @@ export default function CheckoutPage() {
                   <div className="relative h-12 w-10 shrink-0 overflow-hidden rounded bg-gray-light">
                     {item.productImage ? (
                       <Image
-                        src={item.productImage}
+                        src={getMediaUrl(item.productImage) || item.productImage}
                         alt=""
                         fill
                         className="object-cover"
@@ -305,8 +307,8 @@ export default function CheckoutPage() {
                       : item.productTitle}
                     <span className="text-gray-text"> x{item.quantity}</span>
                   </div>
-                  <span className="shrink-0 text-xs font-medium">
-                    {t("cart.sar")} {item.lineTotal.toFixed(2)}
+                  <span className="shrink-0 text-xs font-medium" dir="ltr">
+                    <SarIcon /> {item.lineTotal.toFixed(2)}
                   </span>
                 </div>
               ))}
@@ -315,20 +317,20 @@ export default function CheckoutPage() {
             <div className="space-y-2 border-t border-gray-border pt-4 text-sm">
               <div className="flex justify-between">
                 <span className="text-gray-text">{t("cart.subtotal")}</span>
-                <span>
-                  {t("cart.sar")} {summary!.totalBeforeTax.toFixed(2)}
+                <span dir="ltr">
+                  <SarIcon /> {summary!.totalBeforeTax.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-text">{t("cart.vat")}</span>
-                <span>
-                  {t("cart.sar")} {summary!.taxAmount.toFixed(2)}
+                <span dir="ltr">
+                  <SarIcon /> {summary!.taxAmount.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between border-t border-gray-border pt-2">
                 <span className="font-bold text-dark">{t("cart.total")}</span>
-                <span className="font-bold text-dark">
-                  {t("cart.sar")} {summary!.total.toFixed(2)}
+                <span className="font-bold text-dark" dir="ltr">
+                  <SarIcon /> {summary!.total.toFixed(2)}
                 </span>
               </div>
             </div>

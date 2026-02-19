@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { Category } from "@/types/category";
-import { resolveImage, getCategoryName } from "@/lib/category-helpers";
+import { getCategoryName } from "@/lib/category-helpers";
+import { getMediaUrl } from "@/lib/utils";
 import Image from "next/image";
 
 interface MegaMenuProps {
@@ -71,7 +72,7 @@ export default function MegaMenu({
             {sidebarItems.length > 0 ? (
               sidebarItems.map((item) => {
                 const isActive = item.id === hoveredSidebarId;
-                const imgSrc = resolveImage(item.image);
+                const imgSrc = getMediaUrl(item.image);
                 const name = getCategoryName(item, locale);
 
                 return (
@@ -140,7 +141,7 @@ export default function MegaMenu({
                     </Link>
                     <ul className="space-y-2">
                       {(col.children ?? []).map((leaf) => {
-                        const leafImg = resolveImage(leaf.image);
+                        const leafImg = getMediaUrl(leaf.image);
                         return (
                           <li key={leaf.id}>
                             <Link
@@ -174,7 +175,7 @@ export default function MegaMenu({
               // Flat grid: items with thumbnails
               <div className="grid grid-cols-3 gap-4 xl:grid-cols-4">
                 {gridChildren.map((item) => {
-                  const itemImg = resolveImage(item.image);
+                  const itemImg = getMediaUrl(item.image);
                   return (
                     <Link
                       key={item.id}

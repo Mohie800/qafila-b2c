@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { getMediaUrl } from "@/lib/utils";
 
 export interface ColorVariant {
   id: string;
@@ -45,7 +46,7 @@ export default function ColorSelector({
               {color.image ? (
                 <div className="relative h-12 w-12 overflow-hidden rounded-md bg-gray-100">
                   <Image
-                    src={color.image}
+                    src={getMediaUrl(color.image) || color.image}
                     alt={color.name}
                     fill
                     className="object-cover"

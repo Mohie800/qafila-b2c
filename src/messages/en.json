@@ -114,7 +114,11 @@
       "returnPolicy": "Return Policy",
       "shippingDelivery": "Shipping & Delivery",
       "ksaVat": "KSA Vat Information"
-    }
+    },
+    "downloadOn": "Download on the",
+    "appStore": "App Store",
+    "getItOn": "GET IT ON",
+    "googlePlay": "Google Play"
   },
   "auth": {
     "logIn": "Log In",
@@ -148,6 +152,7 @@
   "productDetail": {
     "addToCart": "Add to Cart",
     "addToWishlist": "Add to Wishlist",
+    "moveToWishlist": "Move to Wishlist",
     "inStock": "In Stock",
     "outOfStock": "Out of Stock",
     "onlyLeft": "Only {count} left",
@@ -158,7 +163,7 @@
     "selectColor": "Select a color",
     "interestFree": "Interest-free installments available",
     "deliveryInfo": "Delivery Info",
-    "freeDelivery": "Free delivery on orders over ﷼200",
+    "freeDelivery": "Free delivery on orders over <sar>.</sar> 200",
     "fastReturns": "Easy returns within 14 days",
     "description": "Description",
     "colors": "Colors",
@@ -227,8 +232,8 @@
     "noComments": "No comments yet",
     "viewReplies": "View {count} replies",
     "hideReplies": "Hide replies",
-    "tabbyText": "Pay 4 interest-free payments of ﷼ {amount}",
-    "tamaraText": "Interest-free payments of ﷼ {amount}",
+    "tabbyText": "Pay 4 interest-free payments of <sar>.</sar> {amount}",
+    "tamaraText": "Interest-free payments of <sar>.</sar> {amount}",
     "learnMore": "Learn more !",
     "designDetails": "Design Details",
     "deliveryAndReturns": "Delivery & Free Returns",
@@ -364,8 +369,7 @@
     "inclVat": "Inclusive of VAT",
     "free": "Free",
     "shipping": "Shipping",
-    "freeShipping": "Free shipping on orders over SAR 200",
-    "sar": "SAR"
+    "freeShipping": "Free shipping on orders over <sar>.</sar> 200"
   },
   "checkout": {
     "title": "Checkout",
@@ -428,7 +432,6 @@
     "free": "Free",
     "totalVatIncluded": "Total",
     "vatIncluded": "(VAT Included)",
-    "sar": "SAR",
     "cancelItems": "Cancel Items",
     "cancelItem": "Cancel Item",
     "cancelTheSelectedItem": "Cancel The Selected Item",
@@ -481,5 +484,31 @@
     "minutesAgo": "{count}m ago",
     "hoursAgo": "{count}h ago",
     "daysAgo": "{count}d ago"
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "subtitle": "Products you've saved for later",
+    "empty": "Your wishlist is empty",
+    "emptyDescription": "Browse products and tap the heart icon to save items you love.",
+    "shopNow": "Shop Now",
+    "itemsCount": "{count} items",
+    "remove": "Remove",
+    "clearAll": "Clear All",
+    "clearConfirmTitle": "Clear Wishlist?",
+    "clearConfirmDesc": "All items will be removed from your wishlist. This action cannot be undone.",
+    "cancel": "Cancel",
+    "addToCart": "Add to Cart",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "addedToWishlist": "Added to wishlist",
+    "removedFromWishlist": "Removed from wishlist"
+  },
+  "appDownload": {
+    "title": "Get 10% OFF your First Order on Qafila App",
+    "subtitle": "Enter Code QAFILA10",
+    "downloadOn": "Download on the",
+    "appStore": "App Store",
+    "getItOn": "GET IT ON",
+    "googlePlay": "Google Play"
   }
 }

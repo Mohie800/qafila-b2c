@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations, useLocale } from "next-intl";
-import { X } from "lucide-react";
+import { X, SaudiRiyal } from "lucide-react";
 import type { FilterOptions } from "@/types/filters";
 
 interface ActiveFiltersProps {
@@ -56,7 +56,7 @@ export default function ActiveFilters({
   const t = useTranslations("categoryPage.filters");
   const locale = useLocale();
 
-  const chips: { key: string; label: string; onRemove: () => void }[] = [];
+  const chips: { key: string; label: React.ReactNode; onRemove: () => void }[] = [];
 
   for (const id of selectedBrandIds) {
     chips.push({
@@ -99,10 +99,13 @@ export default function ActiveFilters({
   }
 
   if (minPrice || maxPrice) {
-    const priceLabel = `${minPrice || "0"} - ${maxPrice || "∞"} ﷼`;
     chips.push({
       key: "price",
-      label: priceLabel,
+      label: (
+        <span dir="ltr" className="inline-flex items-center gap-1">
+          <SaudiRiyal className="inline-block h-[1em] w-[1em] align-middle" aria-hidden="true" /> {minPrice || "0"} - {maxPrice || "∞"}
+        </span>
+      ),
       onRemove: onRemovePrice,
     });
   }

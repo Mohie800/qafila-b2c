@@ -16,6 +16,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Image from "next/image";
+import SarIcon from "@/components/shared/SarIcon";
 
 export default function OrderDetailPage() {
   const t = useTranslations("orders");
@@ -174,23 +175,23 @@ export default function OrderDetailPage() {
                   {t("subtotal")} ({itemCount}{" "}
                   {itemCount > 1 ? t("items", { count: itemCount }) : t("item", { count: itemCount })})
                 </span>
-                <span className="font-medium">
-                  {t("sar")} {Number(order.subtotal).toFixed(2)}
+                <span className="font-medium" dir="ltr">
+                  <SarIcon /> {Number(order.subtotal).toFixed(2)}
                 </span>
               </div>
               {order.discount > 0 && (
                 <div className="flex justify-between">
                   <span className="text-dark">{t("savingsDiscounts")}</span>
-                  <span className="font-medium text-primary">
-                    - {t("sar")} {Number(order.discount).toFixed(2)}
+                  <span className="font-medium text-primary" dir="ltr">
+                    - <SarIcon /> {Number(order.discount).toFixed(2)}
                   </span>
                 </div>
               )}
               <div className="flex justify-between">
                 <span className="text-dark">{t("shippingFee")}</span>
-                <span className="font-medium text-green">
+                <span className="font-medium text-green" dir="ltr">
                   {order.shippingFee > 0
-                    ? `${t("sar")} ${Number(order.shippingFee).toFixed(2)}`
+                    ? <><SarIcon /> {Number(order.shippingFee).toFixed(2)}</>
                     : t("free")}
                 </span>
               </div>
@@ -201,8 +202,8 @@ export default function OrderDetailPage() {
                     {t("vatIncluded")}
                   </span>
                 </span>
-                <span className="font-bold text-dark">
-                  {t("sar")} {Number(order.total).toFixed(2)}
+                <span className="font-bold text-dark" dir="ltr">
+                  <SarIcon /> {Number(order.total).toFixed(2)}
                 </span>
               </div>
             </div>
