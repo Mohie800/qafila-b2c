@@ -16,6 +16,8 @@ import ReviewsSection from "./ReviewsSection";
 import type { ReviewData } from "./ReviewCard";
 import type { Product } from "@/components/shared/ProductCard";
 import ProductCard from "@/components/shared/ProductCard";
+import VendorBanner from "./VendorBanner";
+import type { VendorData } from "./VendorBanner";
 import LoginModal from "@/components/auth/LoginModal";
 import { useAuth } from "@/lib/auth-context";
 import { useCart } from "@/lib/cart-context";
@@ -72,6 +74,7 @@ interface Props {
   initialReviews: ReviewData[];
   hasMoreReviews: boolean;
   recommended: Product[];
+  vendor: VendorData | null;
 }
 
 // Map sort UI keys to API params
@@ -94,6 +97,7 @@ export default function ProductDetailClient({
   initialReviews,
   hasMoreReviews,
   recommended,
+  vendor,
 }: Props) {
   const t = useTranslations("productDetail");
   const { isLoggedIn } = useAuth();
@@ -479,6 +483,9 @@ export default function ProductDetailClient({
           </div>
         </section>
       )}
+
+      {/* Vendor banner */}
+      {vendor && <VendorBanner vendor={vendor} />}
 
       {/* Login modal */}
       <LoginModal

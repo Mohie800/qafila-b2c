@@ -237,7 +237,10 @@
     "learnMore": "Learn more !",
     "designDetails": "Design Details",
     "deliveryAndReturns": "Delivery & Free Returns",
-    "youMayAlsoLike": "You May Also Like"
+    "youMayAlsoLike": "You May Also Like",
+    "followers": "{count} Followers",
+    "follow": "Follow",
+    "vendorVerified": "Verified"
   },
   "profile": {
     "breadcrumb": "Profile",
@@ -502,6 +505,11 @@
     "outOfStock": "Out of Stock",
     "addedToWishlist": "Added to wishlist",
     "removedFromWishlist": "Removed from wishlist"
+  },
+  "faqs": {
+    "title": "FAQs",
+    "subtitle": "Find answers to common questions",
+    "error": "Failed to load FAQs. Please try again later."
   },
   "appDownload": {
     "title": "Get 10% OFF your First Order on Qafila App",

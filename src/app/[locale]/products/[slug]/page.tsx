@@ -254,6 +254,18 @@ export default async function ProductDetailPage({ params }: PageProps) {
         initialReviews={reviewData}
         hasMoreReviews={reviewsRes.meta.page < reviewsRes.meta.totalPages}
         recommended={recommended}
+        vendor={
+          product.vendor
+            ? {
+                id: product.vendor.id,
+                storeName:
+                  locale === "ar"
+                    ? product.vendor.storeNameAr || product.vendor.storeName
+                    : product.vendor.storeName,
+                slug: product.vendor.slug,
+              }
+            : null
+        }
       />
     </div>
   );

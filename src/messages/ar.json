@@ -237,7 +237,10 @@
     "learnMore": "اعرف المزيد !",
     "designDetails": "تفاصيل التصميم",
     "deliveryAndReturns": "التوصيل والإرجاع المجاني",
-    "youMayAlsoLike": "قد يعجبك أيضاً"
+    "youMayAlsoLike": "قد يعجبك أيضاً",
+    "followers": "{count} متابع",
+    "follow": "متابعة",
+    "vendorVerified": "موثق"
   },
   "profile": {
     "breadcrumb": "الملف الشخصي",
@@ -502,6 +505,11 @@
     "outOfStock": "غير متوفر",
     "addedToWishlist": "تمت الإضافة للمفضلة",
     "removedFromWishlist": "تمت الإزالة من المفضلة"
+  },
+  "faqs": {
+    "title": "الأسئلة الشائعة",
+    "subtitle": "اعثر على إجابات للأسئلة الشائعة",
+    "error": "فشل تحميل الأسئلة الشائعة. يرجى المحاولة لاحقاً."
   },
   "appDownload": {
     "title": "احصل على خصم 10% على طلبك الأول من تطبيق قافلة",

@@ -157,7 +157,7 @@ export default function ProfileSidebar() {
           label={t("sidebar.contactUs")}
         />
         <SidebarLink
-          href="/profile"
+          href="/profile/faqs"
           icon={<CircleHelp size={20} />}
           label={t("sidebar.faqs")}
         />
