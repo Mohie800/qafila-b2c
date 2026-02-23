@@ -18,6 +18,7 @@ import type { Category } from "@/types/category";
 import { AuthProvider } from "@/lib/auth-context";
 import { CartProvider } from "@/lib/cart-context";
 import { WishlistProvider } from "@/lib/wishlist-context";
+import { OneSignalProvider } from "@/lib/onesignal-context";
 import { ActiveCategoryProvider } from "@/lib/active-category-context";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -59,15 +60,17 @@ export default async function LocaleLayout({
       <body className="font-cairo antialiased">
         <NextIntlClientProvider>
           <AuthProvider>
-            <CartProvider>
-              <WishlistProvider>
-                <ActiveCategoryProvider initialSlug={initialSlug} categoryTree={categoryTree}>
-                  <Header categoryTree={categoryTree} />
-                  <main>{children}</main>
-                  <Footer />
-                </ActiveCategoryProvider>
-              </WishlistProvider>
-            </CartProvider>
+            <OneSignalProvider>
+              <CartProvider>
+                <WishlistProvider>
+                  <ActiveCategoryProvider initialSlug={initialSlug} categoryTree={categoryTree}>
+                    <Header categoryTree={categoryTree} />
+                    <main>{children}</main>
+                    <Footer />
+                  </ActiveCategoryProvider>
+                </WishlistProvider>
+              </CartProvider>
+            </OneSignalProvider>
           </AuthProvider>
         </NextIntlClientProvider>
       </body>

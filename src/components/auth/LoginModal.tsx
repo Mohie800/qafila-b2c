@@ -6,6 +6,7 @@ import { X, Phone, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { requestOtp, verifyOtp } from "@/lib/api/auth";
 import { useAuth } from "@/lib/auth-context";
+import { useOneSignal } from "@/lib/onesignal-context";
 
 interface LoginModalProps {
   open: boolean;
@@ -17,6 +18,7 @@ type Step = "phone" | "otp";
 export default function LoginModal({ open, onClose }: LoginModalProps) {
   const t = useTranslations("auth");
   const { login } = useAuth();
+  const { promptForPush } = useOneSignal();
 
   const [step, setStep] = useState<Step>("phone");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -89,6 +91,8 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
         return;
       }
       login(data.accessToken, data.user);
+      console.log("ask noi");
+      promptForPush();
       onClose();
     } catch (err) {
       setError(err instanceof Error ? err.message : t("errorGeneric"));

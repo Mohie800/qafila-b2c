@@ -21,7 +21,8 @@
   },
   "header": {
     "stories": "Stories",
-    "wishlist": "Wishlist"
+    "wishlist": "Wishlist",
+    "cart": "Cart"
   },
   "hero": {
     "sale": "SALE 30% OFF",
@@ -144,7 +145,13 @@
     "customerOnly": "This app is for customers only. Please use the appropriate portal.",
     "errorGeneric": "Something went wrong. Please try again.",
     "myAccount": "My Account",
-    "logout": "Logout"
+    "logout": "Logout",
+    "greeting": "Ahalan {name}",
+    "orders": "Orders",
+    "returns": "Returns",
+    "addresses": "Addresses",
+    "contactUs": "Contact Us",
+    "faqs": "FAQs"
   },
   "megaMenu": {
     "viewAll": "View All"
@@ -510,6 +517,33 @@
     "title": "FAQs",
     "subtitle": "Find answers to common questions",
     "error": "Failed to load FAQs. Please try again later."
+  },
+  "vendor": {
+    "allProducts": "All Products",
+    "specialOffers": "Special Offers",
+    "reviews": "Reviews",
+    "searchInStore": "Search in store",
+    "follow": "Follow",
+    "following": "Following",
+    "unfollow": "Unfollow",
+    "share": "Share",
+    "followers": "{count} Followers",
+    "showedResults": "Showing {count} results",
+    "noProducts": "No products found",
+    "noProductsDescription": "This vendor doesn't have any products matching your criteria.",
+    "noReviews": "No reviews yet",
+    "noReviewsDescription": "Be the first to review this vendor's products.",
+    "loadMore": "Load More",
+    "verified": "Verified",
+    "linkCopied": "Link copied to clipboard"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Stay up to date on latest offers.",
+    "empty": "No notifications yet",
+    "emptyDescription": "When you receive notifications, they will appear here.",
+    "markAllRead": "Mark all as read",
+    "loadMore": "Load More"
   },
   "appDownload": {
     "title": "Get 10% OFF your First Order on Qafila App",

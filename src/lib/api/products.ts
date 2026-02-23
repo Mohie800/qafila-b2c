@@ -110,6 +110,7 @@ export interface ApiProduct {
 
 export interface GetProductsParams {
   categoryId?: string;
+  vendorId?: string;
   brandId?: string;
   colorId?: string;
   sizeId?: string;

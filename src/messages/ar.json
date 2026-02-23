@@ -21,7 +21,8 @@
   },
   "header": {
     "stories": "قصص",
-    "wishlist": "المفضلة"
+    "wishlist": "المفضلة",
+    "cart": "السلة"
   },
   "hero": {
     "sale": "خصم 30%",
@@ -144,7 +145,13 @@
     "customerOnly": "هذا التطبيق مخصص للعملاء فقط. يرجى استخدام البوابة المناسبة.",
     "errorGeneric": "حدث خطأ. يرجى المحاولة مرة أخرى.",
     "myAccount": "حسابي",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "greeting": "أهلاً {name}",
+    "orders": "الطلبات",
+    "returns": "المرتجعات",
+    "addresses": "العناوين",
+    "contactUs": "تواصل معنا",
+    "faqs": "الأسئلة الشائعة"
   },
   "megaMenu": {
     "viewAll": "عرض الكل"
@@ -510,6 +517,33 @@
     "title": "الأسئلة الشائعة",
     "subtitle": "اعثر على إجابات للأسئلة الشائعة",
     "error": "فشل تحميل الأسئلة الشائعة. يرجى المحاولة لاحقاً."
+  },
+  "vendor": {
+    "allProducts": "جميع المنتجات",
+    "specialOffers": "عروض خاصة",
+    "reviews": "التقييمات",
+    "searchInStore": "ابحث في المتجر",
+    "follow": "متابعة",
+    "following": "متابَع",
+    "unfollow": "إلغاء المتابعة",
+    "share": "مشاركة",
+    "followers": "{count} متابع",
+    "showedResults": "عرض {count} نتيجة",
+    "noProducts": "لا توجد منتجات",
+    "noProductsDescription": "لا يوجد لدى هذا البائع منتجات تطابق معاييرك.",
+    "noReviews": "لا توجد تقييمات بعد",
+    "noReviewsDescription": "كن أول من يقيّم منتجات هذا البائع.",
+    "loadMore": "عرض المزيد",
+    "verified": "موثق",
+    "linkCopied": "تم نسخ الرابط"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "subtitle": "ابقَ على اطلاع بأحدث العروض.",
+    "empty": "لا توجد إشعارات بعد",
+    "emptyDescription": "عندما تصلك إشعارات، ستظهر هنا.",
+    "markAllRead": "تعيين الكل كمقروء",
+    "loadMore": "تحميل المزيد"
   },
   "appDownload": {
     "title": "احصل على خصم 10% على طلبك الأول من تطبيق قافلة",

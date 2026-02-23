@@ -105,24 +105,12 @@ export default function ProfileSidebar() {
 
       {/* Notifications */}
       <div className="mt-3 rounded-xl border border-gray-border">
-        <Link
-          href="/profile"
-          className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-gray-50"
-        >
-          <Bell size={20} className="shrink-0 text-dark" />
-          <div className="flex-1">
-            <p className="text-sm font-medium text-dark">
-              {t("sidebar.notifications")}
-            </p>
-            <p className="text-[11px] text-gray-text">
-              {t("sidebar.notificationsDesc")}
-            </p>
-          </div>
-          <ChevronRight
-            size={16}
-            className="shrink-0 text-gray-text rtl:rotate-180"
-          />
-        </Link>
+        <SidebarLink
+          href="/profile/notifications"
+          icon={<Bell size={20} />}
+          label={t("sidebar.notifications")}
+          description={t("sidebar.notificationsDesc")}
+        />
       </div>
 
       {/* Main nav group */}
@@ -188,10 +176,12 @@ function SidebarLink({
   href,
   icon,
   label,
+  description,
 }: {
   href: string;
   icon: React.ReactNode;
   label: string;
+  description?: string;
 }) {
   const pathname = usePathname();
   const isActive =
@@ -209,11 +199,16 @@ function SidebarLink({
       <span className={`shrink-0 ${isActive ? "text-primary" : "text-dark"}`}>
         {icon}
       </span>
-      <span
-        className={`flex-1 text-sm font-medium ${isActive ? "text-primary" : "text-dark"}`}
-      >
-        {label}
-      </span>
+      <div className="flex-1">
+        <span
+          className={`text-sm font-medium ${isActive ? "text-primary" : "text-dark"}`}
+        >
+          {label}
+        </span>
+        {description && (
+          <p className="text-[11px] text-gray-text">{description}</p>
+        )}
+      </div>
       <ChevronRight
         size={16}
         className="shrink-0 text-gray-text rtl:rotate-180"

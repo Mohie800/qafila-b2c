@@ -5,7 +5,7 @@ import { Link, useRouter, usePathname } from "@/i18n/navigation";
 import {
   Search,
   Heart,
-  ShoppingBag,
+  ShoppingBasket,
   Menu,
   ChevronDown,
   ChevronRight,
@@ -14,6 +14,7 @@ import {
   User,
   CircleHelp,
   LogOut,
+  Bell,
 } from "lucide-react";
 import { useState, useCallback, useRef, useEffect } from "react";
 import MegaMenu from "@/components/layout/MegaMenu";
@@ -182,8 +183,12 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
                   </span>
                 )}
               </Link>
-              <Link href="/cart" className="relative text-dark">
-                <ShoppingBag size={18} />
+              <Link
+                href="/cart"
+                className="relative flex items-center gap-1.5 text-sm text-dark"
+              >
+                <ShoppingBasket size={18} />
+                <span className="hidden md:inline">{t("header.cart")}</span>
                 {itemCount > 0 && (
                   <span className="absolute -end-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-white">
                     {itemCount > 99 ? "99+" : itemCount}
@@ -194,47 +199,101 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
               {/* Divider */}
               <div className="hidden h-5 w-px bg-gray-border md:block" />
 
+              {/* Notifications */}
+              <Link
+                href="/profile/notifications"
+                className="relative hidden text-dark md:block"
+              >
+                <Bell size={18} />
+              </Link>
+
+              {/* Divider */}
+              <div className="hidden h-5 w-px bg-gray-border md:block" />
+
               {/* Login / User dropdown */}
               <div className="relative" ref={loginDropdownRef}>
                 <button
                   onClick={() => setLoginDropdownOpen(!loginDropdownOpen)}
-                  className="flex items-center gap-1.5 text-sm text-dark"
+                  className="flex items-center gap-1.5 text-sm text-dark cursor-pointer"
                 >
-                  <User size={18} />
-                  <span className="hidden md:inline">
-                    {isLoggedIn
-                      ? user?.firstName || t("auth.myAccount")
-                      : t("auth.logIn")}
-                  </span>
+                  {isLoggedIn ? (
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-xs font-semibold text-dark">
+                      {(user?.firstName?.[0] || "").toUpperCase()}
+                      {(user?.lastName?.[0] || "").toUpperCase()}
+                    </span>
+                  ) : (
+                    <>
+                      <User size={18} />
+                      <span className="hidden md:inline">
+                        {t("auth.logIn")}
+                      </span>
+                    </>
+                  )}
                   <ChevronDown size={14} className="hidden md:block" />
                 </button>
 
                 {loginDropdownOpen && (
-                  <div className="absolute end-0 top-full mt-2 w-56 rounded-lg bg-white py-2 shadow-lg ring-1 z-10 ring-gray-border">
+                  <div className="absolute end-0 top-full mt-3 w-72 rounded-xl bg-white shadow-lg ring-1 ring-gray-border z-10">
+                    {/* Arrow */}
+                    <div className="absolute -top-1.5 end-5 h-3 w-3 rotate-45 border-s border-t border-gray-border bg-white" />
+
                     {isLoggedIn ? (
                       <>
-                        <Link
-                          href="/profile"
-                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-dark hover:bg-gray-50"
-                          onClick={() => setLoginDropdownOpen(false)}
-                        >
-                          <User size={16} />
-                          {t("auth.myAccount")}
-                        </Link>
+                        {/* Greeting */}
+                        <div className="px-5 pb-4 pt-5">
+                          <p className="text-lg font-semibold text-dark">
+                            {t("auth.greeting", {
+                              name: user?.firstName || "",
+                            })}{" "}
+                            <span>👋🏻</span>
+                          </p>
+                          {user?.email && (
+                            <p className="mt-1 text-sm text-gray-text">
+                              {user.email}
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Menu Items */}
+                        {[
+                          { href: "/profile", label: t("auth.myAccount") },
+                          { href: "/profile/orders", label: t("auth.orders") },
+                          // {
+                          //   href: "/profile/returns",
+                          //   label: t("auth.returns"),
+                          // },
+                          {
+                            href: "/profile/addresses",
+                            label: t("auth.addresses"),
+                          },
+                          { href: "/contact", label: t("auth.contactUs") },
+                          { href: "/faqs", label: t("auth.faqs") },
+                        ].map((item, i) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`flex items-center justify-between ${i !== 0 ? "border-t" : ""} border-gray-border px-5 py-3.5 text-sm font-medium text-dark hover:bg-gray-50`}
+                            onClick={() => setLoginDropdownOpen(false)}
+                          >
+                            {item.label}
+                            <ChevronRight size={16} className="text-gray-400" />
+                          </Link>
+                        ))}
+
+                        {/* Logout */}
                         <button
                           onClick={() => {
                             logout();
                             setLoginDropdownOpen(false);
                           }}
-                          className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-dark hover:bg-gray-50"
+                          className="w-full border-t border-gray-border px-5 py-3.5 text-start text-sm text-gray-text hover:bg-gray-50"
                         >
-                          <LogOut size={16} />
                           {t("auth.logout")}
                         </button>
                       </>
                     ) : (
                       <>
-                        <div className="px-3 pb-2">
+                        <div className="px-3 pb-2 pt-3">
                           <button
                             onClick={() => {
                               setLoginDropdownOpen(false);
