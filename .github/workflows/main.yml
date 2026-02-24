@@ -36,3 +36,4 @@ jobs:
             fi
             pnpm install --frozen-lockfile
             pnpm build
+            pm2 restart b2c
