@@ -2,8 +2,8 @@
 
 import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { Star, ImagePlus, X } from "lucide-react";
-import { createReviewWithImages } from "@/lib/api/reviews";
+import { Star, ImagePlus, Video, Mic, X } from "lucide-react";
+import { createReviewWithMedia } from "@/lib/api/reviews";
 
 interface WriteReviewFormProps {
   productId: string;
@@ -24,24 +24,37 @@ export default function WriteReviewForm({
   const [content, setContent] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [videos, setVideos] = useState<File[]>([]);
+  const [videoPreviews, setVideoPreviews] = useState<string[]>([]);
+  const [voiceNote, setVoiceNote] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [ratingError, setRatingError] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoInputRef = useRef<HTMLInputElement>(null);
+  const voiceInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    const remaining = 10 - images.length;
+    const remaining = 5 - images.length;
     const toAdd = files.slice(0, remaining);
+
+    // Validate size (5MB per image)
+    for (const file of toAdd) {
+      if (file.size > 5 * 1024 * 1024) {
+        setError(t("imageTooLarge"));
+        return;
+      }
+    }
 
     setImages((prev) => [...prev, ...toAdd]);
     setPreviews((prev) => [
       ...prev,
       ...toAdd.map((f) => URL.createObjectURL(f)),
     ]);
+    setError("");
 
-    // Reset input
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -49,6 +62,54 @@ export default function WriteReviewForm({
     URL.revokeObjectURL(previews[index]);
     setImages((prev) => prev.filter((_, i) => i !== index));
     setPreviews((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleVideoAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    const remaining = 2 - videos.length;
+    const toAdd = files.slice(0, remaining);
+
+    // Validate size (50MB per video)
+    for (const file of toAdd) {
+      if (file.size > 50 * 1024 * 1024) {
+        setError(t("videoTooLarge"));
+        return;
+      }
+    }
+
+    setVideos((prev) => [...prev, ...toAdd]);
+    setVideoPreviews((prev) => [
+      ...prev,
+      ...toAdd.map((f) => URL.createObjectURL(f)),
+    ]);
+    setError("");
+
+    if (videoInputRef.current) videoInputRef.current.value = "";
+  };
+
+  const handleVideoRemove = (index: number) => {
+    URL.revokeObjectURL(videoPreviews[index]);
+    setVideos((prev) => prev.filter((_, i) => i !== index));
+    setVideoPreviews((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleVoiceNoteAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 10 * 1024 * 1024) {
+      setError(t("voiceNoteTooLarge"));
+      return;
+    }
+
+    setVoiceNote(file);
+    setError("");
+
+    if (voiceInputRef.current) voiceInputRef.current.value = "";
+  };
+
+  const handleVoiceNoteRemove = () => {
+    setVoiceNote(null);
   };
 
   const handleSubmit = async () => {
@@ -67,8 +128,10 @@ export default function WriteReviewForm({
       if (title.trim()) formData.append("title", title.trim());
       if (content.trim()) formData.append("content", content.trim());
       images.forEach((file) => formData.append("images", file));
+      videos.forEach((file) => formData.append("videos", file));
+      if (voiceNote) formData.append("voiceNote", voiceNote);
 
-      await createReviewWithImages(formData);
+      await createReviewWithMedia(formData);
       onSuccess();
     } catch (err) {
       setError(
@@ -144,7 +207,7 @@ export default function WriteReviewForm({
       </div>
 
       {/* Image upload */}
-      <div className="mb-4">
+      <div className="mb-3">
         {previews.length > 0 && (
           <div className="mb-2 flex flex-wrap gap-2">
             {previews.map((src, i) => (
@@ -168,7 +231,7 @@ export default function WriteReviewForm({
             ))}
           </div>
         )}
-        {images.length < 10 && (
+        {images.length < 5 && (
           <>
             <button
               type="button"
@@ -178,7 +241,7 @@ export default function WriteReviewForm({
               <ImagePlus size={14} />
               {t("addImages")}
               <span className="text-gray-300">
-                ({t("maxImages", { count: 10 })})
+                ({t("maxImages", { count: 5 })})
               </span>
             </button>
             <input
@@ -187,6 +250,93 @@ export default function WriteReviewForm({
               accept="image/*"
               multiple
               onChange={handleImageAdd}
+              className="hidden"
+            />
+          </>
+        )}
+      </div>
+
+      {/* Video upload */}
+      <div className="mb-3">
+        {videoPreviews.length > 0 && (
+          <div className="mb-2 flex flex-wrap gap-2">
+            {videoPreviews.map((src, i) => (
+              <div
+                key={i}
+                className="group relative h-16 w-24 overflow-hidden rounded-lg bg-gray-100"
+              >
+                <video
+                  src={src}
+                  className="h-full w-full object-cover"
+                  muted
+                />
+                <button
+                  type="button"
+                  onClick={() => handleVideoRemove(i)}
+                  className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100"
+                >
+                  <X size={16} className="text-white" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        {videos.length < 2 && (
+          <>
+            <button
+              type="button"
+              onClick={() => videoInputRef.current?.click()}
+              className="flex items-center gap-1.5 text-xs font-medium text-gray-text transition-colors hover:text-dark"
+            >
+              <Video size={14} />
+              {t("addVideos")}
+              <span className="text-gray-300">
+                ({t("maxVideos", { count: 2 })})
+              </span>
+            </button>
+            <input
+              ref={videoInputRef}
+              type="file"
+              accept="video/mp4,video/quicktime,video/webm"
+              multiple
+              onChange={handleVideoAdd}
+              className="hidden"
+            />
+          </>
+        )}
+      </div>
+
+      {/* Voice note upload */}
+      <div className="mb-4">
+        {voiceNote ? (
+          <div className="mb-2 flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2">
+            <Mic size={14} className="text-gray-text" />
+            <span className="flex-1 truncate text-xs text-dark">
+              {voiceNote.name}
+            </span>
+            <button
+              type="button"
+              onClick={handleVoiceNoteRemove}
+              className="text-gray-text transition-colors hover:text-dark"
+            >
+              <X size={14} />
+            </button>
+          </div>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={() => voiceInputRef.current?.click()}
+              className="flex items-center gap-1.5 text-xs font-medium text-gray-text transition-colors hover:text-dark"
+            >
+              <Mic size={14} />
+              {t("addVoiceNote")}
+            </button>
+            <input
+              ref={voiceInputRef}
+              type="file"
+              accept="audio/*"
+              onChange={handleVoiceNoteAdd}
               className="hidden"
             />
           </>

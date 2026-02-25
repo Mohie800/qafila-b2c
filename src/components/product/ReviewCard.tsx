@@ -21,6 +21,15 @@ import {
 import { useAuth } from "@/lib/auth-context";
 import ReviewComments from "./ReviewComments";
 
+export interface ReviewMediaItem {
+  id: string;
+  url: string;
+  alt: string | null;
+  type: "IMAGE" | "VIDEO" | "VOICE_NOTE";
+  duration?: number | null;
+  thumbnailUrl?: string | null;
+}
+
 export interface ReviewData {
   id: string;
   userName: string;
@@ -31,7 +40,7 @@ export interface ReviewData {
   comment: string;
   isVerifiedPurchase: boolean;
   createdAt: string;
-  images: { id: string; url: string; alt: string | null }[];
+  media: ReviewMediaItem[];
   helpfulCount: number;
   hasLiked: boolean;
   commentCount: number;
@@ -332,23 +341,61 @@ export default function ReviewCard({
               {review.comment}
             </p>
 
-            {/* Review images */}
-            {review.images.length > 0 && (
-              <div className="mt-3 flex gap-2">
-                {review.images.map((img) => (
-                  <div
-                    key={img.id}
-                    className="relative h-16 w-16 overflow-hidden rounded-lg bg-gray-100"
-                  >
-                    <Image
-                      src={getMediaUrl(img.url) || img.url}
-                      alt={img.alt || "Review image"}
-                      fill
-                      className="object-cover"
-                      sizes="64px"
-                    />
+            {/* Review media */}
+            {review.media.length > 0 && (
+              <div className="mt-3 space-y-2">
+                {/* Images */}
+                {review.media.filter((m) => m.type === "IMAGE").length > 0 && (
+                  <div className="flex gap-2">
+                    {review.media
+                      .filter((m) => m.type === "IMAGE")
+                      .map((img) => (
+                        <div
+                          key={img.id}
+                          className="relative h-16 w-16 overflow-hidden rounded-lg bg-gray-100"
+                        >
+                          <Image
+                            src={getMediaUrl(img.url) || img.url}
+                            alt={img.alt || "Review image"}
+                            fill
+                            className="object-cover"
+                            sizes="64px"
+                          />
+                        </div>
+                      ))}
                   </div>
-                ))}
+                )}
+                {/* Videos */}
+                {review.media.filter((m) => m.type === "VIDEO").length > 0 && (
+                  <div className="flex gap-2">
+                    {review.media
+                      .filter((m) => m.type === "VIDEO")
+                      .map((vid) => (
+                        <video
+                          key={vid.id}
+                          src={getMediaUrl(vid.url) || vid.url}
+                          controls
+                          className="h-24 w-36 rounded-lg bg-gray-100 object-cover"
+                        />
+                      ))}
+                  </div>
+                )}
+                {/* Voice notes */}
+                {review.media.filter((m) => m.type === "VOICE_NOTE").length >
+                  0 && (
+                  <div className="flex flex-col gap-1">
+                    {review.media
+                      .filter((m) => m.type === "VOICE_NOTE")
+                      .map((voice) => (
+                        <audio
+                          key={voice.id}
+                          src={getMediaUrl(voice.url) || voice.url}
+                          controls
+                          className="h-8 w-full max-w-xs"
+                        />
+                      ))}
+                  </div>
+                )}
               </div>
             )}
 

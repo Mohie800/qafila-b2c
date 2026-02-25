@@ -193,10 +193,13 @@ export default async function ProductDetailPage({ params }: PageProps) {
     hasLiked: r.hasLiked,
     commentCount: r.commentCount,
     createdAt: r.createdAt,
-    images: (r.images || []).map((img) => ({
-      id: img.id,
-      url: getMediaUrl(img.url) || img.url,
-      alt: img.alt,
+    media: (r.media || []).map((m) => ({
+      id: m.id,
+      url: getMediaUrl(m.url) || m.url,
+      alt: m.alt,
+      type: m.type || "IMAGE",
+      duration: m.duration,
+      thumbnailUrl: m.thumbnailUrl,
     })),
   }));
 

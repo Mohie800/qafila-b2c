@@ -529,10 +529,13 @@ function mapApiReview(r: {
     hasLiked: r.hasLiked,
     commentCount: r.commentCount,
     createdAt: r.createdAt,
-    images: (r.images || []).map((img) => ({
-      id: img.id,
-      url: img.url,
-      alt: img.alt ?? null,
+    media: (r.media || []).map((m) => ({
+      id: m.id,
+      url: m.url,
+      alt: m.alt ?? null,
+      type: m.type || "IMAGE",
+      duration: m.duration,
+      thumbnailUrl: m.thumbnailUrl,
     })),
   };
 }

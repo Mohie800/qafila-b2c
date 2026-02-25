@@ -7,7 +7,7 @@ import Image from "next/image";
 import { getMediaUrl } from "@/lib/utils";
 import RatingBreakdown from "./RatingBreakdown";
 import ReviewCard from "./ReviewCard";
-import type { ReviewData } from "./ReviewCard";
+import type { ReviewData, ReviewMediaItem } from "./ReviewCard";
 import WriteReviewForm from "./WriteReviewForm";
 import { useAuth } from "@/lib/auth-context";
 
@@ -51,9 +51,16 @@ export default function ReviewsSection({
   const [sortOpen, setSortOpen] = useState(false);
   const [showWriteForm, setShowWriteForm] = useState(false);
 
-  // Collect all review images for the "Review with Images" section
+  // Collect all review media for the "Review Media" gallery section
   const allReviewImages = reviews.flatMap((r) =>
-    r.images.map((img) => ({ ...img, reviewId: r.id })),
+    r.media
+      .filter((m) => m.type === "IMAGE")
+      .map((img) => ({ ...img, reviewId: r.id })),
+  );
+  const allReviewVideos = reviews.flatMap((r) =>
+    r.media
+      .filter((m) => m.type === "VIDEO")
+      .map((vid) => ({ ...vid, reviewId: r.id })),
   );
 
   const handleSortSelect = (key: string) => {
@@ -154,13 +161,13 @@ export default function ReviewsSection({
 
           {/* Right — Reviews */}
           <div>
-            {/* Review with Images */}
-            {allReviewImages.length > 0 && (
+            {/* Review Media Gallery */}
+            {(allReviewImages.length > 0 || allReviewVideos.length > 0) && (
               <div className="mb-6">
                 <p className="mb-3 text-sm font-semibold text-dark">
-                  {t("reviewWithImages")}{" "}
+                  {t("reviewWithMedia")}{" "}
                   <span className="font-normal text-gray-text">
-                    ({allReviewImages.length})
+                    ({allReviewImages.length + allReviewVideos.length})
                   </span>
                 </p>
                 <div className="scrollbar-hide flex gap-2 overflow-x-auto">
@@ -176,6 +183,23 @@ export default function ReviewsSection({
                         className="object-cover"
                         sizes="64px"
                       />
+                    </div>
+                  ))}
+                  {allReviewVideos.map((vid) => (
+                    <div
+                      key={vid.id}
+                      className="relative h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100"
+                    >
+                      <video
+                        src={getMediaUrl(vid.url) || vid.url}
+                        className="h-full w-full object-cover"
+                        muted
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/80">
+                          <div className="ms-0.5 h-0 w-0 border-y-[5px] border-s-[8px] border-y-transparent border-s-dark" />
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>

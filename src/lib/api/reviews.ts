@@ -9,12 +9,18 @@ export interface ReviewUser {
   lastName: string;
 }
 
-export interface ReviewImage {
+export interface ReviewMedia {
   id: string;
   url: string;
   alt: string | null;
   sortOrder: number;
+  type: "IMAGE" | "VIDEO" | "VOICE_NOTE";
+  duration: number | null;
+  thumbnailUrl: string | null;
 }
+
+/** @deprecated Use ReviewMedia instead */
+export type ReviewImage = ReviewMedia;
 
 export interface ApiReview {
   id: string;
@@ -26,7 +32,7 @@ export interface ApiReview {
   helpfulCount: number;
   hasLiked: boolean;
   user: ReviewUser;
-  images: ReviewImage[];
+  media: ReviewMedia[];
   commentCount: number;
   createdAt: string;
   updatedAt: string;
@@ -37,7 +43,7 @@ export interface ReviewStats {
   totalReviews: number;
   ratingDistribution: Record<1 | 2 | 3 | 4 | 5, number>;
   verifiedPurchasePercentage: number;
-  reviewsWithImages: number;
+  reviewsWithMedia: number;
 }
 
 export interface ReviewComment {
@@ -66,7 +72,7 @@ export interface GetReviewsParams {
   minRating?: number;
   maxRating?: number;
   verifiedOnly?: boolean;
-  withImagesOnly?: boolean;
+  withMediaOnly?: boolean;
 }
 
 // ── Public endpoints (no auth) ──
@@ -102,20 +108,28 @@ export interface CreateReviewPayload {
   rating: number;
   title?: string;
   content?: string;
-  images?: { url: string; alt?: string; sortOrder?: number }[];
+  media?: { url: string; alt?: string; sortOrder?: number; type?: string }[];
 }
 
 export interface UpdateReviewPayload {
   rating?: number;
   title?: string;
   content?: string;
-  images?: { url: string; alt?: string; sortOrder?: number }[];
+  media?: { url: string; alt?: string; sortOrder?: number; type?: string }[];
 }
 
 export async function createReview(
   payload: CreateReviewPayload,
 ): Promise<ApiReview> {
   return apiClient.post("/reviews", payload);
+}
+
+export async function createReviewWithMedia(
+  formData: FormData,
+): Promise<ApiReview> {
+  return apiClient.post("/reviews/with-media", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 }
 
 export async function createReviewWithImages(
@@ -180,17 +194,23 @@ export async function deleteReviewComment(commentId: string): Promise<void> {
   return apiClient.delete(`/reviews/comments/${commentId}`);
 }
 
-// ── Images ──
+// ── Media ──
 
-export async function addReviewImage(
+export async function addReviewMedia(
   reviewId: string,
   formData: FormData,
-): Promise<ReviewImage> {
-  return apiClient.post(`/reviews/${reviewId}/images`, formData, {
+): Promise<ReviewMedia> {
+  return apiClient.post(`/reviews/${reviewId}/media`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 }
 
-export async function deleteReviewImage(imageId: string): Promise<void> {
-  return apiClient.delete(`/reviews/images/${imageId}`);
+export async function deleteReviewMedia(mediaId: string): Promise<void> {
+  return apiClient.delete(`/reviews/media/${mediaId}`);
 }
+
+/** @deprecated Use addReviewMedia instead */
+export const addReviewImage = addReviewMedia;
+
+/** @deprecated Use deleteReviewMedia instead */
+export const deleteReviewImage = deleteReviewMedia;

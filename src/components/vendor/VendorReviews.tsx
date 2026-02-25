@@ -20,10 +20,13 @@ function mapApiReview(r: ApiReview): ReviewData {
     comment: r.content ?? "",
     isVerifiedPurchase: r.isVerifiedPurchase,
     createdAt: r.createdAt,
-    images: r.images.map((img) => ({
-      id: img.id,
-      url: getMediaUrl(img.url) || img.url,
-      alt: img.alt,
+    media: (r.media || []).map((m) => ({
+      id: m.id,
+      url: getMediaUrl(m.url) || m.url,
+      alt: m.alt,
+      type: m.type || "IMAGE",
+      duration: m.duration,
+      thumbnailUrl: m.thumbnailUrl,
     })),
     helpfulCount: r.helpfulCount,
     hasLiked: r.hasLiked,
