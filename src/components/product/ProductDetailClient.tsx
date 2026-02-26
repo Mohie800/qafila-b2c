@@ -507,11 +507,14 @@ function mapApiReview(r: {
   helpfulCount: number;
   hasLiked: boolean;
   user: { id: string; firstName: string; lastName: string };
-  images?: {
+  media?: {
     id: string;
     url: string;
     alt?: string | null;
     sortOrder?: number;
+    type?: string;
+    duration?: number | null;
+    thumbnailUrl?: string | null;
   }[];
   commentCount: number;
   createdAt: string;
@@ -533,7 +536,7 @@ function mapApiReview(r: {
       id: m.id,
       url: m.url,
       alt: m.alt ?? null,
-      type: m.type || "IMAGE",
+      type: (m.type || "IMAGE") as "IMAGE" | "VIDEO" | "VOICE_NOTE",
       duration: m.duration,
       thumbnailUrl: m.thumbnailUrl,
     })),
