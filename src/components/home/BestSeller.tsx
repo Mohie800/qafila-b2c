@@ -13,7 +13,7 @@ export default async function BestSeller({ products }: Props) {
   if (products.length === 0) return null;
 
   return (
-    <section className="mx-20 max-w-360 px-0 py-6">
+    <section className="mx-4 max-w-360 px-0 py-6 md:mx-20">
       {/* Header */}
       <div className="mb-5 flex items-center justify-between">
         <h2 className="text-xl font-bold text-dark">{t("title")}</h2>

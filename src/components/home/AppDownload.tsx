@@ -5,7 +5,7 @@ export default async function AppDownload() {
   const t = await getTranslations("appDownload");
 
   return (
-    <section className="mx-20 max-w-360 ">
+    <section className="mx-4 max-w-360 md:mx-20">
       <div className=" flex max-w-360 items-center justify-between px-6 py-8 md:py-0 bg-gray-light rounded-2xl my-10">
         {/* Phones image */}
         <div className="hidden shrink-0 md:block">

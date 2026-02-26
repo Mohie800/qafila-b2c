@@ -9,7 +9,7 @@ export default async function SaudiMadeBanner({ products }: Props) {
   const t = await getTranslations("saudiMade");
 
   return (
-    <section className="mx-20 max-w-360 px-0 py-6">
+    <section className="mx-4 max-w-360 px-0 py-6 md:mx-20">
       {/* Top: Banner */}
       <div className="relative mb-5 flex h-55 w-full items-center overflow-hidden rounded-2xl md:h-65">
         {/* Gradient background */}

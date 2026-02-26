@@ -21,7 +21,7 @@ export default async function HeroBanner() {
     <section className="w-full">
       <div className="flex h-85 md:h-110">
         {/* Main Hero Image Area */}
-        <div className="relative flex flex-1 items-center justify-center overflow-hidden mx-20 mt-10">
+        <div className="relative flex flex-1 items-center justify-center overflow-hidden mx-4 mt-4 md:mx-20 md:mt-10">
           {/* Background layers simulating outdoor lifestyle photo */}
           <div className="absolute inset-0 bg-linear-to-br from-[#2D4A3E] via-[#3A5A4A] to-[#5A7A5E]" />
           {/* Fence pattern overlay */}

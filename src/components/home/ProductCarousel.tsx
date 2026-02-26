@@ -7,7 +7,7 @@ interface ProductCarouselProps {
 
 export default function ProductCarousel({ products }: ProductCarouselProps) {
   return (
-    <section className="mx-auto max-w-360 px-10 py-4">
+    <section className="mx-auto max-w-360 px-4 py-4 md:px-10">
       <Carousel>
         <div className="flex gap-4 px-2 py-2">
           {products.map((product) => (

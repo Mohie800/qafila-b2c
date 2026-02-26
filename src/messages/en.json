@@ -14,7 +14,8 @@
     "limitedStock": "Limited Stock",
     "gifts": "Gifts",
     "saudiFashion": "Saudi Fashion",
-    "priceAccess": "Price & Access"
+    "priceAccess": "Price & Access",
+    "menu": "Menu"
   },
   "search": {
     "placeholder": "Search for \"Watches\""

@@ -19,7 +19,7 @@ export default function CategoryCarousel() {
   if (subcategories.length === 0) return null;
 
   return (
-    <section className="mx-20 max-w-360 px-0 py-5">
+    <section className="mx-4 max-w-360 px-0 py-5 md:mx-20">
       <Carousel>
         <div className="flex gap-5 px-2 py-2">
           {subcategories.map((cat) => (

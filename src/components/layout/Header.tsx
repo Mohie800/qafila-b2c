@@ -15,6 +15,7 @@ import {
   CircleHelp,
   LogOut,
   Bell,
+  X,
 } from "lucide-react";
 import { useState, useCallback, useRef, useEffect } from "react";
 import MegaMenu from "@/components/layout/MegaMenu";
@@ -43,6 +44,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loginDropdownOpen, setLoginDropdownOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const loginDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -56,7 +58,6 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
 
   const handleTabClick = (slug: string) => {
     setActiveRootSlug(slug);
-    // if (!menuOpen) setMenuOpen(true);
   };
 
   const closeMegaMenu = useCallback(() => {
@@ -79,11 +80,23 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [loginDropdownOpen]);
 
+  // Body scroll lock for mobile drawer
+  useEffect(() => {
+    if (mobileDrawerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileDrawerOpen]);
+
   return (
     <>
       <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
-        {/* Top Bar */}
-        <div className="bg-dark text-white ">
+        {/* Top Bar - hidden on mobile */}
+        <div className="hidden bg-dark text-white md:block">
           <div className="mx-auto flex max-w-360 items-stretch justify-between px-6 text-sm">
             {/* Left - Tabs */}
             <div className="flex items-stretch gap-4">
@@ -142,12 +155,21 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
         {/* Middle Bar - Logo, Search, Icons */}
         <div className="border-b border-gray-border">
           <div className="mx-auto flex max-w-360 items-center justify-between gap-4 px-6 py-3">
-            {/* Logo */}
-            <Link href="/" className="shrink-0">
-              <div className="flex items-center gap-1.5">
-                <Image src={"/logo.svg"} height={48} width={150} alt="qafila" />
-              </div>
-            </Link>
+            {/* Mobile hamburger + Logo */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setMobileDrawerOpen(true)}
+                className="flex items-center justify-center text-dark md:hidden"
+                aria-label={t("nav.menu")}
+              >
+                <Menu size={22} />
+              </button>
+              <Link href="/" className="shrink-0">
+                <div className="flex items-center gap-1.5">
+                  <Image src={"/logo.svg"} height={48} width={150} alt="qafila" />
+                </div>
+              </Link>
+            </div>
 
             {/* Search */}
             <div className="relative hidden max-w-md flex-1 md:block">
@@ -258,10 +280,6 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
                         {[
                           { href: "/profile", label: t("auth.myAccount") },
                           { href: "/profile/orders", label: t("auth.orders") },
-                          // {
-                          //   href: "/profile/returns",
-                          //   label: t("auth.returns"),
-                          // },
                           {
                             href: "/profile/addresses",
                             label: t("auth.addresses"),
@@ -331,8 +349,8 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
           </div>
         </div>
 
-        {/* Navigation */}
-        <div className="relative border-b border-gray-border">
+        {/* Navigation - hidden on mobile */}
+        <div className="relative hidden border-b border-gray-border md:block">
           <div className="mx-auto flex max-w-360 items-center gap-1 px-6 py-2">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -392,6 +410,186 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
           )}
         </div>
       </header>
+
+      {/* Mobile Drawer Backdrop */}
+      <div
+        className={`fixed inset-0 z-50 bg-black/50 transition-opacity md:hidden ${
+          mobileDrawerOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => setMobileDrawerOpen(false)}
+      />
+
+      {/* Mobile Drawer */}
+      <div
+        className={`fixed inset-y-0 start-0 z-50 w-[300px] overflow-y-auto bg-white shadow-xl transition-transform duration-300 md:hidden ${
+          mobileDrawerOpen
+            ? "translate-x-0 rtl:-translate-x-0"
+            : "-translate-x-full rtl:translate-x-full"
+        }`}
+      >
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between border-b border-gray-border px-5 py-4">
+          <h2 className="text-base font-bold text-dark">{t("nav.menu")}</h2>
+          <button
+            type="button"
+            onClick={() => setMobileDrawerOpen(false)}
+            aria-label="Close"
+          >
+            <X size={20} className="text-gray-text" />
+          </button>
+        </div>
+
+        {/* Drawer Search */}
+        <div className="px-5 pt-4 pb-2">
+          <div className="relative">
+            <Search
+              size={16}
+              className="absolute start-3 top-1/2 -translate-y-1/2 text-gray-text"
+            />
+            <input
+              type="text"
+              placeholder={t("search.placeholder")}
+              className="w-full rounded-full border border-gray-border bg-gray-light py-2.5 pe-4 ps-10 text-sm outline-none transition-colors focus:border-primary"
+            />
+          </div>
+        </div>
+
+        {/* Drawer Navigation Links */}
+        <nav className="px-5 py-3">
+          <ul className="space-y-1">
+            <li>
+              <Link
+                href="#"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                onClick={() => setMobileDrawerOpen(false)}
+              >
+                {t("nav.exclusives")}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-primary hover:bg-gray-50"
+                onClick={() => setMobileDrawerOpen(false)}
+              >
+                {t("nav.hotSales")}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                onClick={() => setMobileDrawerOpen(false)}
+              >
+                {t("nav.limitedStock")}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                onClick={() => setMobileDrawerOpen(false)}
+              >
+                {t("nav.gifts")}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                onClick={() => setMobileDrawerOpen(false)}
+              >
+                {t("nav.saudiFashion")}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-white bg-primary hover:bg-primary-hover rounded-full text-center justify-center"
+                onClick={() => setMobileDrawerOpen(false)}
+              >
+                {t("nav.priceAccess")}
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* Divider */}
+        <div className="mx-5 border-t border-gray-border" />
+
+        {/* Stories & Notifications */}
+        <div className="px-5 py-3">
+          <ul className="space-y-1">
+            <li>
+              <Link
+                href="/stories"
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                onClick={() => setMobileDrawerOpen(false)}
+              >
+                <Clapperboard size={18} />
+                {t("header.stories")}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/profile/notifications"
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                onClick={() => setMobileDrawerOpen(false)}
+              >
+                <Bell size={18} />
+                {t("notifications.title")}
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Divider */}
+        <div className="mx-5 border-t border-gray-border" />
+
+        {/* Category Tabs */}
+        {rootTabs.length > 0 && (
+          <div className="px-5 py-3">
+            <ul className="space-y-1">
+              {rootTabs.map((cat) => (
+                <li key={cat.slug}>
+                  <button
+                    onClick={() => {
+                      handleTabClick(cat.slug);
+                      setMobileDrawerOpen(false);
+                    }}
+                    className={`flex w-full items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                      activeRootSlug === cat.slug
+                        ? "bg-dark text-white"
+                        : "text-dark hover:bg-gray-50"
+                    }`}
+                  >
+                    {locale === "ar" ? cat.nameAr || cat.name : cat.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Divider */}
+        <div className="mx-5 border-t border-gray-border" />
+
+        {/* Language Switcher */}
+        <div className="px-5 py-3">
+          <div className="flex items-center gap-3 px-3 py-2">
+            <Globe size={18} className="text-dark" />
+            <button
+              onClick={() => {
+                switchLocale(locale === "en" ? "ar" : "en");
+                setMobileDrawerOpen(false);
+              }}
+              className="text-sm font-medium text-dark"
+            >
+              {locale === "en" ? t("topBar.arabic") : t("topBar.english")}
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Login Modal */}
       <LoginModal
