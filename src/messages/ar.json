@@ -15,7 +15,20 @@
     "gifts": "هدايا",
     "saudiFashion": "أزياء سعودية",
     "priceAccess": "السعر والوصول",
+    "researchAI": "بحث AI",
     "menu": "القائمة"
+  },
+  "research": {
+    "heroTitle1": "نمكّن",
+    "heroTitle2": "الناس بالبيانات",
+    "heroSubtitle": "رؤى وحقائق عبر 170 صناعة وأكثر من 150 دولة",
+    "searchPlaceholder": "ابحث عن إحصائيات وتقارير....",
+    "chatPlaceholder": "كيف يمكن لـ Qafila مساعدتك اليوم...",
+    "downloadPdf": "تحميل PDF",
+    "generating": "جارٍ الإنشاء...",
+    "sources": "المصادر",
+    "pdfOffer": "هل تريد تصدير هذا كـ PDF؟",
+    "exportPdf": "تصدير كـ PDF"
   },
   "search": {
     "placeholder": "ابحث عن \"ساعات\""

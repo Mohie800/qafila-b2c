@@ -15,7 +15,20 @@
     "gifts": "Gifts",
     "saudiFashion": "Saudi Fashion",
     "priceAccess": "Price & Access",
+    "researchAI": "Research AI",
     "menu": "Menu"
+  },
+  "research": {
+    "heroTitle1": "Empowering",
+    "heroTitle2": "people with data",
+    "heroSubtitle": "Insights and facts across 170 industries and 150+ countries",
+    "searchPlaceholder": "Find statistics and reports....",
+    "chatPlaceholder": "How can Qafila help you today...",
+    "downloadPdf": "Download PDF",
+    "generating": "Generating...",
+    "sources": "Sources",
+    "pdfOffer": "Would you like to export this as PDF?",
+    "exportPdf": "Export as PDF"
   },
   "search": {
     "placeholder": "Search for \"Watches\""
