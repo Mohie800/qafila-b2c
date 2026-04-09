@@ -97,16 +97,16 @@ export default function OrderDetailPage() {
         {/* Left column */}
         <div className="space-y-6">
           {/* Order Status Timeline */}
-          <div className="rounded-xl border border-gray-border bg-white p-6">
-            <h2 className="mb-5 text-base font-bold text-dark">
+          <div className="rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6">
+            <h2 className="mb-5 text-base font-bold text-dark dark:text-gray-100">
               {t("orderStatus")}
             </h2>
             <OrderStatusTimeline status={order.status} createdAt={order.createdAt} />
           </div>
 
           {/* Items Summary */}
-          <div className="rounded-xl border border-gray-border bg-white p-6">
-            <h2 className="mb-4 text-base font-bold text-dark">
+          <div className="rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6">
+            <h2 className="mb-4 text-base font-bold text-dark dark:text-gray-100">
               {t("itemsSummary")} ({itemCount}{" "}
               {itemCount > 1 ? t("items", { count: itemCount }) : t("item", { count: itemCount })})
             </h2>
@@ -117,7 +117,7 @@ export default function OrderDetailPage() {
         {/* Right column */}
         <div className="space-y-6">
           {/* Order ID + reload */}
-          <div className="flex items-center justify-between rounded-xl border border-gray-border bg-white px-6 py-4">
+          <div className="flex items-center justify-between rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-6 py-4">
             <span className="text-sm font-semibold text-dark">
               {t("orderNumber")} #{shortId}
             </span>
@@ -130,7 +130,7 @@ export default function OrderDetailPage() {
           </div>
 
           {/* Delivery Address */}
-          <div className="rounded-xl border border-gray-border bg-white p-6">
+          <div className="rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-base font-bold text-dark">
                 {t("deliveryAddress")}
@@ -165,8 +165,8 @@ export default function OrderDetailPage() {
           </div>
 
           {/* Payment Summary */}
-          <div className="rounded-xl border border-gray-border bg-white p-6">
-            <h2 className="mb-4 text-base font-bold text-dark">
+          <div className="rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6">
+            <h2 className="mb-4 text-base font-bold text-dark dark:text-gray-100">
               {t("paymentSummary")}
             </h2>
             <div className="space-y-3 text-sm">
@@ -195,7 +195,7 @@ export default function OrderDetailPage() {
                     : t("free")}
                 </span>
               </div>
-              <div className="flex justify-between border-t border-gray-border pt-3">
+              <div className="flex justify-between border-t border-gray-border dark:border-gray-700 pt-3">
                 <span className="font-bold text-dark">
                   {t("totalVatIncluded")}{" "}
                   <span className="text-xs font-normal text-gray-text">
@@ -213,7 +213,7 @@ export default function OrderDetailPage() {
           {canCancel && activeItems.length > 0 && (
             <button
               onClick={() => setView("cancel")}
-              className="w-full rounded-full border-2 border-dark py-3 text-sm font-semibold text-dark transition-colors hover:bg-dark hover:text-white"
+              className="w-full rounded-full border-2 border-dark dark:border-gray-400 py-3 text-sm font-semibold text-dark dark:text-gray-200 transition-colors hover:bg-dark hover:text-white"
             >
               {t("cancelItems")}
             </button>

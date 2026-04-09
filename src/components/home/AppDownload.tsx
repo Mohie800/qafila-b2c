@@ -6,7 +6,7 @@ export default async function AppDownload() {
 
   return (
     <section className="mx-4 max-w-360 md:mx-20">
-      <div className=" flex max-w-360 items-center justify-between px-6 py-8 md:py-0 bg-gray-light rounded-2xl my-10">
+      <div className=" flex max-w-360 items-center justify-between px-6 py-8 md:py-0 bg-gray-light dark:bg-dark rounded-2xl my-10">
         {/* Phones image */}
         <div className="hidden shrink-0 md:block">
           <Image
@@ -21,7 +21,7 @@ export default async function AppDownload() {
 
         {/* Text + Store buttons */}
         <div className="flex flex-1 flex-col items-center text-center md:items-start md:text-start">
-          <h2 className="text-xl font-bold text-dark md:text-4xl">
+          <h2 className="text-xl font-bold text-dark dark:text-gray-100 md:text-4xl">
             {t("title")}
           </h2>
           <p className="mt-2 text-xl font-medium text-gray-text">

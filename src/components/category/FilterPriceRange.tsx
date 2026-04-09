@@ -35,7 +35,7 @@ export default function FilterPriceRange({
             onChange={(e) => setMin(e.target.value)}
             placeholder="Min"
             min="0"
-            className="w-full rounded-lg border border-gray-border px-3 py-1.5 text-xs text-dark outline-none focus:border-primary"
+            className="w-full rounded-lg border border-gray-border dark:border-gray-700 bg-transparent dark:bg-dark px-3 py-1.5 text-xs text-dark dark:text-gray-200 outline-none focus:border-primary"
           />
         </div>
         <span className="text-xs text-gray-text">-</span>
@@ -46,7 +46,7 @@ export default function FilterPriceRange({
             onChange={(e) => setMax(e.target.value)}
             placeholder="Max"
             min="0"
-            className="w-full rounded-lg border border-gray-border px-3 py-1.5 text-xs text-dark outline-none focus:border-primary"
+            className="w-full rounded-lg border border-gray-border dark:border-gray-700 bg-transparent dark:bg-dark px-3 py-1.5 text-xs text-dark dark:text-gray-200 outline-none focus:border-primary"
           />
         </div>
       </div>

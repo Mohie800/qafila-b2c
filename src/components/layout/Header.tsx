@@ -16,6 +16,8 @@ import {
   LogOut,
   Bell,
   X,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useState, useCallback, useRef, useEffect } from "react";
 import MegaMenu from "@/components/layout/MegaMenu";
@@ -26,6 +28,7 @@ import { useCart } from "@/lib/cart-context";
 import { useWishlist } from "@/lib/wishlist-context";
 import { useActiveCategory } from "@/lib/active-category-context";
 import LoginModal from "@/components/auth/LoginModal";
+import { useTheme } from "@/lib/theme-context";
 
 interface HeaderProps {
   categoryTree?: Category[];
@@ -39,6 +42,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
   const { isLoggedIn, user, logout } = useAuth();
   const { itemCount } = useCart();
   const { itemCount: wishlistCount } = useWishlist();
+  const { theme, toggleTheme } = useTheme();
 
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -94,7 +98,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
+      <header className="sticky top-0 z-50 w-full bg-white dark:bg-dark shadow-sm dark:shadow-dark/50">
         {/* Top Bar - hidden on mobile */}
         <div className="hidden bg-dark text-white md:block">
           <div className="mx-auto flex max-w-360 items-stretch justify-between px-6 text-sm">
@@ -153,20 +157,25 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
         </div>
 
         {/* Middle Bar - Logo, Search, Icons */}
-        <div className="border-b border-gray-border">
+        <div className="border-b border-gray-border dark:border-gray-700">
           <div className="mx-auto flex max-w-360 items-center justify-between gap-4 px-6 py-3">
             {/* Mobile hamburger + Logo */}
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setMobileDrawerOpen(true)}
-                className="flex items-center justify-center text-dark md:hidden"
+                className="flex items-center justify-center text-dark dark:text-gray-200 md:hidden"
                 aria-label={t("nav.menu")}
               >
                 <Menu size={22} />
               </button>
               <Link href="/" className="shrink-0">
                 <div className="flex items-center gap-1.5">
-                  <Image src={"/logo.svg"} height={48} width={150} alt="qafila" />
+                  <Image
+                    src={theme === "dark" ? "/logo-footer.svg" : "/logo.svg"}
+                    height={48}
+                    width={150}
+                    alt="qafila"
+                  />
                 </div>
               </Link>
             </div>
@@ -180,7 +189,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
               <input
                 type="text"
                 placeholder={t("search.placeholder")}
-                className="w-full rounded-full border border-gray-border bg-gray-light py-2.5 pe-4 ps-10 text-sm outline-none transition-colors focus:border-primary"
+                className="w-full rounded-full border border-gray-border bg-gray-light py-2.5 pe-4 ps-10 text-sm outline-none transition-colors focus:border-primary dark:bg-dark dark:border-gray-800 dark:text-gray-100 dark:placeholder:text-gray-400"
               />
             </div>
 
@@ -188,14 +197,14 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             <div className="flex items-center gap-5">
               <Link
                 href="/stories"
-                className="hidden items-center gap-1.5 text-sm text-dark md:flex"
+                className="hidden items-center gap-1.5 text-sm text-dark dark:text-gray-200 md:flex"
               >
                 <Clapperboard size={18} />
                 <span>{t("header.stories")}</span>
               </Link>
               <Link
                 href="/profile/wishlist"
-                className="relative flex items-center gap-1.5 text-sm text-dark"
+                className="relative flex items-center gap-1.5 text-sm text-dark dark:text-gray-200"
               >
                 <Heart size={18} />
                 <span className="hidden md:inline">{t("header.wishlist")}</span>
@@ -207,7 +216,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
               </Link>
               <Link
                 href="/cart"
-                className="relative flex items-center gap-1.5 text-sm text-dark"
+                className="relative flex items-center gap-1.5 text-sm text-dark dark:text-gray-200"
               >
                 <ShoppingBasket size={18} />
                 <span className="hidden md:inline">{t("header.cart")}</span>
@@ -219,27 +228,39 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
               </Link>
 
               {/* Divider */}
-              <div className="hidden h-5 w-px bg-gray-border md:block" />
+              <div className="hidden h-5 w-px bg-gray-border dark:bg-gray-700 md:block" />
 
               {/* Notifications */}
               <Link
                 href="/profile/notifications"
-                className="relative hidden text-dark md:block"
+                className="relative hidden text-dark dark:text-gray-200 md:block"
               >
                 <Bell size={18} />
               </Link>
 
               {/* Divider */}
-              <div className="hidden h-5 w-px bg-gray-border md:block" />
+              <div className="hidden h-5 w-px bg-gray-border dark:bg-gray-700 md:block" />
+
+              {/* Dark mode toggle */}
+              <button
+                onClick={toggleTheme}
+                className="hidden items-center text-dark dark:text-gray-200 md:flex"
+                aria-label="Toggle dark mode"
+              >
+                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+
+              {/* Divider */}
+              <div className="hidden h-5 w-px bg-gray-border dark:bg-gray-700 md:block" />
 
               {/* Login / User dropdown */}
               <div className="relative" ref={loginDropdownRef}>
                 <button
                   onClick={() => setLoginDropdownOpen(!loginDropdownOpen)}
-                  className="flex items-center gap-1.5 text-sm text-dark cursor-pointer"
+                  className="flex items-center gap-1.5 text-sm text-dark dark:text-gray-200 cursor-pointer"
                 >
                   {isLoggedIn ? (
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-xs font-semibold text-dark">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-xs font-semibold text-dark dark:text-gray-200">
                       {(user?.firstName?.[0] || "").toUpperCase()}
                       {(user?.lastName?.[0] || "").toUpperCase()}
                     </span>
@@ -255,15 +276,15 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
                 </button>
 
                 {loginDropdownOpen && (
-                  <div className="absolute end-0 top-full mt-3 w-72 rounded-xl bg-white shadow-lg ring-1 ring-gray-border z-10">
+                  <div className="absolute end-0 top-full mt-3 w-72 rounded-xl bg-white dark:bg-dark shadow-lg ring-1 ring-gray-border dark:ring-gray-700 z-10">
                     {/* Arrow */}
-                    <div className="absolute -top-1.5 end-5 h-3 w-3 rotate-45 border-s border-t border-gray-border bg-white" />
+                    <div className="absolute -top-1.5 end-5 h-3 w-3 rotate-45 border-s border-t border-gray-border dark:border-gray-700 bg-white dark:bg-dark" />
 
                     {isLoggedIn ? (
                       <>
                         {/* Greeting */}
                         <div className="px-5 pb-4 pt-5">
-                          <p className="text-lg font-semibold text-dark">
+                          <p className="text-lg font-semibold text-dark dark:text-gray-100">
                             {t("auth.greeting", {
                               name: user?.firstName || "",
                             })}{" "}
@@ -290,7 +311,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
                           <Link
                             key={item.href}
                             href={item.href}
-                            className={`flex items-center justify-between ${i !== 0 ? "border-t" : ""} border-gray-border px-5 py-3.5 text-sm font-medium text-dark hover:bg-gray-50`}
+                            className={`flex items-center justify-between ${i !== 0 ? "border-t" : ""} border-gray-border dark:border-gray-700 px-5 py-3.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80`}
                             onClick={() => setLoginDropdownOpen(false)}
                           >
                             {item.label}
@@ -304,7 +325,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
                             logout();
                             setLoginDropdownOpen(false);
                           }}
-                          className="w-full border-t border-gray-border px-5 py-3.5 text-start text-sm text-gray-text hover:bg-gray-50"
+                          className="w-full border-t border-gray-border dark:border-gray-700 px-5 py-3.5 text-start text-sm text-gray-text hover:bg-gray-50 dark:hover:bg-dark/80"
                         >
                           {t("auth.logout")}
                         </button>
@@ -323,14 +344,14 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
                           </button>
                         </div>
                         <div className="px-3 pb-2">
-                          <button className="w-full rounded-md border border-gray-border py-2.5 text-xs font-semibold text-dark transition-colors hover:bg-gray-50">
+                          <button className="w-full rounded-md border border-gray-border dark:border-gray-600 py-2.5 text-xs font-semibold text-dark dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80">
                             {t("auth.becomeSeller")}
                           </button>
                         </div>
-                        <div className="border-t border-gray-border">
+                        <div className="border-t border-gray-border dark:border-gray-700">
                           <Link
                             href="#"
-                            className="flex items-center justify-between px-4 py-2.5 text-sm text-dark hover:bg-gray-50"
+                            className="flex items-center justify-between px-4 py-2.5 text-sm text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
                             onClick={() => setLoginDropdownOpen(false)}
                           >
                             <span className="flex items-center gap-2">
@@ -350,11 +371,11 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
         </div>
 
         {/* Navigation - hidden on mobile */}
-        <div className="relative hidden border-b border-gray-border md:block">
+        <div className="relative hidden border-b border-gray-border dark:border-gray-700 md:block">
           <div className="mx-auto flex max-w-360 items-center gap-1 px-6 py-2">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="flex items-center gap-1.5 rounded px-3 py-1.5 text-sm font-medium text-dark hover:bg-gray-50"
+              className="flex items-center gap-1.5 rounded px-3 py-1.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
             >
               <Menu size={16} />
               {t("nav.categories")}
@@ -365,7 +386,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             </button>
             <Link
               href="#"
-              className="rounded px-3 py-1.5 text-sm font-medium text-dark hover:bg-gray-50"
+              className="rounded px-3 py-1.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
             >
               {t("nav.exclusives")}
             </Link>
@@ -377,17 +398,17 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             </Link>
             <Link
               href="#"
-              className="rounded px-3 py-1.5 text-sm font-medium text-dark hover:bg-gray-50"
+              className="rounded px-3 py-1.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
             >
               {t("nav.limitedStock")}
             </Link>
             <Link
               href="#"
-              className="rounded px-3 py-1.5 text-sm font-medium text-dark hover:bg-gray-50"
+              className="rounded px-3 py-1.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
             >
               {t("nav.gifts")}
             </Link>
-            <button className="flex items-center gap-1 rounded px-3 py-1.5 text-sm font-medium text-dark hover:bg-gray-50">
+            <button className="flex items-center gap-1 rounded px-3 py-1.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80">
               {t("nav.saudiFashion")}
               <ChevronDown size={14} />
             </button>
@@ -421,22 +442,34 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
 
       {/* Mobile Drawer */}
       <div
-        className={`fixed inset-y-0 start-0 z-50 w-[300px] overflow-y-auto bg-white shadow-xl transition-transform duration-300 md:hidden ${
+        className={`fixed inset-y-0 start-0 z-50 w-[300px] overflow-y-auto bg-white dark:bg-dark shadow-xl transition-transform duration-300 md:hidden ${
           mobileDrawerOpen
             ? "translate-x-0 rtl:-translate-x-0"
             : "-translate-x-full rtl:translate-x-full"
         }`}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between border-b border-gray-border px-5 py-4">
-          <h2 className="text-base font-bold text-dark">{t("nav.menu")}</h2>
-          <button
-            type="button"
-            onClick={() => setMobileDrawerOpen(false)}
-            aria-label="Close"
-          >
-            <X size={20} className="text-gray-text" />
-          </button>
+        <div className="flex items-center justify-between border-b border-gray-border dark:border-gray-700 px-5 py-4">
+          <h2 className="text-base font-bold text-dark dark:text-gray-100">
+            {t("nav.menu")}
+          </h2>
+          <div className="flex items-center gap-3">
+            {/* Dark mode toggle - mobile */}
+            <button
+              onClick={toggleTheme}
+              className="text-dark dark:text-gray-200"
+              aria-label="Toggle dark mode"
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button
+              type="button"
+              onClick={() => setMobileDrawerOpen(false)}
+              aria-label="Close"
+            >
+              <X size={20} className="text-gray-text" />
+            </button>
+          </div>
         </div>
 
         {/* Drawer Search */}
@@ -449,7 +482,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             <input
               type="text"
               placeholder={t("search.placeholder")}
-              className="w-full rounded-full border border-gray-border bg-gray-light py-2.5 pe-4 ps-10 text-sm outline-none transition-colors focus:border-primary"
+              className="w-full rounded-full border border-gray-border bg-gray-light py-2.5 pe-4 ps-10 text-sm outline-none transition-colors focus:border-primary dark:bg-dark dark:border-gray-600 dark:text-gray-100 dark:placeholder:text-gray-400"
             />
           </div>
         </div>
@@ -460,7 +493,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             <li>
               <Link
                 href="#"
-                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
                 onClick={() => setMobileDrawerOpen(false)}
               >
                 {t("nav.exclusives")}
@@ -469,7 +502,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             <li>
               <Link
                 href="#"
-                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-primary hover:bg-gray-50"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-primary hover:bg-gray-50 dark:hover:bg-dark/80"
                 onClick={() => setMobileDrawerOpen(false)}
               >
                 {t("nav.hotSales")}
@@ -478,7 +511,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             <li>
               <Link
                 href="#"
-                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
                 onClick={() => setMobileDrawerOpen(false)}
               >
                 {t("nav.limitedStock")}
@@ -487,7 +520,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             <li>
               <Link
                 href="#"
-                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
                 onClick={() => setMobileDrawerOpen(false)}
               >
                 {t("nav.gifts")}
@@ -496,7 +529,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             <li>
               <Link
                 href="#"
-                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
                 onClick={() => setMobileDrawerOpen(false)}
               >
                 {t("nav.saudiFashion")}
@@ -515,7 +548,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
         </nav>
 
         {/* Divider */}
-        <div className="mx-5 border-t border-gray-border" />
+        <div className="mx-5 border-t border-gray-border dark:border-gray-700" />
 
         {/* Stories & Notifications */}
         <div className="px-5 py-3">
@@ -523,7 +556,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             <li>
               <Link
                 href="/stories"
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
                 onClick={() => setMobileDrawerOpen(false)}
               >
                 <Clapperboard size={18} />
@@ -533,7 +566,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
             <li>
               <Link
                 href="/profile/notifications"
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-dark hover:bg-gray-50"
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
                 onClick={() => setMobileDrawerOpen(false)}
               >
                 <Bell size={18} />
@@ -544,7 +577,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
         </div>
 
         {/* Divider */}
-        <div className="mx-5 border-t border-gray-border" />
+        <div className="mx-5 border-t border-gray-border dark:border-gray-700" />
 
         {/* Category Tabs */}
         {rootTabs.length > 0 && (
@@ -560,7 +593,7 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
                     className={`flex w-full items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                       activeRootSlug === cat.slug
                         ? "bg-dark text-white"
-                        : "text-dark hover:bg-gray-50"
+                        : "text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
                     }`}
                   >
                     {locale === "ar" ? cat.nameAr || cat.name : cat.name}
@@ -572,18 +605,18 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
         )}
 
         {/* Divider */}
-        <div className="mx-5 border-t border-gray-border" />
+        <div className="mx-5 border-t border-gray-border dark:border-gray-700" />
 
         {/* Language Switcher */}
         <div className="px-5 py-3">
           <div className="flex items-center gap-3 px-3 py-2">
-            <Globe size={18} className="text-dark" />
+            <Globe size={18} className="text-dark dark:text-gray-200" />
             <button
               onClick={() => {
                 switchLocale(locale === "en" ? "ar" : "en");
                 setMobileDrawerOpen(false);
               }}
-              className="text-sm font-medium text-dark"
+              className="text-sm font-medium text-dark dark:text-gray-200"
             >
               {locale === "en" ? t("topBar.arabic") : t("topBar.english")}
             </button>

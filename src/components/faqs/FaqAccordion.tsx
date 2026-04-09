@@ -30,11 +30,11 @@ export default function FaqAccordion({
     <div className="space-y-8">
       {categories.map((category) => (
         <section key={category.id}>
-          <h2 className="mb-2 text-base font-semibold text-[--color-dark]">
+          <h2 className="mb-2 text-base font-semibold text-dark dark:text-gray-100">
             {category.name}
           </h2>
 
-          <div className="divide-y divide-gray-200 border-t border-gray-200">
+          <div className="divide-y divide-gray-200 dark:divide-gray-700 border-t border-gray-200 dark:border-gray-700">
             {category.items.map((item) => {
               const isOpen = openId === item.id;
               return (
@@ -42,7 +42,7 @@ export default function FaqAccordion({
                   <button
                     type="button"
                     onClick={() => toggle(item.id)}
-                    className="flex w-full items-center justify-between py-4 text-start text-sm text-[--color-dark] transition-colors hover:text-[--color-primary]"
+                    className="flex w-full items-center justify-between py-4 text-start text-sm text-dark dark:text-gray-200 transition-colors hover:text-primary"
                   >
                     <span className="pe-4 font-medium">{item.question}</span>
                     <ChevronDown

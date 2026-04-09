@@ -42,7 +42,7 @@ export default function SortDropdown({
       <select
         value={currentValue}
         onChange={handleChange}
-        className="rounded-lg border border-gray-border bg-white px-3 py-1.5 text-xs text-dark outline-none focus:border-primary"
+        className="rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-3 py-1.5 text-xs text-dark dark:text-gray-200 outline-none focus:border-primary"
       >
         {SORT_OPTIONS.map((option) => (
           <option

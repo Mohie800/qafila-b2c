@@ -20,7 +20,7 @@ export default function RatingBreakdown({
     <div className="space-y-4">
       {/* Average rating */}
       <div>
-        <span className="text-4xl font-bold text-dark">
+        <span className="text-4xl font-bold text-dark dark:text-gray-100">
           {Number(averageRating).toFixed(1)}
         </span>
         <div className="mt-1 flex gap-0.5">
@@ -52,7 +52,7 @@ export default function RatingBreakdown({
                 {star}
               </span>
               <Star size={10} className="fill-star text-star" />
-              <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-100">
+              <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
                 <div
                   className="h-full rounded-full bg-star transition-all"
                   style={{ width: `${pct}%` }}

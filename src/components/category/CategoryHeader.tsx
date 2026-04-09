@@ -26,8 +26,8 @@ export default function CategoryHeader({
   return (
     <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
       <div>
-        <h1 className="text-xl font-bold text-dark">{title}</h1>
-        <p className="mt-0.5 text-xs text-gray-text">
+        <h1 className="text-xl font-bold text-dark dark:text-gray-100">{title}</h1>
+        <p className="mt-0.5 text-xs text-gray-text dark:text-gray-400">
           {t("showedResults", { count: totalResults })}
         </p>
       </div>
@@ -36,7 +36,7 @@ export default function CategoryHeader({
         <button
           type="button"
           onClick={onOpenFilters}
-          className="flex items-center gap-1.5 rounded-lg border border-gray-border px-3 py-1.5 text-xs text-dark lg:hidden"
+          className="flex items-center gap-1.5 rounded-lg border border-gray-border dark:border-gray-700 px-3 py-1.5 text-xs text-dark dark:text-gray-200 lg:hidden"
         >
           <SlidersHorizontal size={14} />
           {t("filters.showFilters")}

@@ -41,7 +41,7 @@ export default function AddressCard({
       className={`relative rounded-xl border p-4 transition-colors ${
         address.isDefault
           ? "border-primary bg-primary/5"
-          : "border-gray-border hover:border-gray-text/30"
+          : "border-gray-border dark:border-gray-700 hover:border-gray-text/30"
       }`}
     >
       {/* Header row */}
@@ -49,14 +49,14 @@ export default function AddressCard({
         <div className="flex items-center gap-2">
           <div
             className={`flex h-8 w-8 items-center justify-center rounded-full ${
-              address.isDefault ? "bg-primary/10 text-primary" : "bg-gray-100 text-gray-text"
+              address.isDefault ? "bg-primary/10 text-primary" : "bg-gray-100 dark:bg-gray-700 text-gray-text"
             }`}
           >
             <TypeIcon size={16} />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold text-dark">
+              <span className="text-sm font-semibold text-dark dark:text-gray-100">
                 {t(`types.${address.type}`)}
               </span>
               {address.isDefault && (
@@ -76,7 +76,7 @@ export default function AddressCard({
         <div className="flex items-center gap-1">
           <button
             onClick={() => onEdit(address)}
-            className="rounded-lg p-1.5 text-gray-text transition-colors hover:bg-gray-100 hover:text-dark"
+            className="rounded-lg p-1.5 text-gray-text transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-dark"
             title={t("edit")}
           >
             <Pencil size={14} />
@@ -93,7 +93,7 @@ export default function AddressCard({
 
       {/* Address details */}
       <div className="mt-3 space-y-1 ps-10">
-        <p className="text-sm text-dark">
+        <p className="text-sm text-dark dark:text-gray-200">
           {address.street}
           {address.apartmentNo && `, ${address.apartmentNo}`}
         </p>

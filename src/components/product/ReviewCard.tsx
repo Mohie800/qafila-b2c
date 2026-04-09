@@ -133,9 +133,7 @@ export default function ReviewCard({
       setEditing(false);
       onReviewChanged();
     } catch (err) {
-      setEditError(
-        err instanceof Error ? err.message : t("reviewError"),
-      );
+      setEditError(err instanceof Error ? err.message : t("reviewError"));
     } finally {
       setEditSaving(false);
     }
@@ -159,19 +157,19 @@ export default function ReviewCard({
 
   if (deleting) {
     return (
-      <div className="border-b border-gray-100 py-5 text-center text-xs text-gray-text opacity-50">
+      <div className="border-b border-gray-100 dark:border-gray-700 py-5 text-center text-xs text-gray-text opacity-50">
         {t("reviewDeleted")}
       </div>
     );
   }
 
   return (
-    <div className="border-b border-gray-100 py-5 last:border-b-0">
+    <div className="border-b border-gray-100 dark:border-gray-700 py-5 last:border-b-0">
       {/* Header: avatar + name + date + owner menu */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           {/* Avatar */}
-          <div className="relative flex h-9 w-9 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-100">
+          <div className="relative flex h-9 w-9 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
             {review.userAvatar ? (
               <Image
                 src={getMediaUrl(review.userAvatar) || review.userAvatar}
@@ -189,7 +187,7 @@ export default function ReviewCard({
 
           <div>
             <div className="flex items-center gap-2">
-              <p className="text-sm font-semibold text-dark">
+              <p className="text-sm font-semibold text-dark dark:text-gray-100">
                 {review.userName}
               </p>
               {review.isVerifiedPurchase && (
@@ -226,7 +224,7 @@ export default function ReviewCard({
             <div className="relative">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="rounded p-1 text-gray-text transition-colors hover:bg-gray-50 hover:text-dark"
+                className="rounded p-1 text-gray-text transition-colors hover:bg-gray-50 dark:hover:bg-dark/80 hover:text-dark dark:hover:text-gray-100"
               >
                 <EllipsisVertical size={14} />
               </button>
@@ -236,7 +234,7 @@ export default function ReviewCard({
                     className="fixed inset-0 z-10"
                     onClick={() => setMenuOpen(false)}
                   />
-                  <div className="absolute end-0 top-full z-20 mt-1 min-w-[140px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
+                  <div className="absolute end-0 top-full z-20 mt-1 min-w-[140px] rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-dark py-1 shadow-lg">
                     <button
                       onClick={handleStartEdit}
                       className="flex w-full items-center gap-2 px-3 py-2 text-start text-xs text-dark transition-colors hover:bg-gray-50"
@@ -294,7 +292,7 @@ export default function ReviewCard({
               onChange={(e) => setEditTitle(e.target.value)}
               placeholder={t("reviewTitlePlaceholder")}
               maxLength={200}
-              className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none transition-colors placeholder:text-gray-300 focus:border-primary"
+              className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-dark px-3 py-2 text-sm text-dark dark:text-gray-200 outline-none transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-500 focus:border-primary"
             />
 
             {/* Content */}
@@ -304,12 +302,10 @@ export default function ReviewCard({
               placeholder={t("reviewContentPlaceholder")}
               maxLength={5000}
               rows={3}
-              className="w-full resize-none rounded-lg border border-gray-200 px-3 py-2 text-sm leading-relaxed outline-none transition-colors placeholder:text-gray-300 focus:border-primary"
+              className="w-full resize-none rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-dark px-3 py-2 text-sm text-dark dark:text-gray-200 leading-relaxed outline-none transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-500 focus:border-primary"
             />
 
-            {editError && (
-              <p className="text-xs text-discount">{editError}</p>
-            )}
+            {editError && <p className="text-xs text-discount">{editError}</p>}
 
             {/* Edit actions */}
             <div className="flex gap-2">
@@ -323,7 +319,7 @@ export default function ReviewCard({
               <button
                 onClick={() => setEditing(false)}
                 disabled={editSaving}
-                className="rounded-lg border border-gray-200 px-4 py-2 text-xs font-medium text-gray-text transition-colors hover:bg-gray-50 disabled:opacity-50"
+                className="rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-2 text-xs font-medium text-gray-text transition-colors hover:bg-gray-50 dark:hover:bg-dark/80 disabled:opacity-50"
               >
                 {t("cancel")}
               </button>
@@ -333,11 +329,11 @@ export default function ReviewCard({
           /* ── Read mode ── */
           <>
             {review.title && (
-              <p className="mb-1 text-sm font-semibold text-dark">
+              <p className="mb-1 text-sm font-semibold text-dark dark:text-gray-100">
                 {review.title}
               </p>
             )}
-            <p className="text-sm leading-relaxed text-gray-text">
+            <p className="text-sm leading-relaxed text-gray-text dark:text-gray-400 whitespace-pre-wrap">
               {review.comment}
             </p>
 
@@ -352,7 +348,7 @@ export default function ReviewCard({
                       .map((img) => (
                         <div
                           key={img.id}
-                          className="relative h-16 w-16 overflow-hidden rounded-lg bg-gray-100"
+                          className="relative h-16 w-16 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700"
                         >
                           <Image
                             src={getMediaUrl(img.url) || img.url}
@@ -375,7 +371,7 @@ export default function ReviewCard({
                           key={vid.id}
                           src={getMediaUrl(vid.url) || vid.url}
                           controls
-                          className="h-24 w-36 rounded-lg bg-gray-100 object-cover"
+                          className="h-24 w-36 rounded-lg bg-gray-100 dark:bg-gray-700 object-cover"
                         />
                       ))}
                   </div>
@@ -408,10 +404,7 @@ export default function ReviewCard({
                   liked ? "text-primary" : "text-gray-text hover:text-dark"
                 } disabled:opacity-50`}
               >
-                <ThumbsUp
-                  size={14}
-                  className={liked ? "fill-primary" : ""}
-                />
+                <ThumbsUp size={14} className={liked ? "fill-primary" : ""} />
                 <span className="text-xs">
                   {t("helpful")}
                   {helpfulCount > 0 && ` (${helpfulCount})`}

@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Dark mode: toggle via .dark class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --color-primary: #e8983a;
   --color-primary-hover: #c96a25;
@@ -22,6 +25,12 @@
 body {
   background: #ffffff;
   color: #1a1a1a;
+}
+
+/* Dark mode base */
+.dark body {
+  background-color: #0f0f0f;
+  color: #f0f0f0;
 }
 
 /* Scrollbar hide for carousels */

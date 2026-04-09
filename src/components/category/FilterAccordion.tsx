@@ -17,10 +17,10 @@ export default function FilterAccordion({
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="border-b border-gray-border py-4">
+    <div className="border-b border-gray-border dark:border-gray-700 py-4">
       <button
         type="button"
-        className="flex w-full items-center justify-between text-sm font-semibold text-dark"
+        className="flex w-full items-center justify-between text-sm font-semibold text-dark dark:text-gray-200"
         onClick={() => setIsOpen(!isOpen)}
       >
         {title}

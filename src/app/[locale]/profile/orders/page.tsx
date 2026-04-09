@@ -104,7 +104,7 @@ export default function OrdersPage() {
       <h1 className="mb-6 text-xl font-bold text-dark">{t("title")}</h1>
 
       {/* Tabs */}
-      <div className="mb-6 flex gap-1 rounded-lg border border-gray-border bg-gray-light p-1">
+      <div className="mb-6 flex gap-1 rounded-lg border border-gray-border dark:border-gray-700 bg-gray-light dark:bg-dark p-1">
         {STATUS_TABS.map((tab) => (
           <button
             key={tab}
@@ -114,7 +114,7 @@ export default function OrdersPage() {
             }}
             className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
               activeTab === tab
-                ? "bg-white text-dark shadow-sm"
+                ? "bg-white dark:bg-dark/50 text-dark dark:text-gray-100 shadow-sm"
                 : "text-gray-text hover:text-dark"
             }`}
           >
@@ -155,7 +155,7 @@ export default function OrdersPage() {
               <Link
                 key={order.id}
                 href={`/profile/orders/${order.id}`}
-                className="flex items-center gap-4 rounded-xl border border-gray-border bg-white p-4 transition-colors hover:border-gray-text"
+                className="flex items-center gap-4 rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-4 transition-colors hover:border-gray-text"
               >
                 {/* Thumbnail */}
                 <div className="relative h-16 w-14 shrink-0 overflow-hidden rounded-lg bg-gray-light">
@@ -177,7 +177,7 @@ export default function OrdersPage() {
                 {/* Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-dark">
+                    <span className="text-sm font-semibold text-dark dark:text-gray-100">
                       {t("orderNumber")} #{order.orderNumber.split("-").pop()}
                     </span>
                     <span
@@ -192,7 +192,7 @@ export default function OrdersPage() {
                       ? t("items", { count: itemCount })
                       : t("item", { count: itemCount })}
                   </p>
-                  <p className="mt-1 text-sm font-bold text-dark" dir="ltr">
+                  <p className="mt-1 text-sm font-bold text-dark dark:text-gray-100" dir="ltr">
                     <SarIcon /> {Number(order.total).toFixed(2)}
                   </p>
                 </div>

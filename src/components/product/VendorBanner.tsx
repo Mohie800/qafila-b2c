@@ -36,10 +36,10 @@ export default function VendorBanner({ vendor }: Props) {
     <section className="mt-12">
       <Link
         href={`/vendors/${vendor.slug}`}
-        className="flex items-center gap-4 rounded-xl bg-[#FFF5EB] px-5 py-4 transition-shadow hover:shadow-md"
+        className="flex items-center gap-4 rounded-xl bg-[#FFF5EB] dark:bg-dark px-5 py-4 transition-shadow hover:shadow-md"
       >
         {/* Avatar */}
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-200">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           {vendor.logo ? (
             <img
               src={vendor.logo}
@@ -54,7 +54,7 @@ export default function VendorBanner({ vendor }: Props) {
         {/* Info */}
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
-            <span className="truncate text-sm font-bold text-dark">
+            <span className="truncate text-sm font-bold text-dark dark:text-gray-100">
               {vendor.storeName}
             </span>
             <BadgeCheck size={16} className="shrink-0 fill-blue-500 text-white" />
@@ -101,7 +101,7 @@ export default function VendorBanner({ vendor }: Props) {
             e.stopPropagation();
             // TODO: follow/unfollow API
           }}
-          className="shrink-0 rounded-full border border-dark px-5 py-1.5 text-xs font-semibold text-dark transition-colors hover:bg-dark hover:text-white"
+          className="shrink-0 rounded-full border border-dark dark:border-gray-500 px-5 py-1.5 text-xs font-semibold text-dark dark:text-gray-200 transition-colors hover:bg-dark hover:text-white dark:hover:bg-gray-700"
         >
           {t("follow")}
         </button>

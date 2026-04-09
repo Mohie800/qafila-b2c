@@ -24,7 +24,7 @@ export default function Carousel({ children, className = "" }: CarouselProps) {
     <div className="group relative">
       <button
         onClick={() => scroll("left")}
-        className="absolute -start-4 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition-opacity group-hover:flex hover:bg-gray-50"
+        className="absolute -start-4 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white dark:bg-gray-700 shadow-md dark:shadow-gray-900 transition-opacity group-hover:flex hover:bg-gray-50 dark:hover:bg-gray-600 text-dark dark:text-gray-200"
         aria-label="Scroll left"
       >
         <ChevronLeft size={20} className="rtl:rotate-180" />
@@ -39,7 +39,7 @@ export default function Carousel({ children, className = "" }: CarouselProps) {
 
       <button
         onClick={() => scroll("right")}
-        className="absolute -end-4 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md transition-opacity group-hover:flex hover:bg-gray-50"
+        className="absolute -end-4 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white dark:bg-gray-700 shadow-md dark:shadow-gray-900 transition-opacity group-hover:flex hover:bg-gray-50 dark:hover:bg-gray-600 text-dark dark:text-gray-200"
         aria-label="Scroll right"
       >
         <ChevronRight size={20} className="rtl:rotate-180" />

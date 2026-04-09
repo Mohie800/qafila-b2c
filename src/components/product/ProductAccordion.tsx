@@ -21,14 +21,14 @@ export default function ProductAccordion({
   const [openId, setOpenId] = useState<string | null>(defaultOpen ?? null);
 
   return (
-    <div className="divide-y divide-gray-border border-t border-gray-border">
+    <div className="divide-y divide-gray-border dark:divide-gray-700 border-t border-gray-border dark:border-gray-700">
       {sections.map((section) => {
         const isOpen = openId === section.id;
         return (
           <div key={section.id}>
             <button
               onClick={() => setOpenId(isOpen ? null : section.id)}
-              className="flex w-full items-center justify-between py-3.5 text-sm font-semibold text-dark"
+              className="flex w-full items-center justify-between py-3.5 text-sm font-semibold text-dark dark:text-gray-200"
               aria-expanded={isOpen}
             >
               {section.title}

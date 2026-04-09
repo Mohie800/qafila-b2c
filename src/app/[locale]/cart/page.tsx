@@ -33,7 +33,7 @@ export default function CartPage() {
           className="mb-8"
           priority
         />
-        <h1 className="mb-3 text-2xl font-bold text-dark">{t("cart.empty")}</h1>
+        <h1 className="mb-3 text-2xl font-bold text-dark dark:text-gray-100">{t("cart.empty")}</h1>
         <p className="mb-8 max-w-md text-center text-gray-text">
           {t("cart.emptyDescription")}
         </p>
@@ -53,7 +53,7 @@ export default function CartPage() {
     <div className="mx-auto max-w-360 px-4 py-8 sm:px-6">
       {/* Title */}
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-dark">
+        <h1 className="text-2xl font-bold text-dark dark:text-gray-100">
           {t("cart.title")}{" "}
           <span className="text-base font-normal text-gray-text">
             (
@@ -68,7 +68,7 @@ export default function CartPage() {
       <div className="grid gap-8 lg:grid-cols-3">
         {/* Cart items */}
         <div className="lg:col-span-2">
-          <div className="divide-y divide-gray-border rounded-xl border border-gray-border bg-white">
+          <div className="divide-y divide-gray-border dark:divide-gray-700 rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark">
             {items.map((item) => (
               <CartItemRow key={item.id} item={item} locale={locale} />
             ))}

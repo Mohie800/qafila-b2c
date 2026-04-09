@@ -16,10 +16,10 @@ export default async function BestSeller({ products }: Props) {
     <section className="mx-4 max-w-360 px-0 py-6 md:mx-20">
       {/* Header */}
       <div className="mb-5 flex items-center justify-between">
-        <h2 className="text-xl font-bold text-dark">{t("title")}</h2>
+        <h2 className="text-xl font-bold text-dark dark:text-gray-100">{t("title")}</h2>
         <Link
           href="#"
-          className="flex items-center gap-1 text-sm text-gray-text transition-colors hover:text-dark"
+          className="flex items-center gap-1 text-sm text-gray-text transition-colors hover:text-dark dark:hover:text-gray-200"
         >
           {t("seeAll")}
           <span className="rtl:rotate-180">›</span>

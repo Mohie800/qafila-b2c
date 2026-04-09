@@ -72,11 +72,11 @@ export default function ProfileSidebar() {
       {/* User card */}
       <Link
         href="/profile"
-        className="flex items-center gap-3 rounded-xl border border-gray-border p-4 transition-colors hover:bg-gray-50"
+        className="flex items-center gap-3 rounded-xl border border-gray-border dark:border-gray-700 p-4 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80"
       >
         {/* Avatar with completion ring */}
         <div className="relative">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-100">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
             <span className="text-base font-bold text-gray-text">
               {initials}
             </span>
@@ -88,7 +88,7 @@ export default function ProfileSidebar() {
         </div>
 
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-dark truncate">{fullName}</p>
+          <p className="text-sm font-semibold text-dark dark:text-gray-100 truncate">{fullName}</p>
           {user.email && (
             <p className="text-xs text-gray-text truncate">{user.email}</p>
           )}
@@ -104,7 +104,7 @@ export default function ProfileSidebar() {
       </Link>
 
       {/* Notifications */}
-      <div className="mt-3 rounded-xl border border-gray-border">
+      <div className="mt-3 rounded-xl border border-gray-border dark:border-gray-700">
         <SidebarLink
           href="/profile/notifications"
           icon={<Bell size={20} />}
@@ -114,7 +114,7 @@ export default function ProfileSidebar() {
       </div>
 
       {/* Main nav group */}
-      <div className="mt-3 rounded-xl border border-gray-border divide-y divide-gray-border">
+      <div className="mt-3 rounded-xl border border-gray-border dark:border-gray-700 divide-y divide-gray-border dark:divide-gray-700">
         <SidebarLink
           href="/profile/wishlist"
           icon={<Heart size={20} />}
@@ -138,7 +138,7 @@ export default function ProfileSidebar() {
       </div>
 
       {/* Info group */}
-      <div className="mt-3 rounded-xl border border-gray-border divide-y divide-gray-border">
+      <div className="mt-3 rounded-xl border border-gray-border dark:border-gray-700 divide-y divide-gray-border dark:divide-gray-700">
         <SidebarLink
           href="/profile"
           icon={<PhoneCall size={20} />}
@@ -157,13 +157,13 @@ export default function ProfileSidebar() {
       </div>
 
       {/* Logout */}
-      <div className="mt-3 rounded-xl border border-gray-border">
+      <div className="mt-3 rounded-xl border border-gray-border dark:border-gray-700">
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 px-4 py-3 transition-colors hover:bg-gray-50"
+          className="flex w-full items-center gap-3 px-4 py-3 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80"
         >
-          <LogOut size={20} className="shrink-0 text-dark" />
-          <span className="text-sm font-medium text-dark">
+          <LogOut size={20} className="shrink-0 text-dark dark:text-gray-200" />
+          <span className="text-sm font-medium text-dark dark:text-gray-200">
             {t("sidebar.logout")}
           </span>
         </button>
@@ -192,16 +192,16 @@ function SidebarLink({
   return (
     <Link
       href={href}
-      className={`flex items-center gap-3 px-4 py-3 transition-colors hover:bg-gray-50 ${
+      className={`flex items-center gap-3 px-4 py-3 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80 ${
         isActive ? "bg-primary/5" : ""
       }`}
     >
-      <span className={`shrink-0 ${isActive ? "text-primary" : "text-dark"}`}>
+      <span className={`shrink-0 ${isActive ? "text-primary" : "text-dark dark:text-gray-200"}`}>
         {icon}
       </span>
       <div className="flex-1">
         <span
-          className={`text-sm font-medium ${isActive ? "text-primary" : "text-dark"}`}
+          className={`text-sm font-medium ${isActive ? "text-primary" : "text-dark dark:text-gray-200"}`}
         >
           {label}
         </span>

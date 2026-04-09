@@ -59,12 +59,12 @@ export default function ProductCard({
 
   const content = (
     <div
-      className={` cursor-pointer rounded-lg bg-white border border-gray-200  h-full ${
+      className={` cursor-pointer rounded-lg bg-white dark:bg-dark border border-gray-200 dark:border-gray-700  h-full ${
         variant === "grid" ? "w-full" : "min-w-57.5 max-w-62.5 shrink-0"
       }`}
     >
       {/* Image */}
-      <div className="relative mb-2.5 min-h-80 overflow-hidden rounded-t-lg bg-gray-100">
+      <div className="relative mb-2.5 min-h-80 overflow-hidden rounded-t-lg bg-gray-100 dark:bg-dark">
         {product.badge && (
           <span className="absolute start-2.5 top-2.5 z-10 rounded bg-discount px-2 py-0.5 text-[10px] font-bold uppercase text-white">
             {product.badge}
@@ -105,7 +105,7 @@ export default function ProductCard({
 
       {/* Info */}
       <div className="space-y-1 p-1.5">
-        <h3 className="text-xs font-bold uppercase tracking-wide text-dark">
+        <h3 className="text-xs font-bold uppercase tracking-wide text-dark dark:text-gray-100">
           {product.name}
         </h3>
         <p className="truncate text-[11px] text-gray-text">
@@ -135,7 +135,10 @@ export default function ProductCard({
 
         {/* Price */}
         <div className="flex items-center gap-2">
-          <span className="text-sm font-bold text-dark" dir="ltr">
+          <span
+            className="text-sm font-bold text-dark dark:text-gray-100"
+            dir="ltr"
+          >
             <SarIcon /> {Number(product.price).toFixed(1)}
           </span>
           {product.originalPrice && (

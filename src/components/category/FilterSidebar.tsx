@@ -59,7 +59,7 @@ export default function FilterSidebar({
   return (
     <div className={className}>
       <div className="flex items-center justify-between pb-2">
-        <h2 className="text-sm font-bold text-dark">{t("title")}</h2>
+        <h2 className="text-sm font-bold text-dark dark:text-gray-200">{t("title")}</h2>
         {hasActiveFilters && (
           <button
             type="button"

@@ -91,7 +91,7 @@ export default function ProfileForm() {
   return (
     <div>
       {/* Header */}
-      <h1 className="text-xl font-bold text-dark">{t("title")}</h1>
+      <h1 className="text-xl font-bold text-dark dark:text-gray-100">{t("title")}</h1>
       <p className="mt-1 text-sm text-gray-text">{t("subtitle")}</p>
 
       {/* Form */}
@@ -104,7 +104,7 @@ export default function ProfileForm() {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder={`${t("firstName")}*`}
-              className="w-full rounded-lg border border-gray-border px-4 py-3 text-sm outline-none transition-colors placeholder:text-gray-text focus:border-dark"
+              className="w-full rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-4 py-3 text-sm text-dark dark:text-gray-200 outline-none transition-colors placeholder:text-gray-text dark:placeholder:text-gray-500 focus:border-dark"
             />
           </div>
           <div>
@@ -113,14 +113,14 @@ export default function ProfileForm() {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder={`${t("lastName")}*`}
-              className="w-full rounded-lg border border-gray-border px-4 py-3 text-sm outline-none transition-colors placeholder:text-gray-text focus:border-dark"
+              className="w-full rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-4 py-3 text-sm text-dark dark:text-gray-200 outline-none transition-colors placeholder:text-gray-text dark:placeholder:text-gray-500 focus:border-dark"
             />
           </div>
         </div>
 
         {/* Phone Number (disabled) */}
-        <div className="flex items-center rounded-lg border border-gray-border bg-gray-50 px-4 py-3">
-          <div className="flex items-center gap-2 shrink-0 border-e border-gray-border pe-3 me-3">
+        <div className="flex items-center rounded-lg border border-gray-border dark:border-gray-700 bg-gray-50 dark:bg-dark px-4 py-3">
+          <div className="flex items-center gap-2 shrink-0 border-e border-gray-border dark:border-gray-700 pe-3 me-3">
             {/* Saudi flag emoji + code */}
             <span className="text-sm">🇸🇦</span>
             <span className="text-sm text-gray-text">+966</span>
@@ -131,7 +131,7 @@ export default function ProfileForm() {
               type="text"
               value={displayPhone}
               disabled
-              className="w-full bg-transparent text-sm text-dark outline-none"
+              className="w-full bg-transparent text-sm text-dark dark:text-gray-200 outline-none"
               placeholder={t("phonePlaceholder")}
             />
           </div>
@@ -150,7 +150,7 @@ export default function ProfileForm() {
 
         {/* Gender */}
         <div>
-          <p className="mb-2 text-sm text-dark">{t("gender")}</p>
+          <p className="mb-2 text-sm text-dark dark:text-gray-200">{t("gender")}</p>
           <div className="flex items-center gap-6">
             <label className="flex cursor-pointer items-center gap-2">
               <input
@@ -160,7 +160,7 @@ export default function ProfileForm() {
                 onChange={() => setGender("MALE")}
                 className="h-4 w-4 accent-dark"
               />
-              <span className="text-sm text-dark">{t("male")}</span>
+              <span className="text-sm text-dark dark:text-gray-200">{t("male")}</span>
             </label>
             <label className="flex cursor-pointer items-center gap-2">
               <input
@@ -170,7 +170,7 @@ export default function ProfileForm() {
                 onChange={() => setGender("FEMALE")}
                 className="h-4 w-4 accent-dark"
               />
-              <span className="text-sm text-dark">{t("female")}</span>
+              <span className="text-sm text-dark dark:text-gray-200">{t("female")}</span>
             </label>
           </div>
         </div>
@@ -182,7 +182,7 @@ export default function ProfileForm() {
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
             placeholder={t("birthDate")}
-            className="w-full rounded-lg border border-gray-border px-4 py-3 text-sm text-dark outline-none transition-colors [color-scheme:light] placeholder:text-gray-text focus:border-dark"
+            className="w-full rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-4 py-3 text-sm text-dark dark:text-gray-200 outline-none transition-colors [color-scheme:light] dark:[color-scheme:dark] placeholder:text-gray-text focus:border-dark"
           />
           <CalendarDays
             size={18}

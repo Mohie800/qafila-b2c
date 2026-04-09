@@ -100,7 +100,7 @@ export default function CheckoutPage() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 py-16">
         <CheckCircle size={64} className="mb-4 text-green" />
-        <h1 className="mb-2 text-2xl font-bold text-dark">
+        <h1 className="mb-2 text-2xl font-bold text-dark dark:text-gray-100">
           {t("checkout.orderPlaced")}
         </h1>
         <p className="mb-2 text-sm text-gray-text">
@@ -112,7 +112,7 @@ export default function CheckoutPage() {
         <div className="flex gap-3">
           <Link
             href="/"
-            className="rounded-full border border-gray-border px-6 py-3 text-sm font-semibold text-dark hover:bg-gray-50"
+            className="rounded-full border border-gray-border dark:border-gray-700 px-6 py-3 text-sm font-semibold text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
           >
             {t("checkout.continueShopping")}
           </Link>
@@ -157,7 +157,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="mx-auto max-w-360 px-4 py-8 sm:px-6">
-      <h1 className="mb-6 text-2xl font-bold text-dark">
+      <h1 className="mb-6 text-2xl font-bold text-dark dark:text-gray-100">
         {t("checkout.title")}
       </h1>
 
@@ -165,10 +165,10 @@ export default function CheckoutPage() {
         {/* Left column - Checkout form */}
         <div className="space-y-6 lg:col-span-2">
           {/* Shipping address */}
-          <div className="rounded-xl border border-gray-border bg-white p-6">
+          <div className="rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6">
             <div className="mb-4 flex items-center gap-2">
               <MapPin size={20} className="text-primary" />
-              <h2 className="text-lg font-bold text-dark">
+              <h2 className="text-lg font-bold text-dark dark:text-gray-100">
                 {t("checkout.shippingAddress")}
               </h2>
             </div>
@@ -234,10 +234,10 @@ export default function CheckoutPage() {
           </div>
 
           {/* Order notes */}
-          <div className="rounded-xl border border-gray-border bg-white p-6">
+          <div className="rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6">
             <div className="mb-4 flex items-center gap-2">
               <StickyNote size={20} className="text-primary" />
-              <h2 className="text-lg font-bold text-dark">
+              <h2 className="text-lg font-bold text-dark dark:text-gray-100">
                 {t("checkout.orderNotes")}
               </h2>
             </div>
@@ -247,15 +247,15 @@ export default function CheckoutPage() {
               placeholder={t("checkout.notesPlaceholder")}
               maxLength={500}
               rows={3}
-              className="w-full resize-none rounded-lg border border-gray-border p-3 text-sm outline-none transition-colors focus:border-primary"
+              className="w-full resize-none rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-3 text-sm text-dark dark:text-gray-200 outline-none transition-colors placeholder:text-gray-text dark:placeholder:text-gray-500 focus:border-primary"
             />
           </div>
 
           {/* Payment method */}
-          <div className="rounded-xl border border-gray-border bg-white p-6">
+          <div className="rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6">
             <div className="mb-4 flex items-center gap-2">
               <CreditCard size={20} className="text-primary" />
-              <h2 className="text-lg font-bold text-dark">
+              <h2 className="text-lg font-bold text-dark dark:text-gray-100">
                 {t("checkout.paymentMethod")}
               </h2>
             </div>
@@ -277,8 +277,8 @@ export default function CheckoutPage() {
 
         {/* Right column - Summary */}
         <div className="lg:col-span-1">
-          <div className="sticky top-40 rounded-xl border border-gray-border bg-white p-6">
-            <h2 className="mb-4 text-lg font-bold text-dark">
+          <div className="sticky top-40 rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6">
+            <h2 className="mb-4 text-lg font-bold text-dark dark:text-gray-100">
               {t("checkout.orderSummary")}
             </h2>
 
@@ -314,7 +314,7 @@ export default function CheckoutPage() {
               ))}
             </div>
 
-            <div className="space-y-2 border-t border-gray-border pt-4 text-sm">
+            <div className="space-y-2 border-t border-gray-border dark:border-gray-700 pt-4 text-sm">
               <div className="flex justify-between">
                 <span className="text-gray-text">{t("cart.subtotal")}</span>
                 <span dir="ltr">
@@ -327,9 +327,9 @@ export default function CheckoutPage() {
                   <SarIcon /> {summary!.taxAmount.toFixed(2)}
                 </span>
               </div>
-              <div className="flex justify-between border-t border-gray-border pt-2">
-                <span className="font-bold text-dark">{t("cart.total")}</span>
-                <span className="font-bold text-dark" dir="ltr">
+              <div className="flex justify-between border-t border-gray-border dark:border-gray-700 pt-2">
+                <span className="font-bold text-dark dark:text-gray-100">{t("cart.total")}</span>
+                <span className="font-bold text-dark dark:text-gray-100" dir="ltr">
                   <SarIcon /> {summary!.total.toFixed(2)}
                 </span>
               </div>

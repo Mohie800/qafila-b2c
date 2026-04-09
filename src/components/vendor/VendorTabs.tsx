@@ -31,7 +31,7 @@ export default function VendorTabs({
   ];
 
   return (
-    <div className="mb-6 border-b border-gray-200">
+    <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
       <div className="flex items-center justify-between gap-3">
         {/* Tabs */}
         <div className="flex gap-1 overflow-x-auto">
@@ -41,8 +41,8 @@ export default function VendorTabs({
               onClick={() => onTabChange(tab.key)}
               className={`whitespace-nowrap border-b-2 px-4 py-3 text-sm font-medium transition-colors ${
                 activeTab === tab.key
-                  ? "border-dark text-dark"
-                  : "border-transparent text-gray-text hover:text-dark"
+                  ? "border-dark text-dark dark:text-gray-100"
+                  : "border-transparent text-gray-text hover:text-dark dark:hover:text-gray-200"
               }`}
             >
               {tab.label}
@@ -53,7 +53,7 @@ export default function VendorTabs({
         {/* Search + Share */}
         <div className="flex shrink-0 items-center gap-2">
           {searchOpen ? (
-            <div className="flex items-center gap-2 rounded-lg border border-gray-border px-3 py-1.5">
+            <div className="flex items-center gap-2 rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-3 py-1.5">
               <Search size={14} className="text-gray-text" />
               <input
                 type="text"
@@ -70,7 +70,7 @@ export default function VendorTabs({
           ) : (
             <button
               onClick={() => setSearchOpen(true)}
-              className="rounded-lg border border-gray-border p-2 text-gray-text transition-colors hover:text-dark"
+              className="rounded-lg border border-gray-border dark:border-gray-700 p-2 text-gray-text transition-colors hover:text-dark dark:hover:text-gray-200"
             >
               <Search size={16} />
             </button>

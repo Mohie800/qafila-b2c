@@ -16,7 +16,10 @@ interface ImageGalleryProps {
   productName: string;
 }
 
-export default function ImageGallery({ images, productName }: ImageGalleryProps) {
+export default function ImageGallery({
+  images,
+  productName,
+}: ImageGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const goTo = useCallback(
@@ -30,7 +33,7 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
 
   if (images.length === 0) {
     return (
-      <div className="flex aspect-square items-center justify-center rounded-xl bg-gray-100 text-sm text-gray-300">
+      <div className="flex aspect-square items-center justify-center rounded-xl bg-gray-100 dark:bg-dark text-sm text-gray-300">
         No Image
       </div>
     );
@@ -65,7 +68,7 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
       </div>
 
       {/* Main image */}
-      <div className="relative flex-1 aspect-square overflow-hidden rounded-xl bg-gray-100">
+      <div className="relative flex-1 aspect-square overflow-hidden rounded-xl bg-gray-100 dark:bg-dark">
         <Image
           src={getMediaUrl(activeImage.url) || activeImage.url}
           alt={activeImage.alt || productName}
@@ -79,14 +82,14 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
           <>
             <button
               onClick={() => goTo(activeIndex - 1)}
-              className="absolute start-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 shadow-sm transition-colors hover:bg-white"
+              className="absolute start-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 dark:bg-dark/80 shadow-sm transition-colors hover:bg-white dark:hover:bg-dark cursor-pointer"
               aria-label="Previous image"
             >
               <ChevronLeft size={18} className="rtl:rotate-180" />
             </button>
             <button
               onClick={() => goTo(activeIndex + 1)}
-              className="absolute end-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 shadow-sm transition-colors hover:bg-white"
+              className="absolute end-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 dark:bg-dark/80 shadow-sm transition-colors hover:bg-white dark:hover:bg-dark cursor-pointer"
               aria-label="Next image"
             >
               <ChevronRight size={18} className="rtl:rotate-180" />
@@ -102,9 +105,7 @@ export default function ImageGallery({ images, productName }: ImageGalleryProps)
                 key={i}
                 onClick={() => setActiveIndex(i)}
                 className={`h-1.5 rounded-full transition-all ${
-                  i === activeIndex
-                    ? "w-4 bg-primary"
-                    : "w-1.5 bg-white/60"
+                  i === activeIndex ? "w-4 bg-primary" : "w-1.5 bg-white/60"
                 }`}
                 aria-label={`Go to image ${i + 1}`}
               />

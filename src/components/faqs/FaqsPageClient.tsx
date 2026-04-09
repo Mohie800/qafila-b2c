@@ -48,7 +48,7 @@ export default function FaqsPageClient() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[--color-dark]">{t("title")}</h1>
+      <h1 className="text-2xl font-bold text-dark dark:text-gray-100">{t("title")}</h1>
       <p className="mt-1 text-sm text-gray-500">{t("subtitle")}</p>
 
       {loading ? (

@@ -167,11 +167,11 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative flex w-full max-w-md flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+      <div className="relative flex w-full max-w-md flex-col overflow-hidden rounded-2xl bg-white dark:bg-dark shadow-2xl">
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute end-4 top-4 z-10 rounded-full p-1.5 text-gray-text transition-colors hover:bg-gray-100"
+          className="absolute end-4 top-4 z-10 rounded-full p-1.5 text-gray-text transition-colors hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           <X size={20} />
         </button>
@@ -192,13 +192,13 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
         <div className="flex flex-col justify-center px-8 py-8">
           {step === "phone" ? (
             <>
-              <h2 className="mb-8 text-center text-xl font-semibold text-dark">
+              <h2 className="mb-8 text-center text-xl font-semibold text-dark dark:text-gray-100">
                 {t("loginTitle")}
               </h2>
 
               {/* Phone input */}
               <div className="mb-4">
-                <div className="flex items-center gap-2 rounded-lg border border-gray-border px-3 py-3 transition-colors focus-within:border-primary">
+                <div className="flex items-center gap-2 rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-3 py-3 transition-colors focus-within:border-primary">
                   <Phone size={18} className="shrink-0 text-gray-text" />
                   <span className="shrink-0 text-sm text-gray-text">+966</span>
                   <input
@@ -213,7 +213,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                       if (e.key === "Enter") handleRequestOtp();
                     }}
                     placeholder={t("phonePlaceholder")}
-                    className="flex-1 text-sm outline-none"
+                    className="flex-1 text-sm text-dark dark:text-gray-200 bg-transparent outline-none"
                     autoFocus
                   />
                 </div>
@@ -236,7 +236,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
               </div>
 
               {/* Social buttons */}
-              <button className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg border border-gray-border py-3 text-sm font-medium text-dark transition-colors hover:bg-gray-50">
+              <button className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg border border-gray-border dark:border-gray-700 py-3 text-sm font-medium text-dark dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80">
                 <svg width="18" height="18" viewBox="0 0 18 18">
                   <path
                     d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"
@@ -258,7 +258,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                 {t("continueGoogle")}
               </button>
 
-              <button className="mb-6 flex w-full items-center justify-center gap-2 rounded-lg border border-gray-border py-3 text-sm font-medium text-dark transition-colors hover:bg-gray-50">
+              <button className="mb-6 flex w-full items-center justify-center gap-2 rounded-lg border border-gray-border dark:border-gray-700 py-3 text-sm font-medium text-dark dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80">
                 <svg width="18" height="18" viewBox="0 0 18 18">
                   <path
                     d="M15.545 14.1c-.36.81-.78 1.554-1.26 2.238-.66.936-1.2 1.584-1.614 1.944-.645.594-1.335.897-2.076.915-.531 0-1.173-.15-1.92-.459-.75-.306-1.44-.456-2.07-.456-.66 0-1.368.15-2.124.456-.756.309-1.365.471-1.83.486-.714.03-1.422-.279-2.124-.93-.45-.39-1.013-1.059-1.686-2.01C-1.863 15.147-2.373 13.72-2.373 12.35c0-.87.18-1.62.54-2.25a3.303 3.303 0 011.2-1.2A3.234 3.234 0 01.993 8.31c0-.57.174-1.074.522-1.509.348-.435.804-.657 1.368-.666.378 0 .876.174 1.5.516.621.342 1.02.516 1.197.516.132 0 .579-.204 1.341-.606.72-.375 1.329-.531 1.83-.474 1.353.108 2.37.642 3.045 1.608-1.212.735-1.809 1.764-1.8 3.081.012 1.026.384 1.878 1.116 2.562.333.315.705.558 1.116.732-.09.258-.183.507-.282.747zM11.985.39c0 .804-.294 1.554-.879 2.244-.708.828-1.563 1.305-2.49 1.23a2.497 2.497 0 01-.018-.303c0-.774.336-1.602.933-2.277.297-.342.675-.627 1.134-.852.459-.222.891-.345 1.299-.369.015.108.021.216.021.327z"
@@ -289,7 +289,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                 {t("back")}
               </button>
 
-              <h2 className="mb-2 text-xl font-semibold text-dark">
+              <h2 className="mb-2 text-xl font-semibold text-dark dark:text-gray-100">
                 {t("verifyTitle")}
               </h2>
               <p className="mb-8 text-sm text-gray-text">
@@ -314,7 +314,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                     value={digit}
                     onChange={(e) => handleOtpChange(i, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(i, e)}
-                    className="h-12 w-12 rounded-lg border border-gray-border text-center text-lg font-semibold outline-none transition-colors focus:border-primary"
+                    className="h-12 w-12 rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark text-dark dark:text-gray-100 text-center text-lg font-semibold outline-none transition-colors focus:border-primary"
                   />
                 ))}
               </div>

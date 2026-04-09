@@ -119,7 +119,7 @@ export default function AddressList() {
       {/* Address list */}
       {addresses.length === 0 ? (
         <div className="mt-12 flex flex-col items-center gap-3 py-12 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
             <MapPin size={28} className="text-gray-text" />
           </div>
           <p className="text-sm font-medium text-dark">{t("empty")}</p>
@@ -163,8 +163,8 @@ export default function AddressList() {
             className="absolute inset-0 bg-black/40"
             onClick={() => setDeleteConfirm(null)}
           />
-          <div className="relative w-full max-w-sm rounded-2xl bg-white p-6 text-center shadow-xl">
-            <h3 className="text-base font-bold text-dark">
+          <div className="relative w-full max-w-sm rounded-2xl bg-white dark:bg-dark p-6 text-center shadow-xl">
+            <h3 className="text-base font-bold text-dark dark:text-gray-100">
               {t("deleteConfirmTitle")}
             </h3>
             <p className="mt-2 text-sm text-gray-text">
@@ -173,7 +173,7 @@ export default function AddressList() {
             <div className="mt-5 flex gap-3">
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="flex-1 rounded-lg border border-gray-border py-2.5 text-sm font-medium text-dark transition-colors hover:bg-gray-50"
+                className="flex-1 rounded-lg border border-gray-border dark:border-gray-700 py-2.5 text-sm font-medium text-dark dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80"
               >
                 {t("cancel")}
               </button>

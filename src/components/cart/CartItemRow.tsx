@@ -74,7 +74,7 @@ export default function CartItemRow({ item, locale }: CartItemRowProps) {
         <div>
           <Link
             href={`/products/${item.productSlug}`}
-            className="text-sm font-semibold text-dark hover:text-primary sm:text-base"
+            className="text-sm font-semibold text-dark dark:text-gray-100 hover:text-primary sm:text-base"
           >
             {title}
           </Link>
@@ -128,7 +128,7 @@ export default function CartItemRow({ item, locale }: CartItemRowProps) {
         {/* Price & controls row */}
         <div className="mt-3 flex items-center justify-between">
           {/* Quantity controls */}
-          <div className="flex items-center gap-1 rounded-lg border border-gray-border">
+          <div className="flex items-center gap-1 rounded-lg border border-gray-border dark:border-gray-700">
             <button
               onClick={() => handleQuantityChange(item.quantity - 1)}
               disabled={item.quantity <= 1 || updating}
@@ -160,7 +160,7 @@ export default function CartItemRow({ item, locale }: CartItemRowProps) {
             </button>
 
             <div className="text-end">
-              <div className="text-sm font-bold text-dark sm:text-base" dir="ltr">
+              <div className="text-sm font-bold text-dark dark:text-gray-100 sm:text-base" dir="ltr">
                 <SarIcon /> {item.lineTotal.toFixed(2)}
               </div>
               {hasDiscount && (

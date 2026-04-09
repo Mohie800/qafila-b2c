@@ -111,7 +111,7 @@ export default function VendorReviews({
           <button
             onClick={handleLoadMore}
             disabled={loading}
-            className="rounded-lg border border-gray-border px-6 py-2 text-sm font-medium text-dark transition-colors hover:bg-gray-50 disabled:opacity-50"
+            className="rounded-lg border border-gray-border dark:border-gray-700 px-6 py-2 text-sm font-medium text-dark dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80 disabled:opacity-50"
           >
             {loading ? "..." : t("loadMore")}
           </button>

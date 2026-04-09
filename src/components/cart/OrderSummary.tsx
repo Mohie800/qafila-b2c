@@ -18,8 +18,8 @@ export default function OrderSummary({
   const t = useTranslations();
 
   return (
-    <div className="sticky top-40 rounded-xl border border-gray-border bg-white p-6">
-      <h2 className="mb-4 text-lg font-bold text-dark">
+    <div className="sticky top-40 rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6">
+      <h2 className="mb-4 text-lg font-bold text-dark dark:text-gray-100">
         {t("cart.orderSummary")}
       </h2>
 
@@ -52,13 +52,13 @@ export default function OrderSummary({
           <span className="font-medium text-green">{t("cart.free")}</span>
         </div>
 
-        <div className="border-t border-gray-border pt-3">
+        <div className="border-t border-gray-border dark:border-gray-700 pt-3">
           <div className="flex justify-between">
-            <span className="text-base font-bold text-dark">
+            <span className="text-base font-bold text-dark dark:text-gray-100">
               {t("cart.total")}
             </span>
             <div className="text-end">
-              <span className="text-base font-bold text-dark" dir="ltr">
+              <span className="text-base font-bold text-dark dark:text-gray-100" dir="ltr">
                 <SarIcon /> {summary.total.toFixed(2)}
               </span>
               <div className="text-xs text-gray-text">{t("cart.inclVat")}</div>

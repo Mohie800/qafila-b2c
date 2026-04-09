@@ -92,7 +92,7 @@ export default function OrderStatusTimeline({ status, createdAt }: Props) {
                 className={`flex h-8 w-8 items-center justify-center rounded-full ${
                   isReached
                     ? "bg-dark text-white"
-                    : "border-2 border-gray-border bg-white text-gray-text"
+                    : "border-2 border-gray-border dark:border-gray-600 bg-white dark:bg-dark text-gray-text"
                 }`}
               >
                 <Icon size={14} />
@@ -110,7 +110,7 @@ export default function OrderStatusTimeline({ status, createdAt }: Props) {
             <div className={`pb-6 ${isLast ? "pb-0" : ""}`}>
               <p
                 className={`text-sm font-semibold ${
-                  isReached ? "text-dark" : "text-gray-text"
+                  isReached ? "text-dark dark:text-gray-100" : "text-gray-text"
                 }`}
               >
                 {t(step.key as any)}

@@ -45,19 +45,18 @@ export default function FilterCheckboxList({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={searchPlaceholder}
-          className="mb-2 w-full rounded-lg border border-gray-border px-3 py-1.5 text-xs text-dark outline-none focus:border-primary"
+          className="mb-2 w-full rounded-lg border border-gray-border dark:border-gray-700 bg-transparent dark:bg-dark px-3 py-1.5 text-xs text-dark dark:text-gray-200 outline-none focus:border-primary dark:placeholder:text-gray-500"
         />
       )}
       <div className="max-h-[200px] space-y-1.5 overflow-y-auto">
         {filtered.map((item) => {
-          const label =
-            locale === "ar" ? item.nameAr || item.name : item.name;
+          const label = locale === "ar" ? item.nameAr || item.name : item.name;
           const isChecked = selectedIds.includes(item.id);
 
           return (
             <label
               key={item.id}
-              className="flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 text-xs hover:bg-gray-light"
+              className="flex cursor-pointer items-center gap-2 rounded px-1 py-0.5 text-xs hover:bg-gray-light dark:hover:bg-dark/80"
             >
               <input
                 type="checkbox"
@@ -71,7 +70,13 @@ export default function FilterCheckboxList({
                   style={{ backgroundColor: item.hexCode }}
                 />
               )}
-              <span className={isChecked ? "font-medium text-dark" : "text-gray-text"}>
+              <span
+                className={
+                  isChecked
+                    ? "font-medium text-dark dark:text-gray-100"
+                    : "text-gray-text dark:text-gray-400"
+                }
+              >
                 {label}
               </span>
             </label>

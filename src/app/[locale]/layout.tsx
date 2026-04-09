@@ -20,6 +20,7 @@ import { CartProvider } from "@/lib/cart-context";
 import { WishlistProvider } from "@/lib/wishlist-context";
 import { OneSignalProvider } from "@/lib/onesignal-context";
 import { ActiveCategoryProvider } from "@/lib/active-category-context";
+import { ThemeProvider } from "@/lib/theme-context";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -57,21 +58,34 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={dir} className={cairo.variable}>
+      {/* Prevent flash of wrong theme */}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');var p=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if((t||p)==='dark')document.documentElement.classList.add('dark');}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="font-cairo antialiased">
         <NextIntlClientProvider>
-          <AuthProvider>
-            <OneSignalProvider>
-              <CartProvider>
-                <WishlistProvider>
-                  <ActiveCategoryProvider initialSlug={initialSlug} categoryTree={categoryTree}>
-                    <Header categoryTree={categoryTree} />
-                    <main>{children}</main>
-                    <Footer />
-                  </ActiveCategoryProvider>
-                </WishlistProvider>
-              </CartProvider>
-            </OneSignalProvider>
-          </AuthProvider>
+          <ThemeProvider>
+            <AuthProvider>
+              <OneSignalProvider>
+                <CartProvider>
+                  <WishlistProvider>
+                    <ActiveCategoryProvider
+                      initialSlug={initialSlug}
+                      categoryTree={categoryTree}
+                    >
+                      <Header categoryTree={categoryTree} />
+                      <main>{children}</main>
+                      <Footer />
+                    </ActiveCategoryProvider>
+                  </WishlistProvider>
+                </CartProvider>
+              </OneSignalProvider>
+            </AuthProvider>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

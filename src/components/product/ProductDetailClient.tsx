@@ -288,7 +288,7 @@ export default function ProductDetailClient({
         <div className="space-y-5">
           {/* Title & Description */}
           <div>
-            <h1 className="text-xl font-bold text-dark">{product.title}</h1>
+            <h1 className="text-xl font-bold text-dark dark:text-gray-100">{product.title}</h1>
             {product.description && (
               <p className="mt-1 text-xs leading-relaxed text-gray-text line-clamp-2">
                 {product.description}
@@ -311,7 +311,7 @@ export default function ProductDetailClient({
                 />
               ))}
             </div>
-            <span className="text-xs font-medium text-dark">
+            <span className="text-xs font-medium text-dark dark:text-gray-200">
               {Number(product.averageRating).toFixed(1)}
             </span>
             <span className="text-xs text-gray-text">
@@ -329,7 +329,7 @@ export default function ProductDetailClient({
           {/* Price block */}
           <div className="space-y-1">
             <div className="flex items-baseline gap-2.5">
-              <span className="text-2xl font-bold text-dark" dir="ltr">
+              <span className="text-2xl font-bold text-dark dark:text-gray-100" dir="ltr">
                 <SarIcon /> {Number(product.price).toFixed(2)}
               </span>
               {hasSale && (
@@ -351,7 +351,7 @@ export default function ProductDetailClient({
           {/* Tabby & Tamara installments */}
           <div className="grid grid-cols-2 gap-3">
             {/* Tabby */}
-            <div className="rounded-lg border border-[#5AFEAE] p-3 relative">
+            <div className="rounded-lg border border-[#5AFEAE] dark:border-[#5AFEAE]/50 p-3 relative dark:bg-[#5AFEAE]/5">
               <div className="mb-2 absolute top-0 left-0">
                 <Image
                   src="/images/tabby.svg"
@@ -364,12 +364,12 @@ export default function ProductDetailClient({
               <p className="text-sm leading-relaxed text-gray-text mt-4">
                 {t.rich("tabbyText", { amount: installment, sar: sarTag })}
               </p>
-              <button className="mt-1 text-[11px] font-semibold text-dark underline">
+              <button className="mt-1 text-[11px] font-semibold text-dark dark:text-gray-200 underline">
                 {t("learnMore")}
               </button>
             </div>
             {/* Tamara */}
-            <div className="rounded-lg border border-[#EDBD96] p-3 relative">
+            <div className="rounded-lg border border-[#EDBD96] dark:border-[#EDBD96]/50 p-3 relative dark:bg-[#EDBD96]/5">
               <div className="mb-2 absolute top-0 left-0">
                 <Image
                   src="/images/tamara.svg"
@@ -382,7 +382,7 @@ export default function ProductDetailClient({
               <p className="text-sm leading-relaxed text-gray-text mt-4">
                 {t.rich("tamaraText", { amount: installment, sar: sarTag })}
               </p>
-              <button className="mt-1 text-[11px] font-semibold text-dark underline">
+              <button className="mt-1 text-[11px] font-semibold text-dark dark:text-gray-200 underline">
                 {t("learnMore")}
               </button>
             </div>
@@ -431,19 +431,19 @@ export default function ProductDetailClient({
             <button
               onClick={handleWishlistToggle}
               disabled={togglingWishlist}
-              className={`flex items-center gap-2 rounded-lg border border-gray-border px-5 py-3.5 text-sm font-medium transition-colors ${
+              className={`flex items-center gap-2 rounded-lg border border-gray-border dark:border-gray-700 px-5 py-3.5 text-sm font-medium transition-colors ${
                 wishlisted
                   ? "border-discount bg-discount/5 hover:bg-discount/10"
-                  : "hover:border-gray-text"
+                  : "hover:border-gray-text dark:hover:border-gray-500"
               }`}
             >
               <Heart
                 size={18}
                 className={
-                  wishlisted ? "fill-discount text-discount" : "text-dark"
+                  wishlisted ? "fill-discount text-discount" : "text-dark dark:text-gray-300"
                 }
               />
-              <span className="text-dark">{t("moveToWishlist")}</span>
+              <span className="text-dark dark:text-gray-300">{t("moveToWishlist")}</span>
             </button>
           </div>
 
@@ -473,7 +473,7 @@ export default function ProductDetailClient({
       {/* You May Also Like */}
       {recommended.length > 0 && (
         <section className="mt-12">
-          <h2 className="mb-4 text-lg font-bold text-dark">
+          <h2 className="mb-4 text-lg font-bold text-dark dark:text-gray-100">
             {t("youMayAlsoLike")}
           </h2>
           <div className="scrollbar-hide flex gap-4 overflow-x-auto pb-2">

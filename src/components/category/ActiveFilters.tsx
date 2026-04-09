@@ -125,13 +125,13 @@ export default function ActiveFilters({
       {chips.map((chip) => (
         <span
           key={chip.key}
-          className="inline-flex items-center gap-1 rounded-full bg-gray-light px-3 py-1 text-xs text-dark"
+          className="inline-flex items-center gap-1 rounded-full bg-gray-light dark:bg-dark px-3 py-1 text-xs text-dark dark:text-gray-200"
         >
           {chip.label}
           <button
             type="button"
             onClick={chip.onRemove}
-            className="text-gray-text hover:text-dark"
+            className="text-gray-text hover:text-dark dark:hover:text-gray-100"
           >
             <X size={12} />
           </button>

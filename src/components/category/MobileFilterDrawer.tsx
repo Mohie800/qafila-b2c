@@ -61,14 +61,14 @@ export default function MobileFilterDrawer({
 
       {/* Drawer */}
       <div
-        className={`fixed inset-y-0 start-0 z-50 w-[300px] overflow-y-auto bg-white p-5 shadow-xl transition-transform duration-300 lg:hidden ${
+        className={`fixed inset-y-0 start-0 z-50 w-[300px] overflow-y-auto bg-white dark:bg-dark p-5 shadow-xl transition-transform duration-300 lg:hidden ${
           isOpen
             ? "translate-x-0 rtl:-translate-x-0"
             : "-translate-x-full rtl:translate-x-full"
         }`}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-base font-bold text-dark">{t("title")}</h2>
+          <h2 className="text-base font-bold text-dark dark:text-gray-100">{t("title")}</h2>
           <button type="button" onClick={onClose}>
             <X size={20} className="text-gray-text" />
           </button>
@@ -76,7 +76,7 @@ export default function MobileFilterDrawer({
 
         <FilterSidebar {...sidebarProps} />
 
-        <div className="sticky bottom-0 mt-4 border-t border-gray-border bg-white pt-4">
+        <div className="sticky bottom-0 mt-4 border-t border-gray-border dark:border-gray-700 bg-white dark:bg-dark pt-4">
           <button
             type="button"
             onClick={onClose}

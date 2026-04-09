@@ -29,7 +29,7 @@ export default function ColorSelector({
 
   return (
     <div className="space-y-2.5">
-      <p className="text-sm font-semibold text-dark">{t("color")}</p>
+      <p className="text-sm font-semibold text-dark dark:text-gray-200">{t("color")}</p>
       <div className="flex flex-wrap gap-3">
         {colors.map((color) => {
           const isSelected = color.id === selectedId;
@@ -40,11 +40,11 @@ export default function ColorSelector({
               className={`flex flex-col items-center gap-1.5 rounded-lg border-2 p-1.5 transition-colors ${
                 isSelected
                   ? "border-primary"
-                  : "border-gray-border hover:border-gray-text"
+                  : "border-gray-border dark:border-gray-700 hover:border-gray-text dark:hover:border-gray-500"
               }`}
             >
               {color.image ? (
-                <div className="relative h-12 w-12 overflow-hidden rounded-md bg-gray-100">
+                <div className="relative h-12 w-12 overflow-hidden rounded-md bg-gray-100 dark:bg-gray-700">
                   <Image
                     src={getMediaUrl(color.image) || color.image}
                     alt={color.name}

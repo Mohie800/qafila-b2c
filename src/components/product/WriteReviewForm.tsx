@@ -143,8 +143,8 @@ export default function WriteReviewForm({
   };
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5">
-      <h3 className="mb-4 text-sm font-bold text-dark">
+    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-dark p-5">
+      <h3 className="mb-4 text-sm font-bold text-dark dark:text-gray-100">
         {t("writeReview")}
       </h3>
 
@@ -190,7 +190,7 @@ export default function WriteReviewForm({
           onChange={(e) => setTitle(e.target.value)}
           placeholder={t("reviewTitlePlaceholder")}
           maxLength={200}
-          className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-300 focus:border-primary"
+          className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-dark px-3 py-2.5 text-sm text-dark dark:text-gray-200 outline-none transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-500 focus:border-primary"
         />
       </div>
 
@@ -202,7 +202,7 @@ export default function WriteReviewForm({
           placeholder={t("reviewContentPlaceholder")}
           maxLength={5000}
           rows={4}
-          className="w-full resize-none rounded-lg border border-gray-200 px-3 py-2.5 text-sm leading-relaxed outline-none transition-colors placeholder:text-gray-300 focus:border-primary"
+          className="w-full resize-none rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-dark px-3 py-2.5 text-sm text-dark dark:text-gray-200 leading-relaxed outline-none transition-colors placeholder:text-gray-300 dark:placeholder:text-gray-500 focus:border-primary"
         />
       </div>
 
@@ -213,7 +213,7 @@ export default function WriteReviewForm({
             {previews.map((src, i) => (
               <div
                 key={i}
-                className="group relative h-16 w-16 overflow-hidden rounded-lg bg-gray-100"
+                className="group relative h-16 w-16 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700"
               >
                 <img
                   src={src}
@@ -263,7 +263,7 @@ export default function WriteReviewForm({
             {videoPreviews.map((src, i) => (
               <div
                 key={i}
-                className="group relative h-16 w-24 overflow-hidden rounded-lg bg-gray-100"
+                className="group relative h-16 w-24 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700"
               >
                 <video
                   src={src}
@@ -309,9 +309,9 @@ export default function WriteReviewForm({
       {/* Voice note upload */}
       <div className="mb-4">
         {voiceNote ? (
-          <div className="mb-2 flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2">
+          <div className="mb-2 flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-dark px-3 py-2">
             <Mic size={14} className="text-gray-text" />
-            <span className="flex-1 truncate text-xs text-dark">
+            <span className="flex-1 truncate text-xs text-dark dark:text-gray-200">
               {voiceNote.name}
             </span>
             <button
@@ -360,7 +360,7 @@ export default function WriteReviewForm({
         <button
           onClick={onCancel}
           disabled={loading}
-          className="rounded-lg border border-gray-200 px-6 py-2.5 text-sm font-medium text-gray-text transition-colors hover:bg-gray-50 disabled:opacity-50"
+          className="rounded-lg border border-gray-200 dark:border-gray-700 px-6 py-2.5 text-sm font-medium text-gray-text transition-colors hover:bg-gray-50 dark:hover:bg-dark/80 disabled:opacity-50"
         >
           {t("cancel")}
         </button>

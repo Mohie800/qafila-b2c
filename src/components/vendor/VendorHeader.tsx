@@ -71,7 +71,7 @@ export default function VendorHeader({
     <div>
       {/* Banner */}
       {bannerUrl && (
-        <div className="relative h-40 w-full overflow-hidden rounded-xl bg-gray-100 sm:h-56">
+        <div className="relative h-40 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-700 sm:h-56">
           <Image
             src={bannerUrl}
             alt={storeName}
@@ -86,7 +86,7 @@ export default function VendorHeader({
       {/* Profile row */}
       <div className="flex flex-wrap items-center gap-4 py-5">
         {/* Logo */}
-        <div className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-gray-100 shadow-sm sm:h-20 sm:w-20">
+        <div className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white dark:border-gray-700 bg-gray-100 dark:bg-gray-700 shadow-sm sm:h-20 sm:w-20">
           {logoUrl ? (
             <Image
               src={logoUrl}
@@ -103,7 +103,7 @@ export default function VendorHeader({
         {/* Info */}
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <h1 className="truncate text-lg font-bold text-dark sm:text-xl">
+            <h1 className="truncate text-lg font-bold text-dark dark:text-gray-100 sm:text-xl">
               {storeName}
             </h1>
             {vendor.isVerified && (
@@ -151,7 +151,7 @@ export default function VendorHeader({
           disabled={followLoading}
           className={`shrink-0 rounded-full px-6 py-2 text-sm font-semibold transition-colors disabled:opacity-50 ${
             isFollowing
-              ? "border border-gray-border bg-white text-dark hover:bg-gray-50"
+              ? "border border-gray-border dark:border-gray-700 bg-white dark:bg-dark text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
               : "bg-dark text-white hover:bg-dark/90"
           }`}
         >

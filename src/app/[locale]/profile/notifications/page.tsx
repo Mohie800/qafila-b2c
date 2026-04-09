@@ -70,7 +70,7 @@ export default function NotificationsPage() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-dark">{t("title")}</h1>
+          <h1 className="text-xl font-bold text-dark dark:text-gray-100">{t("title")}</h1>
           <p className="mt-1 text-sm text-gray-text">{t("subtitle")}</p>
         </div>
         {hasUnread && !loading && (
@@ -100,8 +100,8 @@ export default function NotificationsPage() {
         </div>
       ) : (
         <>
-          <div className="overflow-hidden rounded-xl border border-gray-border bg-[#FFFBF5]">
-            <div className="divide-y divide-gray-border">
+          <div className="overflow-hidden rounded-xl border border-gray-border dark:border-gray-700 bg-[#FFFBF5] dark:bg-dark">
+            <div className="divide-y divide-gray-border dark:divide-gray-700">
               {notifications.map((n) => (
                 <div
                   key={n.id}
@@ -120,7 +120,7 @@ export default function NotificationsPage() {
 
                   {/* Content */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-dark">
+                    <p className="text-sm font-bold text-dark dark:text-gray-100">
                       {getTitle(n)}
                     </p>
                     <p className="mt-0.5 text-sm text-gray-text line-clamp-2">
@@ -143,7 +143,7 @@ export default function NotificationsPage() {
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page <= 1}
-                className="rounded-lg border border-gray-border px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-gray-50 disabled:opacity-40"
+                className="rounded-lg border border-gray-border dark:border-gray-700 px-4 py-2 text-sm font-medium text-dark dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80 disabled:opacity-40"
               >
                 &lsaquo;
               </button>
@@ -153,7 +153,7 @@ export default function NotificationsPage() {
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page >= totalPages}
-                className="rounded-lg border border-gray-border px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-gray-50 disabled:opacity-40"
+                className="rounded-lg border border-gray-border dark:border-gray-700 px-4 py-2 text-sm font-medium text-dark dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80 disabled:opacity-40"
               >
                 &rsaquo;
               </button>

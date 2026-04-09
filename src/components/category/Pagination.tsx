@@ -53,7 +53,7 @@ export default function Pagination({
           type="button"
           disabled={currentPage === 1}
           onClick={() => onPageChange(currentPage - 1)}
-          className="flex items-center gap-1 rounded-lg border border-gray-border px-3 py-1.5 text-xs text-dark disabled:opacity-40"
+          className="flex items-center gap-1 rounded-lg border border-gray-border dark:border-gray-700 px-3 py-1.5 text-xs text-dark dark:text-gray-300 disabled:opacity-40"
         >
           <ChevronLeft size={14} className="rtl:rotate-180" />
           {t("previous")}
@@ -72,7 +72,7 @@ export default function Pagination({
               className={`min-w-[32px] rounded-lg px-2.5 py-1.5 text-xs font-medium ${
                 page === currentPage
                   ? "bg-dark text-white"
-                  : "border border-gray-border text-dark hover:bg-gray-light"
+                  : "border border-gray-border dark:border-gray-700 text-dark dark:text-gray-300 hover:bg-gray-light dark:hover:bg-dark/80"
               }`}
             >
               {page}
@@ -84,7 +84,7 @@ export default function Pagination({
           type="button"
           disabled={currentPage === totalPages}
           onClick={() => onPageChange(currentPage + 1)}
-          className="flex items-center gap-1 rounded-lg border border-gray-border px-3 py-1.5 text-xs text-dark disabled:opacity-40"
+          className="flex items-center gap-1 rounded-lg border border-gray-border dark:border-gray-700 px-3 py-1.5 text-xs text-dark dark:text-gray-300 disabled:opacity-40"
         >
           {t("next")}
           <ChevronRight size={14} className="rtl:rotate-180" />

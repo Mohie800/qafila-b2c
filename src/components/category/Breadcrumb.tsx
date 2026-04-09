@@ -18,7 +18,7 @@ export default async function Breadcrumb({
 
   return (
     <nav aria-label="Breadcrumb" className="mb-4 py-3">
-      <ol className="flex flex-wrap items-center gap-1 text-xs text-gray-text">
+      <ol className="flex flex-wrap items-center gap-1 text-xs text-gray-text dark:text-gray-400">
         <li>
           <Link href="/" className="hover:text-primary">
             {t("home")}
@@ -43,7 +43,7 @@ export default async function Breadcrumb({
             size={12}
             className="rtl:rotate-180"
           />
-          <span className="font-medium text-dark">{currentName}</span>
+          <span className="font-medium text-dark dark:text-gray-100">{currentName}</span>
         </li>
       </ol>
     </nav>

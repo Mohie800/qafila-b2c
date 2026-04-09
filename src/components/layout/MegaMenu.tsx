@@ -65,10 +65,10 @@ export default function MegaMenu({
       <div className="fixed inset-0 z-40" onClick={onClose} />
 
       {/* Menu */}
-      <div className="absolute start-0 top-full z-50 hidden w-full animate-[megaMenuSlideDown_0.2s_ease-out] border-b border-gray-border bg-white shadow-lg md:block">
+      <div className="absolute start-0 top-full z-50 hidden w-full animate-[megaMenuSlideDown_0.2s_ease-out] border-b border-gray-border dark:border-gray-700 bg-white dark:bg-dark shadow-lg md:block">
         <div className="mx-auto flex max-h-[480px] max-w-360">
           {/* Sidebar */}
-          <div className="w-[220px] flex-shrink-0 overflow-y-auto border-e border-gray-border bg-gray-light">
+          <div className="w-[220px] flex-shrink-0 overflow-y-auto border-e border-gray-border dark:border-gray-700 bg-gray-light dark:bg-dark/50">
             {sidebarItems.length > 0 ? (
               sidebarItems.map((item) => {
                 const isActive = item.id === hoveredSidebarId;
@@ -83,8 +83,8 @@ export default function MegaMenu({
                     onMouseEnter={() => setHoveredSidebarId(item.id)}
                     className={`flex items-center gap-3 px-4 py-3 text-sm transition-colors ${
                       isActive
-                        ? "bg-white font-medium text-dark"
-                        : "text-gray-text hover:bg-white/60"
+                        ? "bg-white dark:bg-dark font-medium text-dark dark:text-gray-100"
+                        : "text-gray-text hover:bg-white/60 dark:hover:bg-dark/80"
                     }`}
                   >
                     {/* Circular thumbnail */}
@@ -135,7 +135,7 @@ export default function MegaMenu({
                     <Link
                       href={`/categories/${col.slug}`}
                       onClick={handleLinkClick}
-                      className="mb-3 block text-sm font-bold uppercase text-dark hover:text-primary"
+                      className="mb-3 block text-sm font-bold uppercase text-dark dark:text-gray-100 hover:text-primary"
                     >
                       {getCategoryName(col, locale)}
                     </Link>
@@ -149,7 +149,7 @@ export default function MegaMenu({
                               onClick={handleLinkClick}
                               className="flex items-center gap-2 text-sm text-gray-text transition-colors hover:text-dark"
                             >
-                              <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center overflow-hidden rounded bg-gray-light">
+                              <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center overflow-hidden rounded bg-gray-light dark:bg-gray-700">
                                 {leafImg ? (
                                   <Image
                                     src={leafImg}
@@ -183,7 +183,7 @@ export default function MegaMenu({
                       onClick={handleLinkClick}
                       className="flex items-center gap-2 rounded p-2 text-sm text-gray-text transition-colors hover:bg-gray-light hover:text-dark"
                     >
-                      <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center overflow-hidden rounded bg-gray-light">
+                      <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center overflow-hidden rounded bg-gray-light dark:bg-gray-700">
                         {itemImg ? (
                           <Image
                             src={itemImg}

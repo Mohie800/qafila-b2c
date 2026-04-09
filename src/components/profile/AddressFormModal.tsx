@@ -106,16 +106,16 @@ export default function AddressFormModal({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-xl">
+      <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-dark p-6 shadow-xl">
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute end-4 top-4 rounded-lg p-1 text-gray-text transition-colors hover:bg-gray-100 hover:text-dark"
+          className="absolute end-4 top-4 rounded-lg p-1 text-gray-text transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-dark"
         >
           <X size={20} />
         </button>
 
-        <h2 className="text-lg font-bold text-dark">
+        <h2 className="text-lg font-bold text-dark dark:text-gray-100">
           {isEditing ? t("editAddress") : t("addAddress")}
         </h2>
         <p className="mt-1 text-sm text-gray-text">
@@ -125,7 +125,7 @@ export default function AddressFormModal({
         <form onSubmit={handleSubmit} className="mt-5 space-y-4">
           {/* Address Type */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-dark">
+            <label className="mb-2 block text-sm font-medium text-dark dark:text-gray-200">
               {t("type")}
             </label>
             <div className="flex gap-2">
@@ -137,7 +137,7 @@ export default function AddressFormModal({
                   className={`rounded-lg border px-4 py-2 text-sm transition-colors ${
                     type === at
                       ? "border-primary bg-primary/10 font-medium text-primary"
-                      : "border-gray-border text-gray-text hover:border-dark hover:text-dark"
+                      : "border-gray-border dark:border-gray-700 text-gray-text hover:border-dark hover:text-dark dark:hover:border-gray-400 dark:hover:text-gray-200"
                   }`}
                 >
                   {t(`types.${at}`)}
@@ -154,7 +154,7 @@ export default function AddressFormModal({
               onChange={(e) => setFirstName(e.target.value)}
               placeholder={`${t("firstName")}*`}
               required
-              className="w-full rounded-lg border border-gray-border px-4 py-3 text-sm outline-none transition-colors placeholder:text-gray-text focus:border-dark"
+              className="w-full rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-4 py-3 text-sm text-dark dark:text-gray-200 outline-none transition-colors placeholder:text-gray-text dark:placeholder:text-gray-500 focus:border-dark"
             />
             <input
               type="text"
@@ -162,7 +162,7 @@ export default function AddressFormModal({
               onChange={(e) => setLastName(e.target.value)}
               placeholder={`${t("lastName")}*`}
               required
-              className="w-full rounded-lg border border-gray-border px-4 py-3 text-sm outline-none transition-colors placeholder:text-gray-text focus:border-dark"
+              className="w-full rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-4 py-3 text-sm text-dark dark:text-gray-200 outline-none transition-colors placeholder:text-gray-text dark:placeholder:text-gray-500 focus:border-dark"
             />
           </div>
 
@@ -194,7 +194,7 @@ export default function AddressFormModal({
               onChange={(e) => setCity(e.target.value)}
               placeholder={`${t("city")}*`}
               required
-              className="w-full rounded-lg border border-gray-border px-4 py-3 text-sm outline-none transition-colors placeholder:text-gray-text focus:border-dark"
+              className="w-full rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-4 py-3 text-sm text-dark dark:text-gray-200 outline-none transition-colors placeholder:text-gray-text dark:placeholder:text-gray-500 focus:border-dark"
             />
             <input
               type="text"
@@ -202,7 +202,7 @@ export default function AddressFormModal({
               onChange={(e) => setArea(e.target.value)}
               placeholder={`${t("area")}*`}
               required
-              className="w-full rounded-lg border border-gray-border px-4 py-3 text-sm outline-none transition-colors placeholder:text-gray-text focus:border-dark"
+              className="w-full rounded-lg border border-gray-border dark:border-gray-700 bg-white dark:bg-dark px-4 py-3 text-sm text-dark dark:text-gray-200 outline-none transition-colors placeholder:text-gray-text dark:placeholder:text-gray-500 focus:border-dark"
             />
           </div>
 
@@ -232,7 +232,7 @@ export default function AddressFormModal({
               onChange={(e) => setIsDefault(e.target.checked)}
               className="h-4 w-4 accent-primary"
             />
-            <span className="text-sm text-dark">{t("makeDefault")}</span>
+            <span className="text-sm text-dark dark:text-gray-200">{t("makeDefault")}</span>
           </label>
 
           {/* Error */}
@@ -245,7 +245,7 @@ export default function AddressFormModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 rounded-lg border border-gray-border py-3 text-sm font-medium text-dark transition-colors hover:bg-gray-50"
+              className="flex-1 rounded-lg border border-gray-border dark:border-gray-700 py-3 text-sm font-medium text-dark dark:text-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-dark/80"
             >
               {t("cancel")}
             </button>

@@ -25,7 +25,7 @@ export default function SizeSelector({
 
   return (
     <div className="space-y-2.5">
-      <p className="text-sm font-semibold text-dark">{t("size")}</p>
+      <p className="text-sm font-semibold text-dark dark:text-gray-200">{t("size")}</p>
       <div className="flex flex-wrap gap-2">
         {sizes.map((size) => {
           const isSelected = size.id === selectedId;
@@ -37,10 +37,10 @@ export default function SizeSelector({
               disabled={isOutOfStock}
               className={`flex min-w-[56px] flex-col items-center rounded-lg border-2 px-3 py-2 text-sm transition-colors ${
                 isOutOfStock
-                  ? "cursor-not-allowed border-gray-border bg-gray-50 text-gray-300 line-through"
+                  ? "cursor-not-allowed border-gray-border dark:border-gray-700 bg-gray-50 dark:bg-dark text-gray-300 line-through"
                   : isSelected
                     ? "border-primary bg-primary/5 font-semibold text-primary"
-                    : "border-gray-border text-dark hover:border-gray-text"
+                    : "border-gray-border dark:border-gray-700 text-dark dark:text-gray-200 hover:border-gray-text dark:hover:border-gray-500"
               }`}
             >
               <span>{size.name}</span>

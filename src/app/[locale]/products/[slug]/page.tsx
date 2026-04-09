@@ -127,12 +127,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
     );
     return {
       id: pc.color.id,
-      name:
-        locale === "ar"
-          ? pc.color.nameAr || pc.color.name
-          : pc.color.name,
+      name: locale === "ar" ? pc.color.nameAr || pc.color.name : pc.color.name,
       hexCode: pc.color.hexCode,
-      image: colorImage ? getMediaUrl(colorImage.url) ?? null : null,
+      image: colorImage ? (getMediaUrl(colorImage.url) ?? null) : null,
       slug: product.slug,
     };
   });
@@ -145,10 +142,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
       .reduce((sum, v) => sum + v.quantity, 0);
     return {
       id: ps.size.id,
-      name:
-        locale === "ar"
-          ? ps.size.nameAr || ps.size.name
-          : ps.size.name,
+      name: locale === "ar" ? ps.size.nameAr || ps.size.name : ps.size.name,
       stock,
     };
   });

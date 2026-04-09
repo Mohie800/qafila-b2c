@@ -68,8 +68,8 @@ export default function CancelItemsView({ order, onBack, onCancelled }: Props) {
 
       <div className="grid gap-6 lg:grid-cols-5">
         {/* Left: items with checkboxes */}
-        <div className="lg:col-span-3 rounded-xl border border-gray-border bg-white p-6">
-          <h2 className="mb-4 text-base font-bold text-dark">
+        <div className="lg:col-span-3 rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6">
+          <h2 className="mb-4 text-base font-bold text-dark dark:text-gray-100">
             {t("itemsSummary")} ({itemCount}{" "}
             {itemCount > 1 ? t("items", { count: itemCount }) : t("item", { count: itemCount })})
           </h2>
@@ -139,7 +139,7 @@ export default function CancelItemsView({ order, onBack, onCancelled }: Props) {
                     className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${
                       isSelected
                         ? "border-dark bg-dark"
-                        : "border-gray-border bg-white"
+                        : "border-gray-border dark:border-gray-600 bg-white dark:bg-dark"
                     }`}
                   >
                     {isSelected && (
@@ -166,7 +166,7 @@ export default function CancelItemsView({ order, onBack, onCancelled }: Props) {
         </div>
 
         {/* Right: warning + button */}
-        <div className="lg:col-span-2 rounded-xl border border-gray-border bg-white p-6 self-start">
+        <div className="lg:col-span-2 rounded-xl border border-gray-border dark:border-gray-700 bg-white dark:bg-dark p-6 self-start">
           <p className="mb-4 text-sm text-gray-text">
             {selectedItemId ? t("cannotBeReversed") : t("noItemSelected")}
           </p>
@@ -187,10 +187,10 @@ export default function CancelItemsView({ order, onBack, onCancelled }: Props) {
       {/* Reason modal */}
       {showReasonModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6">
+          <div className="w-full max-w-md rounded-2xl bg-white dark:bg-dark p-6">
             {/* Modal header */}
             <div className="mb-5 flex items-center justify-between">
-              <h3 className="text-lg font-bold text-dark">
+              <h3 className="text-lg font-bold text-dark dark:text-gray-100">
                 {t("reasonForCancellation")}
               </h3>
               <button
@@ -206,7 +206,7 @@ export default function CancelItemsView({ order, onBack, onCancelled }: Props) {
               {CANCEL_REASONS.map((reason) => (
                 <label
                   key={reason.key}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-3 hover:bg-gray-50"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-3 hover:bg-gray-50 dark:hover:bg-dark/80"
                 >
                   <div
                     className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${
@@ -227,7 +227,7 @@ export default function CancelItemsView({ order, onBack, onCancelled }: Props) {
                     onChange={() => setSelectedReason(reason.key)}
                     className="sr-only"
                   />
-                  <span className="text-sm text-dark">
+                  <span className="text-sm text-dark dark:text-gray-200">
                     {t(`reasons.${reason.translationKey}` as any)}
                   </span>
                 </label>
