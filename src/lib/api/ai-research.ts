@@ -1,8 +1,39 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
+function authHeaders(): Record<string, string> {
+  const token =
+    typeof window !== 'undefined' ? localStorage.getItem('qafila_token') : null;
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
 export interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
+}
+
+export interface PersistedMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  sources?: Source[];
+  pdfId?: string;
+  pdfDownloadUrl?: string;
+  createdAt: string;
+}
+
+export async function getHistory(): Promise<PersistedMessage[]> {
+  const response = await fetch(`${API_URL}/v1/ai-research/history`, {
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+  });
+  if (!response.ok) return [];
+  return response.json();
+}
+
+export async function resetHistory(): Promise<void> {
+  await fetch(`${API_URL}/v1/ai-research/history`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  });
 }
 
 export interface Source {
@@ -30,7 +61,7 @@ export interface PdfReadyData {
 
 export async function streamChat(
   message: string,
-  history: ChatMessage[],
+  _history: ChatMessage[],
   callbacks: {
     onToken: (text: string) => void;
     onToolCall: (tool: string, query: string) => void;
@@ -40,16 +71,10 @@ export async function streamChat(
     onError: (error: string) => void;
   },
 ): Promise<void> {
-  const token =
-    typeof window !== 'undefined' ? localStorage.getItem('qafila_token') : null;
-
   const response = await fetch(`${API_URL}/v1/ai-research/chat`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-    body: JSON.stringify({ message, history }),
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify({ message }),
   });
 
   if (!response.ok) {
@@ -119,15 +144,9 @@ export async function generatePdf(
   content: string,
   locale: 'en' | 'ar' = 'en',
 ): Promise<{ pdfId: string; downloadUrl: string }> {
-  const token =
-    typeof window !== 'undefined' ? localStorage.getItem('qafila_token') : null;
-
   const response = await fetch(`${API_URL}/v1/ai-research/pdf`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
     body: JSON.stringify({ title, content, locale }),
   });
 
