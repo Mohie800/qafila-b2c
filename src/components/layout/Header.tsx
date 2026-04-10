@@ -13,12 +13,10 @@ import {
   Clapperboard,
   User,
   CircleHelp,
-  LogOut,
   Bell,
   X,
   Sun,
   Moon,
-  BrainCircuit,
 } from "lucide-react";
 import { useState, useCallback, useRef, useEffect } from "react";
 import MegaMenu from "@/components/layout/MegaMenu";
@@ -417,7 +415,6 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
               href="/research"
               className="flex items-center gap-1 rounded px-3 py-1.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
             >
-              <BrainCircuit size={14} />
               {t("nav.researchAI")}
             </Link>
             <Link
@@ -549,7 +546,6 @@ export default function Header({ categoryTree = [] }: HeaderProps) {
                 className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-dark dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-dark/80"
                 onClick={() => setMobileDrawerOpen(false)}
               >
-                <BrainCircuit size={16} />
                 {t("nav.researchAI")}
               </Link>
             </li>
