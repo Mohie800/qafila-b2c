@@ -5,6 +5,8 @@ import { Download, Loader2 } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { generatePdf } from "@/lib/api/ai-research";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+
 interface PdfDownloadButtonProps {
   title: string;
   content: string;
@@ -21,33 +23,26 @@ export default function PdfDownloadButton({
   const t = useTranslations("research");
   const locale = useLocale();
   const [isGenerating, setIsGenerating] = useState(false);
-  const [pdfId, setPdfId] = useState(initialPdfId);
   const [downloadUrl, setDownloadUrl] = useState(initialDownloadUrl);
+  const [pdfId, setPdfId] = useState(initialPdfId);
   const [error, setError] = useState<string | null>(null);
 
-  const handleDownload = async () => {
-    if (downloadUrl) {
-      // Already generated — just download
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
-      const token = localStorage.getItem("qafila_token");
-      const fullUrl = `${apiUrl}${downloadUrl}`;
+  const openPdf = (relativeUrl: string, id: string) => {
+    const fullUrl = `${API_URL}${relativeUrl}`;
+    // Create hidden anchor to trigger browser download
+    const a = document.createElement("a");
+    a.href = fullUrl;
+    a.download = `qafila-research-${id}.pdf`;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
 
-      const link = document.createElement("a");
-      link.href = fullUrl;
-      link.setAttribute("download", `qafila-research-${pdfId}.pdf`);
-      // Add auth header via fetch + blob
-      try {
-        const res = await fetch(fullUrl, {
-          headers: token ? { Authorization: `Bearer ${token}` } : {},
-        });
-        const blob = await res.blob();
-        link.href = URL.createObjectURL(blob);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } catch {
-        window.open(fullUrl, "_blank");
-      }
+  const handleClick = async () => {
+    if (downloadUrl && pdfId) {
+      openPdf(downloadUrl, pdfId);
       return;
     }
 
@@ -57,21 +52,7 @@ export default function PdfDownloadButton({
       const result = await generatePdf(title, content, locale as "en" | "ar");
       setPdfId(result.pdfId);
       setDownloadUrl(result.downloadUrl);
-
-      // Trigger download
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
-      const token = localStorage.getItem("qafila_token");
-      const fullUrl = `${apiUrl}${result.downloadUrl}`;
-      const res = await fetch(fullUrl, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      });
-      const blob = await res.blob();
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.setAttribute("download", `qafila-research-${result.pdfId}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      openPdf(result.downloadUrl, result.pdfId);
     } catch (err) {
       setError(err instanceof Error ? err.message : "PDF generation failed");
     } finally {
@@ -82,7 +63,7 @@ export default function PdfDownloadButton({
   return (
     <div className="mt-3 flex flex-col gap-1">
       <button
-        onClick={handleDownload}
+        onClick={handleClick}
         disabled={isGenerating}
         className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-80 disabled:opacity-50"
       >
@@ -93,9 +74,7 @@ export default function PdfDownloadButton({
         )}
         {isGenerating ? t("generating") : t("downloadPdf")}
       </button>
-      {error && (
-        <p className="text-xs text-red-500">{error}</p>
-      )}
+      {error && <p className="text-xs text-red-500">{error}</p>}
     </div>
   );
 }

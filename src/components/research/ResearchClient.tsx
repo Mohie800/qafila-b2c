@@ -8,6 +8,31 @@ import ChatInput from "./ChatInput";
 import { Message } from "./ChatMessage";
 import { streamChat, getHistory, resetHistory, Source } from "@/lib/api/ai-research";
 
+/**
+ * The AI model occasionally echoes back tool-call JSON (e.g. generate_pdf result)
+ * as plain text tokens. Strip any lines that are standalone parseable JSON objects/arrays.
+ */
+function stripJsonLeakage(text: string): string {
+  const lines = text.split("\n");
+  const cleaned = lines.filter((line) => {
+    const t = line.trim();
+    if (!t) return true;
+    if (
+      (t.startsWith("{") && t.endsWith("}")) ||
+      (t.startsWith("[") && t.endsWith("]"))
+    ) {
+      try {
+        JSON.parse(t);
+        return false; // pure JSON line — drop it
+      } catch {
+        return true;
+      }
+    }
+    return true;
+  });
+  return cleaned.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+}
+
 interface ResearchState {
   messages: Message[];
   isStreaming: boolean;
@@ -116,7 +141,9 @@ function reducer(state: ResearchState, action: ResearchAction): ResearchState {
         ...state,
         isStreaming: false,
         messages: state.messages.map((m) =>
-          m.id === action.payload.id ? { ...m, isStreaming: false } : m
+          m.id === action.payload.id
+            ? { ...m, isStreaming: false, content: stripJsonLeakage(m.content) }
+            : m
         ),
       };
 
