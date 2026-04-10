@@ -9,28 +9,34 @@ import { Message } from "./ChatMessage";
 import { streamChat, getHistory, resetHistory, Source } from "@/lib/api/ai-research";
 
 /**
- * The AI model occasionally echoes back tool-call JSON (e.g. generate_pdf result)
- * as plain text tokens. Strip any lines that are standalone parseable JSON objects/arrays.
+ * The AI model occasionally echoes tool-call JSON as plain text.
+ * Strip standalone JSON lines AND trailing JSON fragments appended to text.
  */
 function stripJsonLeakage(text: string): string {
-  const lines = text.split("\n");
+  // Normalise literal \n sequences before checking
+  const normalised = text.replace(/\\n/g, "\n").replace(/\\t/g, "\t");
+
+  const lines = normalised.split("\n");
   const cleaned = lines.filter((line) => {
     const t = line.trim();
     if (!t) return true;
+    // Drop lines that are entirely a JSON object/array
     if (
       (t.startsWith("{") && t.endsWith("}")) ||
       (t.startsWith("[") && t.endsWith("]"))
     ) {
-      try {
-        JSON.parse(t);
-        return false; // pure JSON line — drop it
-      } catch {
-        return true;
-      }
+      try { JSON.parse(t); return false; } catch { return true; }
     }
     return true;
   });
-  return cleaned.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+
+  let result = cleaned.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+
+  // Also strip trailing JSON fragment at end of message
+  // e.g. "Some text {"locale":"ar"}" or "Some text\n{"key":"val"}"
+  result = result.replace(/[,\s]*\{[^{}]{0,200}\}$/, "").trim();
+
+  return result;
 }
 
 interface ResearchState {
@@ -45,6 +51,7 @@ type ResearchAction =
   | { type: "SEND_MESSAGE"; payload: Message }
   | { type: "START_STREAM"; payload: { id: string } }
   | { type: "APPEND_TOKEN"; payload: { id: string; text: string } }
+  | { type: "CLEAR_TOKENS"; payload: { id: string } }
   | { type: "ADD_TOOL_ACTIVITY"; payload: { id: string; tool: string; query: string } }
   | { type: "ADD_SOURCE"; payload: { id: string; source: Source } }
   | { type: "SET_PDF"; payload: { id: string; pdfId: string; downloadUrl: string } }
@@ -93,6 +100,14 @@ function reducer(state: ResearchState, action: ResearchAction): ResearchState {
           m.id === action.payload.id
             ? { ...m, content: m.content + action.payload.text }
             : m
+        ),
+      };
+
+    case "CLEAR_TOKENS":
+      return {
+        ...state,
+        messages: state.messages.map((m) =>
+          m.id === action.payload.id ? { ...m, content: "" } : m
         ),
       };
 
@@ -230,6 +245,8 @@ export default function ResearchClient() {
         await streamChat(message, [], {
           onToken: (text) =>
             dispatch({ type: "APPEND_TOKEN", payload: { id: aiMsgId, text } }),
+          onClearTokens: () =>
+            dispatch({ type: "CLEAR_TOKENS", payload: { id: aiMsgId } }),
           onToolCall: (tool, query) =>
             dispatch({ type: "ADD_TOOL_ACTIVITY", payload: { id: aiMsgId, tool, query } }),
           onSource: (source) =>

@@ -45,6 +45,7 @@ export interface Source {
 export interface StreamEventPayload {
   type:
     | 'token'
+    | 'clear_tokens'
     | 'tool_call'
     | 'tool_result'
     | 'source'
@@ -64,6 +65,7 @@ export async function streamChat(
   _history: ChatMessage[],
   callbacks: {
     onToken: (text: string) => void;
+    onClearTokens: () => void;
     onToolCall: (tool: string, query: string) => void;
     onSource: (source: Source) => void;
     onPdfReady: (pdfId: string, url: string) => void;
@@ -111,6 +113,9 @@ export async function streamChat(
         switch (event.type) {
           case 'token':
             callbacks.onToken(payload.text || '');
+            break;
+          case 'clear_tokens':
+            callbacks.onClearTokens();
             break;
           case 'tool_call':
             callbacks.onToolCall(payload.tool || '', payload.query || '');
