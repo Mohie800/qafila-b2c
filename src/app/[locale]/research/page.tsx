@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ResearchClient from "@/components/research/ResearchClient";
+import ResearchPageClient from "@/components/research/ResearchPageClient";
 
 export const metadata: Metadata = {
   title: "Research AI — Qafila",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function ResearchPage() {
-  return <ResearchClient />;
+  return <ResearchPageClient />;
 }

@@ -11,6 +11,7 @@ import {
   CircleHelp,
   ChevronRight,
   LogOut,
+  CreditCard,
 } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useAuth } from "@/lib/auth-context";
@@ -129,6 +130,11 @@ export default function ProfileSidebar() {
           href="/profile/addresses"
           icon={<MapPin size={20} />}
           label={t("sidebar.addresses")}
+        />
+        <SidebarLink
+          href="/profile/subscription"
+          icon={<CreditCard size={20} />}
+          label="My Subscription"
         />
         <SidebarLink
           href="/profile"

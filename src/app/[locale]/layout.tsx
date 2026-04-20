@@ -21,6 +21,7 @@ import { WishlistProvider } from "@/lib/wishlist-context";
 import { OneSignalProvider } from "@/lib/onesignal-context";
 import { ActiveCategoryProvider } from "@/lib/active-category-context";
 import { ThemeProvider } from "@/lib/theme-context";
+import { SubscriptionProvider } from "@/lib/subscription-context";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -72,16 +73,18 @@ export default async function LocaleLayout({
             <AuthProvider>
               <OneSignalProvider>
                 <CartProvider>
-                  <WishlistProvider>
-                    <ActiveCategoryProvider
-                      initialSlug={initialSlug}
-                      categoryTree={categoryTree}
-                    >
-                      <Header categoryTree={categoryTree} />
-                      <main>{children}</main>
-                      <Footer />
-                    </ActiveCategoryProvider>
-                  </WishlistProvider>
+                  <SubscriptionProvider>
+                    <WishlistProvider>
+                      <ActiveCategoryProvider
+                        initialSlug={initialSlug}
+                        categoryTree={categoryTree}
+                      >
+                        <Header categoryTree={categoryTree} />
+                        <main>{children}</main>
+                        <Footer />
+                      </ActiveCategoryProvider>
+                    </WishlistProvider>
+                  </SubscriptionProvider>
                 </CartProvider>
               </OneSignalProvider>
             </AuthProvider>
