@@ -4,11 +4,13 @@ import { useState, useEffect, useRef } from "react";
 import { useLocale } from "next-intl";
 import { getPlans } from "@/lib/api/plans";
 import { useSubscription } from "@/lib/subscription-context";
+import { useAuth } from "@/lib/auth-context";
 import { Check, ChevronRight, Minus, ArrowRight } from "lucide-react";
 import SarIcon from "@/components/shared/SarIcon";
 import type { SubscriptionPlan, PlanSegment } from "@/lib/api/plans";
 import Image from "next/image";
 import { SubscribeModal } from "@/components/subscription/subscribe-modal";
+import LoginModal from "@/components/auth/LoginModal";
 
 // ─── Feature groups ──────────────────────────────────────────────────────────
 const FEATURE_GROUPS: Record<string, { label: string; emoji: string }> = {
@@ -223,6 +225,7 @@ function PlanCard({
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function PricingPage() {
   const locale = useLocale();
+  const { isLoggedIn } = useAuth();
   const { subscription } = useSubscription();
 
   const [plans, setPlans] = useState<SubscriptionPlan[]>([]);
@@ -234,7 +237,25 @@ export default function PricingPage() {
     "ALL",
   );
   const [subscribingPlan, setSubscribingPlan] = useState<SubscriptionPlan | null>(null);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const tableRef = useRef<HTMLDivElement>(null);
+
+  const handlePlanSelect = (plan: SubscriptionPlan) => {
+    if (!isLoggedIn) {
+      setSubscribingPlan(plan); // remember so SubscribeModal opens after login
+      setLoginModalOpen(true);
+    } else {
+      setSubscribingPlan(plan);
+    }
+  };
+
+  const handleLoginClose = () => {
+    setLoginModalOpen(false);
+    // If the user closed without logging in, clear the pending plan
+    if (!isLoggedIn) {
+      setSubscribingPlan(null);
+    }
+  };
 
   useEffect(() => {
     getPlans({ isActive: true, limit: 50 })
@@ -374,7 +395,7 @@ export default function PricingPage() {
                     billingCycle={billingCycle}
                     isCurrentPlan={subscription?.planId === plan.id}
                     isFeatured={featuredPlan?.id === plan.id}
-                    onSubscribe={setSubscribingPlan}
+                    onSubscribe={handlePlanSelect}
                   />
                 ))}
               </div>
@@ -504,7 +525,7 @@ export default function PricingPage() {
                               </span>
                             ) : (
                               <button
-                                onClick={() => setSubscribingPlan(plan)}
+                                onClick={() => handlePlanSelect(plan)}
                                 className={`inline-block rounded-lg px-4 py-1.5 text-xs font-semibold transition-colors ${
                                   isFeat
                                     ? "bg-primary text-white hover:bg-primary-hover"
@@ -611,14 +632,17 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* ── Subscribe modal ────────────────────────────────────────── */}
-      {subscribingPlan && (
+      {/* ── Subscribe modal (only when logged in) ─────────────────── */}
+      {subscribingPlan && isLoggedIn && (
         <SubscribeModal
           plan={subscribingPlan}
           defaultBillingCycle={billingCycle}
           onClose={() => setSubscribingPlan(null)}
         />
       )}
+
+      {/* ── Login modal (shown when guest clicks a plan) ───────────── */}
+      <LoginModal open={loginModalOpen} onClose={handleLoginClose} />
     </>
   );
 }

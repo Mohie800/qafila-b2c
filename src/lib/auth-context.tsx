@@ -43,6 +43,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // Listen for 401 logout events dispatched by the API client
+  useEffect(() => {
+    const handleForceLogout = () => {
+      setToken(null);
+      setUser(null);
+    };
+    window.addEventListener("qafila:logout", handleForceLogout);
+    return () => window.removeEventListener("qafila:logout", handleForceLogout);
+  }, []);
+
   const login = useCallback((newToken: string, newUser: User) => {
     setToken(newToken);
     setUser(newUser);
