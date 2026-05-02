@@ -25,12 +25,7 @@ interface ReviewsSectionProps {
   onRequireLogin: () => void;
 }
 
-const SORT_OPTIONS = [
-  "mostRelevant",
-  "newest",
-  "highest",
-  "lowest",
-] as const;
+const SORT_OPTIONS = ["mostRelevant", "newest", "highest", "lowest"] as const;
 
 export default function ReviewsSection({
   productId,
@@ -118,7 +113,7 @@ export default function ReviewsSection({
                 />
               </button>
               {sortOpen && (
-                <div className="absolute end-0 top-full z-10 mt-1 min-w-[160px] rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-dark py-1 shadow-lg">
+                <div className="absolute end-0 top-full z-10 mt-1 min-w-40 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-dark py-1 shadow-lg">
                   {SORT_OPTIONS.map((key) => (
                     <button
                       key={key}
@@ -232,7 +227,9 @@ export default function ReviewsSection({
       ) : (
         !showWriteForm && (
           <div className="mt-8 text-center">
-            <p className="text-sm font-semibold text-dark dark:text-gray-200">{t("noReviews")}</p>
+            <p className="text-sm font-semibold text-dark dark:text-gray-200">
+              {t("noReviews")}
+            </p>
             <p className="mt-1 text-xs text-gray-text">
               {t("noReviewsDescription")}
             </p>
