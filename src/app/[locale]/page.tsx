@@ -1,4 +1,8 @@
 import { getLocale, setRequestLocale } from "next-intl/server";
+
+// ISR: refresh homepage every 60s so newly-flagged Qafila Lab vendors and
+// recommendation lists pick up without waiting for a full rebuild.
+export const revalidate = 60;
 import HeroBanner from "@/components/home/HeroBanner";
 import CategoryCarousel from "@/components/home/CategoryCarousel";
 import RecommendedBanner from "@/components/home/RecommendedBanner";
