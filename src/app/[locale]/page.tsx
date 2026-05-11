@@ -3,10 +3,12 @@ import HeroBanner from "@/components/home/HeroBanner";
 import CategoryCarousel from "@/components/home/CategoryCarousel";
 import RecommendedBanner from "@/components/home/RecommendedBanner";
 import SaudiMadeBanner from "@/components/home/SaudiMadeBanner";
+import QafilaLabSection from "@/components/home/QafilaLabSection";
 import BestSeller from "@/components/home/BestSeller";
 import SellCta from "@/components/home/SellCta";
 import AppDownload from "@/components/home/AppDownload";
 import { getForYou, getBestSellers } from "@/lib/api/recommendations";
+import { getQafilaLabVendors, type VendorProfile } from "@/lib/api/vendors";
 import type { RecommendationProduct } from "@/types/product";
 import type { Product } from "@/components/shared/ProductCard";
 
@@ -51,16 +53,19 @@ export default async function HomePage({
 
   let forYouProducts: Product[] = [];
   let bestSellerProducts: Product[] = [];
+  let qafilaLabVendors: VendorProfile[] = [];
 
   try {
-    const [forYouRes, bestSellersRes] = await Promise.all([
+    const [forYouRes, bestSellersRes, qafilaLabRes] = await Promise.all([
       getForYou({ limit: 10 }),
       getBestSellers({ limit: 10 }),
+      getQafilaLabVendors({ limit: 8 }).catch(() => ({ vendors: [] })),
     ]);
     forYouProducts = forYouRes.data.map((item) => mapProduct(item, locale));
     bestSellerProducts = bestSellersRes.data.map((item) =>
       mapProduct(item, locale),
     );
+    qafilaLabVendors = qafilaLabRes.vendors ?? [];
   } catch {
     // API unavailable — sections will render empty gracefully
   }
@@ -71,6 +76,7 @@ export default async function HomePage({
       <CategoryCarousel />
       <RecommendedBanner products={forYouProducts} />
       <SaudiMadeBanner products={forYouProducts} />
+      <QafilaLabSection vendors={qafilaLabVendors} locale={locale} />
       <BestSeller products={bestSellerProducts} />
       <AppDownload />
       <SellCta />

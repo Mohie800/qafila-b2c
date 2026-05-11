@@ -68,6 +68,21 @@
     "discount": "خصم 20 - 70%",
     "shopNow": "تسوق الآن"
   },
+  "qafilaLab": {
+    "eyebrow": "البرنامج التحريري",
+    "title": "قافلة لاب",
+    "subtitle": "مجموعة منتقاة من العلامات المميّزة المختارة لحرفيتها وهويتها.",
+    "viewAll": "عرض الكل",
+    "collection": "المجموعة",
+    "productsCount": "{count} منتجات",
+    "vendorsCount": "{count} علامات في البرنامج",
+    "followers": "{count} متابعاً",
+    "noVendors": "لا توجد علامات في قافلة لاب بعد. تحقق قريباً.",
+    "noProducts": "لا توجد منتجات لهذه العلامة بعد.",
+    "prev": "السابق",
+    "next": "التالي",
+    "pageOf": "صفحة {page} من {total}"
+  },
   "bestSeller": {
     "title": "الأكثر مبيعاً",
     "seeAll": "عرض الكل"

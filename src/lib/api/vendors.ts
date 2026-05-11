@@ -17,6 +17,7 @@ export interface VendorProfile {
   banner?: string | null;
   isVerified: boolean;
   isActive: boolean;
+  isQafilaLab: boolean;
   followerCount: number;
   productCount: number;
   rating?: number | null;
@@ -26,6 +27,14 @@ export interface VendorProfile {
   updatedAt: string;
 }
 
+export interface QafilaLabVendorList {
+  vendors: VendorProfile[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
 export async function getVendorBySlug(slug: string): Promise<VendorProfile> {
   try {
     return apiClient.get(`/vendors/slug/${slug}`, { baseURL: VENDOR_BASE });
@@ -33,6 +42,16 @@ export async function getVendorBySlug(slug: string): Promise<VendorProfile> {
     console.log(error);
     throw error;
   }
+}
+
+export async function getQafilaLabVendors(params?: {
+  page?: number;
+  limit?: number;
+}): Promise<QafilaLabVendorList> {
+  return apiClient.get(`/vendors/qafila-lab`, {
+    baseURL: VENDOR_BASE,
+    params,
+  });
 }
 
 export async function followVendor(

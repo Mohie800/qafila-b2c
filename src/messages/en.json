@@ -68,6 +68,21 @@
     "discount": "20 - 70% Off",
     "shopNow": "SHOP NOW"
   },
+  "qafilaLab": {
+    "eyebrow": "Editorial Program",
+    "title": "Qafila Lab",
+    "subtitle": "A curated showcase of distinctive brands selected for their craft and identity.",
+    "viewAll": "View all",
+    "collection": "Collection",
+    "productsCount": "{count} products",
+    "vendorsCount": "{count} brands in the program",
+    "followers": "{count} followers",
+    "noVendors": "No Qafila Lab brands yet. Check back soon.",
+    "noProducts": "This brand has no products listed yet.",
+    "prev": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {total}"
+  },
   "bestSeller": {
     "title": "Best Seller",
     "seeAll": "See All"
