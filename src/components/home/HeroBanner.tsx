@@ -1,32 +1,25 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import type { Banner } from "@/lib/api/banners";
+import HeroBannerCarousel from "./HeroBannerCarousel";
 
-const heroThumbnails = [
-  { id: 1, color: "#1A1A1A", label: "Loafers" },
-  { id: 2, color: "#C4A87C", label: "Sunglasses" },
-  { id: 3, color: "#6B7B8A", label: "Blazer" },
-  { id: 4, color: "#8B5E3C", label: "Jacket" },
-  { id: 5, color: "#94A3B8", label: "Shirt" },
-  { id: 6, color: "#374151", label: "Sweater" },
-  { id: 7, color: "#A8B5C2", label: "T-Shirt" },
-  { id: 8, color: "#78716C", label: "Polo" },
-  { id: 9, color: "#9CA3AF", label: "Watch" },
-  { id: 10, color: "#5C6B7A", label: "Bag" },
-];
+interface Props {
+  banners?: Banner[];
+}
 
-export default async function HeroBanner() {
+export default async function HeroBanner({ banners = [] }: Props) {
+  if (banners.length > 0) {
+    return <HeroBannerCarousel banners={banners} />;
+  }
+
   const t = await getTranslations("hero");
 
   return (
     <section className="w-full">
       <div className="flex h-85 md:h-110">
-        {/* Main Hero Image Area */}
         <div className="relative flex flex-1 items-center justify-center overflow-hidden mx-4 mt-4 md:mx-20 md:mt-10">
-          {/* Background layers simulating outdoor lifestyle photo */}
           <div className="absolute inset-0 bg-linear-to-br from-[#2D4A3E] via-[#3A5A4A] to-[#5A7A5E]" />
-          {/* Fence pattern overlay */}
           <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_46%,rgba(139,119,101,0.12)_47%,rgba(139,119,101,0.12)_49%,transparent_50%)] bg-[length:70px_100%]" />
-          {/* Bottom vignette */}
           <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-black/5" />
           <Image
             src={"/sales-bg.png"}
