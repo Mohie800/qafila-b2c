@@ -259,7 +259,9 @@ export default function PricingPage() {
 
   useEffect(() => {
     getPlans({ isActive: true, limit: 50 })
-      .then((res) => setPlans(res.data))
+      .then((res) =>
+        setPlans(res.data.filter((p) => p.segment !== "GOVERNMENT")),
+      )
       .catch(() => setPlans([]))
       .finally(() => setLoading(false));
   }, []);
